@@ -5,8 +5,8 @@ __copyright__ = "Copyright (c) 2014-2017, DV Klopfenstein. all rights reserved."
 __author__ = "DV Klopfenstein"
 
 import sys
-from gitlog_prt.cli import cli
-from gitlog_prt.gitlog import GitLog
+from prtgitlog.cli import cli
+from prtgitlog.gitlog import GitLog
 
 def main():
   """Run 'git log', printing results rearranged for easier reading."""
