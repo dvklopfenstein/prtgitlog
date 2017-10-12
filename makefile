@@ -6,6 +6,7 @@ PYCODE := \
 	src/prtgitlog/gitlog.py \
 	src/prtgitlog/data.py \
 	src/prtgitlog/sortbytime.py \
+	src/prtgitlog/prtlog.py \
 	src/prtgitlog/prthdrs.py
 
 run:
