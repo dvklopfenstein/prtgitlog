@@ -10,7 +10,8 @@ class PrtHdrs(object):
 
     def __init__(self, nts_cur, file2hashes):
         self.nthdrs = sorted(nts_cur, key=lambda nt: nt.datetime)
-        self.ci2chr = cx.OrderedDict([(nt.commithash, chr(i+65)) for i, nt in enumerate(self.nthdrs)])
+        _ci_char = [(nt.commithash, chr(i+65)) for i, nt in enumerate(self.nthdrs)]
+        self.ci2chr = cx.OrderedDict(_ci_char)
         self.ntdat, self.prtlet = self._get_data_letterstr(file2hashes, self.ci2chr)
 
     def prt_hdrs(self, hdrpat, prt):
@@ -18,10 +19,10 @@ class PrtHdrs(object):
         for nthdr in self.nthdrs:
             ciletter = self.ci2chr[nthdr.commithash]
             if ciletter in self.prtlet:
-                prt.write(hdrpat.format(**self._get_patdict(nthdr, ciletter)))
+                prt.write(hdrpat.format(**self.get_patdict(nthdr, ciletter)))
 
     @staticmethod
-    def _get_patdict(nthdr, ciletter):
+    def get_patdict(nthdr, ciletter): # TBD: make private after adding another public method
         """Return a dict containing the commit letter and the key-vals in nthdr."""
         patdict = {k:v for k, v in nthdr._asdict().items()}
         patdict['abc'] = ciletter
@@ -29,7 +30,7 @@ class PrtHdrs(object):
 
     @staticmethod
     def _get_data_letterstr(filename2checksums, ci2chr):
-        """Return list of files, each with its checkins represented by an ASCII art letter string."""
+        """Get list of files, each with its checkins represented by an ASCII art letter string."""
         ntobj = cx.namedtuple("NtDataLet", "letterstr filename")
         ret = []
         prtlet = set()

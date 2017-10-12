@@ -23,7 +23,7 @@ class GitLogByTime(object):
         hash2nt_all = {nt.commithash:nt for nt in self.nts}
         for time_cur, file2hashes in sorted(self.time2file2hashes.items()):
             #print "FFFFFF", file2hashes
-            nts_cur = [hash2nt_all[h] for h in self._get_hashes(file2hashes.values())]
+            nts_cur = [hash2nt_all[h] for h in self.get_hashes(file2hashes.values())]
             nthdrs = sorted(nts_cur, key=lambda nt: nt.datetime)
             ntcur = ntobj(nthdrs=nthdrs, file2hashes=file2hashes)
             time_gitlog.append((time_cur, ntcur))
@@ -31,7 +31,7 @@ class GitLogByTime(object):
         return cx.OrderedDict(time_gitlog)
 
     @staticmethod
-    def _get_hashes(commithashes):
+    def get_hashes(commithashes): # TBD: make private after adding another public method
         """Get all commit hashes for all filenames in the set."""
         hashes_all = set()
         for hashes_cur in commithashes:

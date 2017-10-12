@@ -14,6 +14,7 @@ from prtgitlog.prthdrs import PrtHdrs
 class GitLog(object):
     """Organize file revision information from a repository in GitHub."""
 
+    hdr_section = "\n{DATE} {Mon}\n" # Section header. Sections are by day, week, or month
     #hdrpat_dflt = "  {weekday} {datetime} {chash} {abc} {author} {hdr}\n"
     hdrpat_dflt = "  {weekday} {datetime} {chash} {abc} {hdr}\n"
 
@@ -57,17 +58,20 @@ class GitLog(object):
 
     def prt_time2gitlog(self, objtime, prt=sys.stdout):
         """Print 'git log' data by day."""
-        sec = "\n{DATE} {Mon}\n" # Section header. Sections are by day, week, or month
         for day, ntday in objtime.get_time2hdrsdata().items():
             if ntday.file2hashes is not None:
-                # nts_cur = objtime.time2nts[day]
-                nts_cur = ntday.nthdrs # Default: prt just hdrs in re
-                objhdr = PrtHdrs(nts_cur, ntday.file2hashes)
-                prt.write(sec.format(Mon=day.strftime('%a'), DATE=day.strftime("%Y_%m_%d")))
-                objhdr.prt_hdrs(self.hdrpat, prt)
-                for ntd in sorted(objhdr.ntdat, key=lambda n: [n.letterstr, n.filename], reverse=True):
-                    prt.write("    {CIs} {DATA}\n".format(CIs=ntd.letterstr, DATA=ntd.filename))
+                self._prt_timegroup(prt, day, ntday)
         prt.write("\nRAN: {CMD}\n".format(CMD=self.gitlog_cmd))
+
+    def _prt_timegroup(self, prt, day, ntday):
+        """Print header lines and filenames for one time group."""
+        # nts_cur = objtime.time2nts[day]
+        nts_cur = ntday.nthdrs # Default: prt just hdrs in re
+        objhdr = PrtHdrs(nts_cur, ntday.file2hashes)
+        prt.write(self.hdr_section.format(Mon=day.strftime('%a'), DATE=day.strftime("%Y_%m_%d")))
+        objhdr.prt_hdrs(self.hdrpat, prt)
+        for ntd in sorted(objhdr.ntdat, key=lambda n: [n.letterstr, n.filename], reverse=True):
+            prt.write("    {CIs} {DATA}\n".format(CIs=ntd.letterstr, DATA=ntd.filename))
 
     # @staticmethod
     # def ls_tree():
