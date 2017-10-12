@@ -1,4 +1,4 @@
-"""Run command 'git log ...' and return results."""
+"""Run command 'git log ...'. Process and store results."""
 
 __copyright__ = "Copyright (c) 2014-2017, DV Klopfenstein. all rights reserved."
 __author__ = "DV Klopfenstein"
@@ -9,7 +9,7 @@ import collections as cx
 import subprocess
 
 class GitLogData(object):
-    """Run command 'git log ...' and return results."""
+    """Run command 'git log ...'. Process and store results."""
 
     # PATTERN MATCH EX:  d0be326.. d0be326   Author Tue    Apr 26 13:24:19 2016 -0400 pylint
     #   group number:      1           2       3      4      5                        6
@@ -52,15 +52,15 @@ class GitLogData(object):
         """Fill commit object with filename."""
         if self._test_filename_regex(line):
             status_file = line.split()
-            qty = len(status_file)
-            if qty == 2:
-                commitobj.files.append(status_file)
-            elif qty == 3:
+            if line[0] == 'R':
                 status = status_file[0]
+                status_file = line.split()
                 commitobj.files.append((status, status_file[1]))
                 commitobj.files.append((status, status_file[2]))
             else:
-                raise RuntimeError("BAD DATA({D}). HDR({H})".format(D=line, H=commitobj))
+                commitobj.files.append((line[0], line[1:].strip()))
+            # else:
+            #     raise RuntimeError("UNKNOWN DATA({D}).\nHDR({H})".format(D=line, H=commitobj))
 
     def _get_commitobj(self, line, hdrpat):
         """Return a namedtuple containing header line information."""
