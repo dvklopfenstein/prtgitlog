@@ -20,7 +20,7 @@ def run_gitlog():
     """Run 'git log', printing results rearranged for easier reading."""
     kws = cli()
     obj = GitLog(**kws)
-    by_time = kws.get('by_time', 'by_day')
+    by_time = kws.get('by_time', 'by_week')
     obj.run(by_time, sys.stdout)
 
 if __name__ == '__main__':
