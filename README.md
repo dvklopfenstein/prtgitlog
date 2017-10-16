@@ -1,4 +1,4 @@
-# gitlog_prt
+# prtgitlog
 Print 'git log' output grouped by day, week, or month
 
 # Links

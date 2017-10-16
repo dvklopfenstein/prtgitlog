@@ -3,6 +3,7 @@
 __copyright__ = "Copyright (C) 2014-2017, DV Klopfenstein. All rights reserved."
 __author__ = "DV Klopfenstein"
 
+import re
 from prtgitlog.prthdrs import PrtHdrs
 
 
@@ -27,7 +28,8 @@ class PrtLog(object):
         objhdr = PrtHdrs(ntday.nthdrs, ntday.file2hashstat)
         objhdr.prt_hdrs(self.hdr, prt)
         for ntd in sorted(objhdr.ntdat, key=lambda n: [n.letterstr, n.filename], reverse=True):
-            prt.write(self.dat.format(CIs=ntd.letterstr, STATUS=ntd.status, DATA=ntd.filename))
+            status = re.sub(r'([A-Z])\1+', r'\1', ntd.status)  # rm duplicate Ms ...
+            prt.write(self.dat.format(CIs=ntd.letterstr, STATUS=status, DATA=ntd.filename))
 
 
 # Copyright (C) 2014-2017, DV Klopfenstein. All rights reserved.

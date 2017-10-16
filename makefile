@@ -12,7 +12,7 @@ PYCODE := \
 run:
 	gitlog
 
-lint:
+pylint:
 	@for py in $(PYCODE) ; do \
 		echo $$py ; pylint -r no $$py ; \
 	done
