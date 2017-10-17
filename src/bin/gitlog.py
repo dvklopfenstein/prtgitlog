@@ -1,18 +1,21 @@
 #!/usr/bin/env python
-""" %prog [options]
+"""'git log' organized by day, week, or month.
 
-  Run 'git log'. Then print results rearranged for easier reading.
+Usage:
+  gitlog.py
 
-    %prog --help
+Options:
+  -h --help     Show this screen.
+  -b --by       (day|week|month)
 
-  Display this help message and exit.
 """
 
-__copyright__ = "Copyright (c) 2014-2017, DV Klopfenstein. all rights reserved."
+__copyright__ = "Copyright (C) 2014-2017, DV Klopfenstein. All rights reserved."
 __author__ = "DV Klopfenstein"
 
 import sys
 import re
+from docopt import docopt
 from prtgitlog.cli import cli
 from prtgitlog.gitlog import GitLog
 
@@ -22,9 +25,11 @@ def run_gitlog():
     obj = GitLog(**kws)
     by_time = kws.get('by_time', 'by_week')
     obj.run(by_time, sys.stdout)
+    arguments = docopt(__doc__, version='gitlog 0.10')
+    print("ARGUMENTS({ARGS})".format(ARGS=arguments))
 
 if __name__ == '__main__':
     sys.argv[0] = re.sub(r'(-script\.pyw?|\.exe)?$', '', sys.argv[0])
     sys.exit(run_gitlog())
 
-# Copyright (c) 2014-2017, DV Klopfenstein. all rights reserved.
+# Copyright (C) 2014-2017, DV Klopfenstein. All rights reserved.
