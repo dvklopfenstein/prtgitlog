@@ -30,8 +30,11 @@ def cli():
             kws['by_time'] = 'by_month'
         elif arg == "allhdrs":
             kws['allhdrs'] = True
-    kws['ve'] = re_exclude if re_exclude else None
-    kws['noci'] = ci_exclude if ci_exclude else None
+    if re_exclude:
+        kws['ve'] = re_exclude
+    if ci_exclude:
+        kws['noci'] = ci_exclude
+    print("KWS({KWS})".format(KWS=kws))
     return kws
 
 # Copyright (c) 2014-2017, DV Klopfenstein. All rights reserved.
