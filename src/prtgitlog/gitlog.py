@@ -26,10 +26,10 @@ class GitLog(object):
         self.gitlog_cmd = _ini.get_gitlog_cmd()
         self.ntsgitlog = _ini.get_chksum_files(kws.get('noci', None))
         self.timegrain = {
-            'by_day':self.by_day,
-            'by_week':self.by_week,
-            'by_month':self.by_month,
-            'by_year':self.by_year,
+            'day':self.by_day,
+            'week':self.by_week,
+            'month':self.by_month,
+            'year':self.by_year,
         }
 
     @staticmethod
