@@ -29,6 +29,7 @@ class GitLog(object):
             'by_day':self.by_day,
             'by_week':self.by_week,
             'by_month':self.by_month,
+            'by_year':self.by_year,
         }
 
     @staticmethod
@@ -52,6 +53,11 @@ class GitLog(object):
     def by_month(cur_datetime):
         """Given a full datetime object, return a datetime object for the month."""
         return datetime.datetime(cur_datetime.year, cur_datetime.month, 1)
+
+    @staticmethod
+    def by_year(cur_datetime):
+        """Given a full datetime object, return a datetime object for the year."""
+        return datetime.datetime(cur_datetime.year, 1, 1)
 
     def run(self, by_time='by_week', prt=sys.stdout):
         """Print git logs for 1 day at a time. Print the day's edited files once."""

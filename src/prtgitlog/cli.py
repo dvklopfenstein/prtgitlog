@@ -28,6 +28,8 @@ def cli():
             kws['by_time'] = 'by_week'
         elif arg == "bymon":
             kws['by_time'] = 'by_month'
+        elif arg == "byyear":
+            kws['by_time'] = 'by_year'
         elif arg == "allhdrs":
             kws['allhdrs'] = True
     if re_exclude:

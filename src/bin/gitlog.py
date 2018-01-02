@@ -3,10 +3,11 @@
 
 Usage:
   gitlog.py
+  gitlog re=src
 
 Options:
   -h --help     Show this screen.
-  -b --by       (day|week|month)
+  -b --by       (day|week|month|year)
 
 """
 
