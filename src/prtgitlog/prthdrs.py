@@ -8,9 +8,16 @@ import collections as cx
 class PrtHdrs(object):
     """Print 'git log' headers for each time group."""
 
+    #      A-Z             a-z              0-9
+    chrs = range(65, 91) + range(97, 123) + range(48, 58) + \
+           range(58, 65) + range(33,48) + range(91, 96) + range(123, 127)
+    #      : ; < = > ? @   !"#$&"()+,-./  [ \ ] ^ _       { | } ~
+
     def __init__(self, nts_cur, file2hash2stat):
         self.nthdrs = sorted(nts_cur, key=lambda nt: nt.datetime)
-        _ci_char = [(nt.commithash, chr(i+65)) for i, nt in enumerate(self.nthdrs)]
+        _qty = len(self.chrs)
+        #_ci_char = [(nt.commithash, chr(i+65)) for i, nt in enumerate(self.nthdrs)]
+        _ci_char = [(nt.commithash, chr(self.chrs[i%_qty])) for i, nt in enumerate(self.nthdrs)]
         self.ci2chr = cx.OrderedDict(_ci_char)
         self.ntdat, self.prtlet = self._get_data_letterstr(file2hash2stat, self.ci2chr)
 
