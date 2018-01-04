@@ -31,7 +31,7 @@ def cli():
 class DocoptParse(object):
     """Put docopt dict in desired format."""
 
-    kws_dict = set(['--re', 've', 'noci', 'bytime'])
+    kws_dict = set(['--re', 've', 'noci'])
     kws_set = set(['allhdrs'])
 
     def __init__(self, doc, args):
@@ -53,7 +53,7 @@ class DocoptParse(object):
 # TBD: Checkout docopt
 def _cli_kws():
     """Command-line interface for gitlog Python wrapper using a dict."""
-    kws = {'by_time':'week', 'after':'2016-01-12'}
+    #### kws = {'by_time':'week', 'after':'2016-01-12'}
     kws = {'by_time':'week', 'after':None}
     re_exclude = [] # Do not report on any files matching these regexs
     ci_exclude = set()
