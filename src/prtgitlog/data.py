@@ -17,10 +17,11 @@ class GitLogData(object):
     pretty_fmt = '--pretty=format:"%Cred%H %h %an %cd%Creset %s"'
     ntobj = cx.namedtuple("ntgitlog", "commithash chash author weekday datetime hdr files")
 
-    def __init__(self, after="2016-01-12", restr=None, ve_list=None):
-        self.after = after
-        self.recompile = None if restr is None else re.compile(restr)
-        self.exclude = None if ve_list is None else [re.compile(ve) for ve in ve_list]
+    #### def __init__(self, after="2016-01-12", restr=None, ve_list=None):
+    def __init__(self, **kws):
+        self.after = kws['after']
+        self.recompile = re.compile(kws['--re']) if '--re' in kws else None
+        self.exclude = [re.compile(ve) for ve in kws['--ve']] if '--ve' in kws else None
         self.popenargs = self._init_gitlog_cmd()
 
     def get_chksum_files(self, noci):
@@ -107,7 +108,9 @@ class GitLogData(object):
         # M data/2014_Mozzetta/README.md
         #
         #cmd = 'git log --after "{AFTER}" --pretty=format:"%Cred%h %cd%Creset %s" --name-only'
-        astr = '"{AFTER}"'.format(AFTER=self.after)
-        return ['git', 'log', '--after', astr, self.pretty_fmt, '--name-status']
+        ret = ['git', 'log']
+        if self.after is not None:
+            ret.append('"{AFTER}"'.format(AFTER=self.after))
+        return ret + [self.pretty_fmt, '--name-status']
 
 # Copyright (c) 2014-2017, DV Klopfenstein. all rights reserved.

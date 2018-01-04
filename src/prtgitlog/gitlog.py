@@ -22,7 +22,7 @@ class GitLog(object):
     }
 
     def __init__(self, **kws):
-        _ini = GitLogData(kws.get('after', "2016-01-12"), kws.get('re', None), kws.get('ve', None))
+        _ini = GitLogData(**kws)
         self.gitlog_cmd = _ini.get_gitlog_cmd()
         self.ntsgitlog = _ini.get_chksum_files(kws.get('noci', None))
         self.timegrain = {
