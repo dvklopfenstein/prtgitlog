@@ -50,7 +50,7 @@ class DocoptParse(object):
 
 
 
-# TBD: Checkout docopt
+# TBD: docopt: --after --ve --allhdrs --noci
 def _cli_kws():
     """Command-line interface for gitlog Python wrapper using a dict."""
     #### kws = {'by_time':'week', 'after':'2016-01-12'}
@@ -63,22 +63,22 @@ def _cli_kws():
         elif arg[:8] == '--after=':
             valstr = arg[8:]
             kws['after'] = None if valstr == "None" else valstr
-        elif arg[:5] == '--re=':
-            kws['--re'] = arg[5:]
+        elif arg[:5] == '--re=':              # DONE
+            kws['--re'] = arg[5:]             # DONE
         elif arg[:3] == 've=':
             kws['ve'] = re_exclude.append(arg[3:])
         elif arg[:5] == 'noci=':
             ci_str = arg[5:]
             #int(ci_str, 16) # Throws error if digits are not hex
             ci_exclude |= set(ci_str.split(',')) if ',' in ci_str else set([ci_str])
-        elif arg == "day":
-            kws['by_time'] = 'day'
-        elif arg == "week":
-            kws['by_time'] = 'week'
-        elif arg == "month":
-            kws['by_time'] = 'month'
-        elif arg == "year":
-            kws['by_time'] = 'year'
+        elif arg == "day":                    # DONE
+            kws['by_time'] = 'day'            # DONE
+        elif arg == "week":                   # DONE
+            kws['by_time'] = 'week'           # DONE
+        elif arg == "month":                  # DONE
+            kws['by_time'] = 'month'          # DONE
+        elif arg == "year":                   # DONE
+            kws['by_time'] = 'year'           # DONE
         elif arg == "allhdrs":
             kws['allhdrs'] = True
     if re_exclude:
