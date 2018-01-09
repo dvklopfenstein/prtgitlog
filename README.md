@@ -1,5 +1,5 @@
 # gitlog
-Print 'git log' output grouped by day, week, or month
+Print 'git log' output grouped by day, week, month, or year
 
 # Links
 - [Git Basics - Viewing the Commit History](https://git-scm.com/book/en/v1/Git-Basics-Viewing-the-Commit-History)
@@ -8,4 +8,4 @@ Print 'git log' output grouped by day, week, or month
 - [git: list all files added/modified on a day (or week/month)](
    https://stackoverflow.com/questions/8016645/git-list-all-files-added-modified-on-a-day-or-week-month)
 
-Copyright (C) 2014-2017, DV Klopfenstein. All rights reserved.
+Copyright (C) 2014-2018, DV Klopfenstein. All rights reserved.

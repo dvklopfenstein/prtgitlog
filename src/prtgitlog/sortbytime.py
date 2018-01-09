@@ -1,6 +1,6 @@
 """Return data from 'git log' organized by coarse time unit."""
 
-__copyright__ = "Copyright (C) 2014-2017, DV Klopfenstein. All rights reserved."
+__copyright__ = "Copyright (C) 2014-2018, DV Klopfenstein. All rights reserved."
 __author__ = "DV Klopfenstein"
 
 import collections as cx
@@ -67,4 +67,4 @@ class GitLogByTime(object):
         self.time2file2hashstat = self._get_data_dictby(data)
 
 
-# Copyright (C) 2014-2017, DV Klopfenstein. All rights reserved.
+# Copyright (C) 2014-2018, DV Klopfenstein. All rights reserved.

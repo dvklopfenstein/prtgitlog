@@ -16,7 +16,7 @@ Options:
 
 """
 
-__copyright__ = "Copyright (C) 2014-2017, DV Klopfenstein. All rights reserved."
+__copyright__ = "Copyright (C) 2014-2018, DV Klopfenstein. All rights reserved."
 __author__ = "DV Klopfenstein"
 
 import sys
@@ -87,4 +87,4 @@ def _cli_kws():
         kws['noci'] = ci_exclude
     return kws
 
-# Copyright (C) 2014-2017, DV Klopfenstein. All rights reserved.
+# Copyright (C) 2014-2018, DV Klopfenstein. All rights reserved.

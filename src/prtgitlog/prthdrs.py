@@ -1,6 +1,6 @@
 """Print 'git log' headers for each time group."""
 
-__copyright__ = "Copyright (C) 2014-2017, DV Klopfenstein. All rights reserved."
+__copyright__ = "Copyright (C) 2014-2018, DV Klopfenstein. All rights reserved."
 __author__ = "DV Klopfenstein"
 
 import collections as cx
@@ -50,4 +50,4 @@ class PrtHdrs(object):
                 ret.append(ntobj(letterstr="".join(ci_lst), status="".join(stats), filename=data))
         return ret, prtlet
 
-# Copyright (C) 2014-2017, DV Klopfenstein. All rights reserved.
+# Copyright (C) 2014-2018, DV Klopfenstein. All rights reserved.
