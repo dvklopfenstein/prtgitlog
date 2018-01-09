@@ -6,14 +6,14 @@ __author__ = "DV Klopfenstein"
 import re
 from prtgitlog.prthdrs import PrtHdrs
 
-
+# pylint: disable=too-few-public-methods
 class PrtLog(object):
     """Return data from 'git log' organized by coarse time unit."""
 
     def __init__(self, objtimesort, prtpat):
         self.objtimesort = objtimesort
         self.sec = prtpat['section']
-        self.hdr = prtpat['hdr']
+        self.hdr = self._init_hdr(prtpat)
         self.dat = prtpat['dat']
 
     def prt_time2gitlog(self, prt):
@@ -30,6 +30,10 @@ class PrtLog(object):
         for ntd in sorted(objhdr.ntdat, key=lambda n: [n.letterstr, n.filename], reverse=True):
             status = re.sub(r'([A-Z])\1+', r'\1', ntd.status)  # rm duplicate Ms ...
             prt.write(self.dat.format(CIs=ntd.letterstr, STATUS=status, DATA=ntd.filename))
+
+    def _init_hdr(self, prtpat):
+        """Initialize print format for the git commit header text."""
+        return prtpat['hdr'] if len(self.objtimesort.get_authors()) <= 2 else prtpat['hdr_au']
 
 
 # Copyright (C) 2014-2017, DV Klopfenstein. All rights reserved.

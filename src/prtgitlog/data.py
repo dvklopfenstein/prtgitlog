@@ -13,7 +13,7 @@ class GitLogData(object):
 
     # PATTERN MATCH EX:  d0be326.. d0be326   Author Tue    Apr 26 13:24:19 2016 -0400 pylint
     #   group number:      1           2       3      4      5                        6
-    hdrpat_dflt = r'([a-f0-9]+) (\S+) (\S+) (\S{3}) (\S{3} \d+ \S+ \d{4}) \S+ (\S.*\S)"'
+    hdrpat_dflt = r'([a-f0-9]+) (\S+) (\S.*\S) (\S{3}) (\S{3} \d{1,2} \S+ \d{4}) \S+ (\S.*\S)"'
     pretty_fmt = '--pretty=format:"%Cred%H %h %an %cd%Creset %s"'
     ntobj = cx.namedtuple("ntgitlog", "commithash chash author weekday datetime hdr files")
 

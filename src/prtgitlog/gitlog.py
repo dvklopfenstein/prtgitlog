@@ -16,7 +16,7 @@ class GitLog(object):
 
     dflt_pat = {
         'section': "\n{DATE} {Mon}\n", # Section header. Sections are by day, week, or month
-        #'hdr': "  {weekday} {datetime} {chash} {abc} {author} {hdr}\n"
+        'hdr_au': "  {weekday} {datetime} {chash} {abc} {author} {hdr}\n",
         'hdr': "  {weekday} {datetime} {chash:7} {abc} {hdr}\n",
         'dat': "    {CIs} {STATUS:>2} {DATA}\n"
     }

@@ -17,6 +17,10 @@ class GitLogByTime(object):
         self.time2file2hashstat = None
         self._get_time2file2hashstat()
 
+    def get_authors(self):
+        """Return all authors returned by 'git log'."""
+        return set(nt.author for nt in self.nts)
+
     def get_time2hdrsdata(self):
         """For one time unit, return headers list and files list."""
         time_gitlog = []
