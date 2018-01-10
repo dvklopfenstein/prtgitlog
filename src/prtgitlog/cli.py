@@ -5,11 +5,13 @@ Usage:
   gitlog.py [options]
   gitlog.py [--re=PATTERN]
   gitlog.py [day|week|month|year]
+  gitlog.py [DAYS]
   gitlog.py [--re=PATTERN] [day|week|month|year]
   gitlog.py [--re=PATTERN] [day|week|month|year] --after=AFTER
 
 Options:
   -h --help      Show this screen.
+  DAYS           Only report all git logs after user-specified DAYS(integer) ago.
   --re=PATTERN   Display only files which match the regex PATTERN (e.g. src/bin)
   [day|week|month|year]  Display changes grouped by specified time increment
   --after=AFTER  Only display git log items after the specified date
@@ -25,23 +27,30 @@ from docopt import docopt
 def cli():
     """Command-line interface for gitlog Python wrapper."""
     obj = DocoptParse(__doc__, sys.argv[1:])
-    return obj.docdct, obj.get_dict(), _cli_kws()
+    return obj.docdct, obj.docclr, obj.get_dict(), _cli_kws()
 
 
 class DocoptParse(object):
     """Put docopt dict in desired format."""
 
-    kws_dict = set(['--re', 've', 'noci'])
+    kws_dict = set(['--re', 'DAYS', 've', 'noci'])
     kws_set = set(['allhdrs'])
 
     def __init__(self, doc, args):
         self.docdct = docopt(doc, args)
+        self.docclr = {k:v for k, v in self.docdct.items() if k in self.kws_dict and v}
 
     def get_dict(self):
         """Simplify docopt keyword args."""
-        kws = {k:v for k, v in self.docdct.items() if k in self.kws_dict and v}
+        # kws = {k:v for k, v in self.docdct.items() if k in self.kws_dict and v}
+        kws = {}
         self.get_bytime(kws)
+        self.get_after(kws)
         return kws
+
+    def get_after(self, kws):
+        """Return 'after' key with appropriate time specified in value."""
+        pass
 
     def get_bytime(self, kws):
         """Report gitlog by day, week(dflt), month, or year."""

@@ -7,7 +7,8 @@ PYCODE := \
 	src/prtgitlog/data.py \
 	src/prtgitlog/sortbytime.py \
 	src/prtgitlog/prtlog.py \
-	src/prtgitlog/prthdrs.py
+	src/prtgitlog/prthdrs.py \
+	src/tests/test_cli.py
 
 run:
 	gitlog
@@ -16,6 +17,9 @@ pylint:
 	@for py in $(PYCODE) ; do \
 		echo $$py ; pylint -r no $$py ; \
 	done
+
+pytest:
+	python -m pytest src/tests/
 
 vim_:
 	vim -p $(PYCODE)

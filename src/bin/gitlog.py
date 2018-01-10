@@ -14,14 +14,16 @@ from prtgitlog.gitlog import GitLog
 
 def run_gitlog():
     """Run 'git log', printing results rearranged for easier reading."""
-    doc, opts, kws = cli()
+    doc, docc, opts, kws = cli()
     print("KWS({KWS})".format(KWS=kws))
     print("DOC({KWS})".format(KWS=doc))
+    print("CLR({KWS})".format(KWS=docc))
     print("OPTS({KWS})".format(KWS=opts))
     obj = GitLog(**kws)
     obj.run(kws['by_time'], sys.stdout)
     print("KWS({KWS})".format(KWS=kws))
     print("DOC({KWS})".format(KWS=doc))
+    print("CLR({KWS})".format(KWS=docc))
     print("OPTS({KWS})".format(KWS=opts))
     assert kws == opts, "TIME TO UPDATE DOCOPTS"
 
