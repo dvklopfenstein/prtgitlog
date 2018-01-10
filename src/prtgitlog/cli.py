@@ -14,7 +14,7 @@ Usage:
 Options:
   -h --help      Show this screen.
   [day|week|month|year]  Display changes grouped by specified time increment
-  DAYS           Only report all git logs after user-specified DAYS(integer) ago.
+  DAYS           Only report all git logs after user-specified DAYS (integer)
   --re=PATTERN   Display only files which match the regex PATTERN (e.g. src/bin)
   --after=AFTER  Only display git log items after the specified date
 
