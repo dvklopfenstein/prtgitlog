@@ -6,14 +6,16 @@ Usage:
   gitlog.py [--re=PATTERN]
   gitlog.py [day|week|month|year]
   gitlog.py [DAYS]
+  gitlog.py [DAYS] [day|week|month|year]
+  gitlog.py [day|week|month|year] [DAYS]
   gitlog.py [--re=PATTERN] [day|week|month|year]
   gitlog.py [--re=PATTERN] [day|week|month|year] --after=AFTER
 
 Options:
   -h --help      Show this screen.
+  [day|week|month|year]  Display changes grouped by specified time increment
   DAYS           Only report all git logs after user-specified DAYS(integer) ago.
   --re=PATTERN   Display only files which match the regex PATTERN (e.g. src/bin)
-  [day|week|month|year]  Display changes grouped by specified time increment
   --after=AFTER  Only display git log items after the specified date
 
 """
@@ -50,7 +52,13 @@ class DocoptParse(object):
 
     def get_after(self, kws):
         """Return 'after' key with appropriate time specified in value."""
-        pass
+        keys = set(self.docclr.keys()).intersection(set(['DAYS', 'after']))
+        if keys:
+            assert len(keys) != 2, "CANNOT SPECIFY BOTH 'DAYS' AND --after"
+            if 'DAYS' in keys:
+                days = self.docclr['DAYS']
+                assert days.isdigit(), "'DAYS' MUST BE AN INTEGER"
+                kws['after'] = '{N} days'.format(N=days)
 
     def get_bytime(self, kws):
         """Report gitlog by day, week(dflt), month, or year."""
@@ -60,6 +68,7 @@ class DocoptParse(object):
 
 
 # TBD: docopt: --after --ve --allhdrs --noci
+# pylint: disable=too-many-branches
 def _cli_kws():
     """Command-line interface for gitlog Python wrapper using a dict."""
     #### kws = {'by_time':'week', 'after':'2016-01-12'}

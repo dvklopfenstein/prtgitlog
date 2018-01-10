@@ -110,6 +110,7 @@ class GitLogData(object):
         #cmd = 'git log --after "{AFTER}" --pretty=format:"%Cred%h %cd%Creset %s" --name-only'
         ret = ['git', 'log']
         if self.after is not None:
+            ret.append('--after')
             ret.append('"{AFTER}"'.format(AFTER=self.after))
         return ret + [self.pretty_fmt, '--name-status']
 

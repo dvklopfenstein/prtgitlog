@@ -20,21 +20,24 @@
 __copyright__ = "Copyright (c) 2014-2018, DV Klopfenstein. all rights reserved."
 __author__ = "DV Klopfenstein"
 
-import sys
 import prtgitlog.cli as cli
 from prtgitlog.cli import DocoptParse
 
 
 def test_one_file():
     """Add and remove markers for a file."""
+    # pylint: disable=bad-whitespace
     args_exp = [
-    #    args       expected dict
-    #    --------   ---------------------
-        ([],        {'by_time': 'week'}),
-        (['day'],   {'by_time': 'day'}),
-        (['week'],  {'by_time': 'week'}),
-        (['month'], {'by_time': 'month'}),
-        (['year'],  {'by_time': 'year'}),
+        # args           expected dict
+        # --------       ---------------------
+        ([],             {'by_time': 'week'}),
+        (['day'],        {'by_time': 'day'}),
+        (['week'],       {'by_time': 'week'}),
+        (['month'],      {'by_time': 'month'}),
+        (['year'],       {'by_time': 'year'}),
+        (['50'],         {'by_time': 'week', 'after':'50 days'}),
+        (['year', '50'], {'by_time': 'year', 'after':'50 days'}),
+        (['50', 'year'], {'by_time': 'year', 'after':'50 days'}),
     ]
     doc = cli.__doc__
     for args, expected in args_exp:
