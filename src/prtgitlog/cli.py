@@ -39,7 +39,7 @@ class DocoptParse(object):
 
     def get_dict(self):
         """Simplify docopt keyword args."""
-        kws = {k:v for k, v in self.docdct.items() if k in self.kws_dict}
+        kws = {k:v for k, v in self.docdct.items() if k in self.kws_dict and v}
         self.get_bytime(kws)
         return kws
 
@@ -54,7 +54,7 @@ class DocoptParse(object):
 def _cli_kws():
     """Command-line interface for gitlog Python wrapper using a dict."""
     #### kws = {'by_time':'week', 'after':'2016-01-12'}
-    kws = {'by_time':'week', 'after':None}
+    kws = {'by_time':'week'}
     re_exclude = [] # Do not report on any files matching these regexs
     ci_exclude = set()
     for arg in sys.argv[1:]:

@@ -17,7 +17,7 @@ pylint:
 		echo $$py ; pylint -r no $$py ; \
 	done
 
-vim:
+vim_:
 	vim -p $(PYCODE)
 
 clean:

@@ -23,6 +23,7 @@ def run_gitlog():
     print("KWS({KWS})".format(KWS=kws))
     print("DOC({KWS})".format(KWS=doc))
     print("OPTS({KWS})".format(KWS=opts))
+    assert kws == opts, "TIME TO UPDATE DOCOPTS"
 
 
 if __name__ == '__main__':

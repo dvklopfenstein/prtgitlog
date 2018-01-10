@@ -19,7 +19,7 @@ class GitLogData(object):
 
     #### def __init__(self, after="2016-01-12", restr=None, ve_list=None):
     def __init__(self, **kws):
-        self.after = kws['after']
+        self.after = kws.get('after', None)
         self.recompile = re.compile(kws['--re']) if '--re' in kws else None
         self.exclude = [re.compile(ve) for ve in kws['--ve']] if '--ve' in kws else None
         self.popenargs = self._init_gitlog_cmd()
