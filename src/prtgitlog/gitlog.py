@@ -30,6 +30,7 @@ class GitLog(object):
             'week':self.by_week,
             'month':self.by_month,
             'year':self.by_year,
+            'all':None,
         }
 
     @staticmethod

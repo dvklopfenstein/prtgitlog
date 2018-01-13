@@ -53,18 +53,38 @@ class GitLogByTime(object):
 
     def _get_time2file2hashstat(self):
         """Return 'git log' data organized by day, week, etc..."""
+        # Set data members:  time2nt  time2file2hashstat
         data = cx.defaultdict(lambda: cx.defaultdict(dict))
+        if self.timefnc is not None:
+            time2nts, time2file2hashstat = self._get_time2file2hashstat_t(data)
+        else:
+            time2nts, time2file2hashstat = self._get_time2file2hashstat_f(data)
+        self.time2nts = time2nts
+        self.time2file2hashstat = time2file2hashstat
+
+    def _get_time2file2hashstat_t(self, data):
+        """Return 'git log' data organized by day, week, etc..."""
         time2nts = cx.defaultdict(list)
         for ntd in self.nts:
             coarse_dt = self.timefnc(ntd.datetime)
             # print "TTTTTTTTTTTTT ({}) ({}) {}".format(ntd.datetime, coarse_dt, repr(ntd.datetime))
-            chkin = ntd.commithash
             time2nts[coarse_dt].append(ntd)
-            for status, filename in ntd.files:
-                data[coarse_dt][filename][chkin] = status
-        # Set data members:  time2nt  time2file2hashstat
-        self.time2nts = {t:hs for t, hs in time2nts.items()}
-        self.time2file2hashstat = self._get_data_dictby(data)
+            self._fill_data(data, ntd, coarse_dt)
+        return {t:hs for t, hs in time2nts.items()}, self._get_data_dictby(data)
 
+    def _get_time2file2hashstat_f(self, data):
+        """Return 'git log' data as a single list."""
+        assert self.nts[0].datetime >= self.nts[-1].datetime
+        time_key = self.nts[-1].datetime
+        for ntd in self.nts:
+            self._fill_data(data, ntd, time_key)
+        return {time_key: self.nts}, self._get_data_dictby(data)
+
+    @staticmethod
+    def _fill_data(data, ntd, time_key):
+        """Fill this time unit with git log information for all files."""
+        chkin = ntd.commithash
+        for status, filename in ntd.files:
+            data[time_key][filename][chkin] = status
 
 # Copyright (C) 2014-2018, DV Klopfenstein. All rights reserved.
