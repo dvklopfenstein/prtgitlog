@@ -13,8 +13,9 @@ Options:
   --year         Group logs by year
   --all          Print all logs ungrouped by time unit
 
+  --au           Print author
   --re=PATTERN   Display only files which match the regex PATTERN (e.g. src/bin)
-  -a --after=AFTER  Only display git log items after the specified date
+  --after=AFTER  Only display git log items after the specified date
 """
 
 #  gitlog.py [--day | --week | --month | --year | --all]
@@ -39,27 +40,32 @@ def cli():
 class DocoptParse(object):
     """Put docopt dict in desired format."""
 
-    kws_dict = set(['--re', '--after',
+    kws_all = set(['--re', '--after', '--au',
                     '--day', '--week', '--month', '--year', '--all',
-                    'DAYS', 've', 'noci'])
-    kws_set = set(['allhdrs'])
+                    've', 'noci'])
+    kws_dct = set(['re'])
+    kws_set = set(['allhdrs', 'au'])
 
     def __init__(self, doc, args):
         self.docdct = docopt(doc, args)
-        self.docclr = {k:v for k, v in self.docdct.items() if k in self.kws_dict and v}
+        self.docclr = {k.replace('--', ''):v for k, v in self.docdct.items() if k in self.kws_all and v}
 
     def get_dict(self):
         """Simplify docopt keyword args."""
         # kws = {k:v for k, v in self.docdct.items() if k in self.kws_dict and v}
-        kws = {}
+        kws = {k:v for k, v in self.docclr.items() if k in self.kws_dct}
         self.get_bytime(kws)
         self.get_after(kws)
         return kws
 
+    def get_set(self):
+        """Get set kws."""
+        return self.kws_set.intersection(self.docclr)  # TBD use au
+
     def get_after(self, kws):
         """Return 'after' key with appropriate time specified in value."""
-        if '--after' in self.docclr:
-            val = self.docclr['--after']
+        if 'after' in self.docclr:
+            val = self.docclr['after']
             if val.isdigit():
                 kws['after'] = '{N} days'.format(N=val)
 
