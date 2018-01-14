@@ -18,7 +18,7 @@ class GitLogData(object):
     ntobj = cx.namedtuple("ntgitlog", "commithash chash author weekday datetime hdr files")
 
     #### def __init__(self, after="2016-01-12", restr=None, ve_list=None):
-    def __init__(self, **kws):
+    def __init__(self, kws):
         self.after = kws.get('after', None)
         self.recompile = re.compile(kws['re']) if 're' in kws else None
         self.exclude = [re.compile(ve) for ve in kws['--ve']] if '--ve' in kws else None

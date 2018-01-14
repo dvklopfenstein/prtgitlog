@@ -14,18 +14,20 @@ from prtgitlog.gitlog import GitLog
 
 def run_gitlog():
     """Run 'git log', printing results rearranged for easier reading."""
-    doc, docc, opts, _ = cli()  # _ = kws
-    #print("KWS({KWS})".format(KWS=kws))
+    doc, docc, kws, keys = cli()  # _ = ows
+    #print("KWS({KWS})".format(KWS=ows))
     print("DOC({KWS})".format(KWS=doc))
     print("CLR({KWS})".format(KWS=docc))
-    print("OPTS({KWS})".format(KWS=opts))
-    obj = GitLog(**opts)
-    obj.run(opts['by_time'], sys.stdout)
-    #print("KWS({KWS})".format(KWS=kws))
+    print("KWS({KWS})".format(KWS=kws))
+    print("KEYS({KWS})".format(KWS=keys))
+    obj = GitLog(kws, keys)
+    obj.run(kws['by_time'], sys.stdout)
+    #print("KWS({KWS})".format(KWS=ows))
     print("DOC({KWS})".format(KWS=doc))
     print("CLR({KWS})".format(KWS=docc))
-    print("OPTS({KWS})".format(KWS=opts))
-    # assert kws == opts, "TIME TO UPDATE DOCOPTS"
+    print("KWS({KWS})".format(KWS=kws))
+    print("KEYS({KWS})".format(KWS=keys))
+    # assert ows == kws, "TIME TO UPDATE DOCOPTS"
 
 
 if __name__ == '__main__':

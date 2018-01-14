@@ -10,11 +10,24 @@ from prtgitlog.prthdrs import PrtHdrs
 class PrtLog(object):
     """Return data from 'git log' organized by coarse time unit."""
 
-    def __init__(self, objtimesort, prtpat):
+    kws_dct = set(['au'])
+    kws_set = set(['fullhash'])
+
+    dflt_pat = {
+        'section': "\n{DATE} {Mon}\n", # Section header. Sections are by day, week, or month
+        'hdr_au': "  {weekday} {datetime} {chash} {abc} {author} {hdr}\n",
+        'hdr': "  {weekday} {datetime} {chash:7} {abc} {hdr}\n",
+        'dat': "    {CIs} {STATUS:>2} {DATA}\n"
+    }
+
+    def __init__(self, objtimesort, kws, keys):
         self.objtimesort = objtimesort
-        self.sec = prtpat['section']
-        self.hdr = self._init_hdr(prtpat)
-        self.dat = prtpat['dat']
+        self.kws = {k:v for k, v in kws.items() if k in self.kws_dct}
+        self.keys = keys.intersection(self.kws_set)
+        self.sec = self.dflt_pat['section']
+        self.hdr = self._init_hdr()
+        self.dat = self.dflt_pat['dat']
+        self.max_letstr = 100
 
     def prt_time2gitlog(self, prt):
         """Print 'git log' data by any of day, week, month, etc."""
@@ -29,11 +42,24 @@ class PrtLog(object):
         objhdr.prt_hdrs(self.hdr, prt)
         for ntd in sorted(objhdr.ntdat, key=lambda n: [n.letterstr, n.filename], reverse=True):
             status = re.sub(r'([A-Z])\1+', r'\1', ntd.status)  # rm duplicate Ms ...
-            prt.write(self.dat.format(CIs=ntd.letterstr, STATUS=status, DATA=ntd.filename))
+            letstr = self._get_letstr(ntd.letterstr)
+            prt.write(self.dat.format(CIs=letstr, STATUS=status, DATA=ntd.filename))
 
-    def _init_hdr(self, prtpat):
+    @staticmethod
+    def _get_letstr(letterstr):
+        """Get letterstr for printing."""
+        # if len(letterstr) > self.max_letstr:
+        #     return letterstr.replace('.', '')
+        return letterstr
+
+    def _init_hdr(self):
         """Initialize print format for the git commit header text."""
-        return prtpat['hdr'] if len(self.objtimesort.get_authors()) <= 2 else prtpat['hdr_au']
+        dat = self.dflt_pat['hdr'] if len(self.objtimesort.get_authors()) <= 2 else ['hdr_au']
+        if 'au' in self.kws:
+            dat = self.dflt_pat['hdr_au'] if self.kws['au'] else self.dflt_pat['hdr']
+        if 'fullhash' in self.keys:
+            dat = dat.replace('chash', 'commithash')
+        return dat
 
 
 # Copyright (C) 2014-2018, DV Klopfenstein. All rights reserved.

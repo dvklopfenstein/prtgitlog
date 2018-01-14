@@ -14,15 +14,10 @@ from prtgitlog.prtlog import PrtLog
 class GitLog(object):
     """Organize file revision information from a repository in GitHub."""
 
-    dflt_pat = {
-        'section': "\n{DATE} {Mon}\n", # Section header. Sections are by day, week, or month
-        'hdr_au': "  {weekday} {datetime} {chash} {abc} {author} {hdr}\n",
-        'hdr': "  {weekday} {datetime} {chash:7} {abc} {hdr}\n",
-        'dat': "    {CIs} {STATUS:>2} {DATA}\n"
-    }
-
-    def __init__(self, **kws):
-        _ini = GitLogData(**kws)
+    def __init__(self, kws, keys):
+        self.kws = kws
+        self.keys = keys
+        _ini = GitLogData(kws)
         self.gitlog_cmd = _ini.get_gitlog_cmd()
         self.ntsgitlog = _ini.get_chksum_files(kws.get('noci', None))
         self.timegrain = {
@@ -63,7 +58,7 @@ class GitLog(object):
     def run(self, by_time='by_week', prt=sys.stdout):
         """Print git logs for 1 day at a time. Print the day's edited files once."""
         objtimedata = GitLogByTime(self.ntsgitlog, self.timegrain[by_time])
-        objprtlog = PrtLog(objtimedata, self.dflt_pat)
+        objprtlog = PrtLog(objtimedata, self.kws, self.keys)
         objprtlog.prt_time2gitlog(prt)
         prt.write("\nRAN: {CMD}\n".format(CMD=self.gitlog_cmd))
 

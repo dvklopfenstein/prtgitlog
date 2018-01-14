@@ -1,8 +1,13 @@
 """Command-line interface for gitlog Python wrapper.
 
 Usage:
-  gitlog.py
   gitlog.py [options]
+  gitlog.py [--day | --week | --month | --year | --all]
+            [--re=PATTERN]
+            [--after=AFTER]
+            [--au | --noau]
+            [--fullhash]
+  gitlog.py --help
 
 Options:
   -h --help      Show this screen.
@@ -14,6 +19,10 @@ Options:
   --all          Print all logs ungrouped by time unit
 
   --au           Print author
+  --noau         Do not print author
+
+  --fullhash     Print full commit hash
+
   --re=PATTERN   Display only files which match the regex PATTERN (e.g. src/bin)
   --after=AFTER  Only display git log items after the specified date
 """
@@ -34,17 +43,22 @@ from docopt import docopt
 def cli():
     """Command-line interface for gitlog Python wrapper."""
     obj = DocoptParse(__doc__, sys.argv[1:])
-    return obj.docdct, obj.docclr, obj.get_dict(), None,  # _cli_kws()
+    return obj.docdct, obj.docclr, obj.get_dict(), obj.get_set(),  # _cli_kws()
 
 
 class DocoptParse(object):
     """Put docopt dict in desired format."""
 
-    kws_all = set(['--re', '--after', '--au',
-                    '--day', '--week', '--month', '--year', '--all',
-                    've', 'noci'])
+    # All keys from docopt used in gitlog
+    kws_all = set(['--re', '--after',
+                   '--au', '--noau',
+                   '--fullhash',
+                   '--day', '--week', '--month', '--year', '--all',
+                   've', 'noci'])
+    # Values used "as is" from docopt
     kws_dct = set(['re'])
-    kws_set = set(['allhdrs', 'au'])
+    # True/False values used "as is" from docopt.
+    kws_set = set(['allhdrs', 'fullhash'])
 
     def __init__(self, doc, args):
         self.docdct = docopt(doc, args)
@@ -56,6 +70,7 @@ class DocoptParse(object):
         kws = {k:v for k, v in self.docclr.items() if k in self.kws_dct}
         self.get_bytime(kws)
         self.get_after(kws)
+        self.get_au(kws)
         return kws
 
     def get_set(self):
@@ -75,6 +90,12 @@ class DocoptParse(object):
         bytime = [t for t in time_units if self.docdct[t]]
         kws['by_time'] = bytime[0][2:] if bytime else 'week'
 
+    def get_au(self, kws):
+        """User can override default settings for printing commit author name."""
+        if 'au' in self.docclr:
+            kws['au'] = True
+        elif 'noau' in self.docclr:
+            kws['au'] = False
 
 
 #### # TBD: docopt: --after --ve --allhdrs --noci
