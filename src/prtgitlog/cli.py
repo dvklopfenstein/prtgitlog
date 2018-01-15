@@ -110,8 +110,6 @@ class DocoptParse(object):
             return
         noci_all = set()
         for noci_lst in self.docclr['noci']:
-            print("FFFFFFFFFF", noci_lst)
-            print("GGGGGGGGGG", noci_lst.split(','))
             noci_all.update(set(noci_lst.split(',')))
         kws['noci'] = noci_all
 
