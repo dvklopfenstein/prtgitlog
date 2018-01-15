@@ -38,6 +38,7 @@ def test_one_file():
         (['50'],         {'by_time': 'week', 'after':'50 days'}),
         (['year', '50'], {'by_time': 'year', 'after':'50 days'}),
         (['50', 'year'], {'by_time': 'year', 'after':'50 days'}),
+        # gitlog --re=src/bin --re=src/pkgdisclu/code  --all --after=30 --noci=af85fa1
     ]
     doc = cli.__doc__
     for args, expected in args_exp:

@@ -20,8 +20,8 @@ class GitLogData(object):
     #### def __init__(self, after="2016-01-12", restr=None, ve_list=None):
     def __init__(self, kws):
         self.after = kws.get('after', None)
-        self.recompile = re.compile(kws['re']) if 're' in kws else None
-        self.exclude = [re.compile(ve) for ve in kws['--ve']] if '--ve' in kws else None
+        self.recompile = [re.compile(p) for p in kws['re']] if 're' in kws else None
+        self.exclude = [re.compile(p) for p in kws['ve']] if 've' in kws else None
         self.popenargs = self._init_gitlog_cmd()
 
     def get_chksum_files(self, noci):
@@ -89,10 +89,11 @@ class GitLogData(object):
             for recmp in self.exclude:
                 if recmp.search(line):
                     return False
-        mtch_re = None
         if self.recompile is not None:
-            mtch_re = self.recompile.search(line)
-        return True if mtch_re else False
+            for srch in self.recompile:
+                if srch.search(line):
+                    return True
+        return False
 
     def _init_gitlog_cmd(self):
         """Return 'git log' which prints commit hdr info line followed by a list of files."""

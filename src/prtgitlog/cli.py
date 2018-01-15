@@ -3,10 +3,11 @@
 Usage:
   gitlog.py [options]
   gitlog.py [--day | --week | --month | --year | --all]
-            [--re=PATTERN]
+            [--re=PATTERN] [--re=PATTERN]
             [--after=AFTER]
             [--au | --noau]
             [--fullhash]
+            [--noci=HASH] [--noci=HASH] [--noci=HASH,HASH]
   gitlog.py --help
 
 Options:
@@ -24,6 +25,8 @@ Options:
   --fullhash     Print full commit hash
 
   --re=PATTERN   Display only files which match the regex PATTERN (e.g. src/bin)
+                 Multiple --re options are OR'd
+
   --after=AFTER  Only display git log items after the specified date
 """
 
@@ -54,7 +57,9 @@ class DocoptParse(object):
                    '--au', '--noau',
                    '--fullhash',
                    '--day', '--week', '--month', '--year', '--all',
-                   've', 'noci'])
+                   '--noci',
+                   've',
+                  ])
     # Values used "as is" from docopt
     kws_dct = set(['re'])
     # True/False values used "as is" from docopt.
@@ -62,6 +67,7 @@ class DocoptParse(object):
 
     def __init__(self, doc, args):
         self.docdct = docopt(doc, args)
+        # pylint: disable=line-too-long
         self.docclr = {k.replace('--', ''):v for k, v in self.docdct.items() if k in self.kws_all and v}
 
     def get_dict(self):
@@ -71,6 +77,7 @@ class DocoptParse(object):
         self.get_bytime(kws)
         self.get_after(kws)
         self.get_au(kws)
+        self.get_noci(kws)
         return kws
 
     def get_set(self):
@@ -97,6 +104,16 @@ class DocoptParse(object):
         elif 'noau' in self.docclr:
             kws['au'] = False
 
+    def get_noci(self, kws):
+        """Add commit hashes that shall not be printed."""
+        if 'noci' not in self.docclr:
+            return
+        noci_all = set()
+        for noci_lst in self.docclr['noci']:
+            print("FFFFFFFFFF", noci_lst)
+            print("GGGGGGGGGG", noci_lst.split(','))
+            noci_all.update(set(noci_lst.split(',')))
+        kws['noci'] = noci_all
 
 #### # TBD: docopt: --after --ve --allhdrs --noci
 #### # pylint: disable=too-many-branches
