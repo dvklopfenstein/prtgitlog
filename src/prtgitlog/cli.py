@@ -7,6 +7,7 @@ Usage:
             [--after=AFTER]
             [--au | --noau]
             [--fullhash]
+            [--sortby=<sortby>]
             [--noci=HASH] [--noci=HASH] [--noci=HASH,HASH]
   gitlog.py --help
 
@@ -26,8 +27,8 @@ Options:
 
   --re=PATTERN   Display only files which match the regex PATTERN (e.g. src/bin)
                  Multiple --re options are OR'd
-
-  --after=AFTER  Only display git log items after the specified date
+  --sortby=<sortby>  Sort files by commit alias or filename [default: alias]
+  --after=AFTER      Only display git log items after the specified date
 """
 
 #  gitlog.py [--day | --week | --month | --year | --all]
@@ -58,6 +59,7 @@ class DocoptParse(object):
                    '--fullhash',
                    '--day', '--week', '--month', '--year', '--all',
                    '--noci',
+                   '--sortby',
                    've',
                   ])
     # Values used "as is" from docopt
@@ -78,6 +80,7 @@ class DocoptParse(object):
         self.get_after(kws)
         self.get_au(kws)
         self.get_noci(kws)
+        self.get_sortby(kws)
         return kws
 
     def get_set(self):
@@ -112,6 +115,13 @@ class DocoptParse(object):
         for noci_lst in self.docclr['noci']:
             noci_all.update(set(noci_lst.split(',')))
         kws['noci'] = noci_all
+
+    def get_sortby(self, kws):
+        """Sort file data for printing."""
+        sortby = self.docclr['sortby']
+        val = set(['alias', 'filename']).intersection(set([sortby]))
+        kws['sortby'] = list(val)[0] if val else 'alias'
+
 
 #### # TBD: docopt: --after --ve --allhdrs --noci
 #### # pylint: disable=too-many-branches

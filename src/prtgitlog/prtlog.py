@@ -10,7 +10,7 @@ from prtgitlog.prthdrs import PrtHdrs
 class PrtLog(object):
     """Return data from 'git log' organized by coarse time unit."""
 
-    kws_dct = set(['au'])
+    kws_dct = set(['au', 'sortby'])
     kws_set = set(['fullhash'])
 
     dflt_pat = {
@@ -27,7 +27,11 @@ class PrtLog(object):
         self.sec = self.dflt_pat['section']
         self.hdr = self._init_hdr()
         self.dat = self.dflt_pat['dat']
-        self.max_letstr = 100
+        self.sorted = {
+            'alias': self.sorted_alias,
+            'filename': self.sorted_filename,
+        }
+        # self.max_letstr = 100
 
     def prt_time2gitlog(self, prt):
         """Print 'git log' data by any of day, week, month, etc."""
@@ -40,10 +44,22 @@ class PrtLog(object):
         prt.write(self.sec.format(Mon=day.strftime('%a'), DATE=day.strftime("%Y_%m_%d")))
         objhdr = PrtHdrs(ntday.nthdrs, ntday.file2hashstat)
         objhdr.prt_hdrs(self.hdr, prt)
-        for ntd in sorted(objhdr.ntdat, key=lambda n: [n.letterstr, n.filename], reverse=True):
+        data_sorted = self.sorted[self.kws['sortby']](objhdr.ntdat)
+        for ntd in data_sorted:
+            #print("FFFFFFFFFFFFFFF", ntd.filename)
             status = re.sub(r'([A-Z])\1+', r'\1', ntd.status)  # rm duplicate Ms ...
             letstr = self._get_letstr(ntd.letterstr)
             prt.write(self.dat.format(CIs=letstr, STATUS=status, DATA=ntd.filename))
+
+    @staticmethod
+    def sorted_alias(ntdata):
+        """Sort files listed in 'git log'."""
+        return sorted(ntdata, key=lambda nt: [nt.letterstr, nt.filename], reverse=True)
+
+    @staticmethod
+    def sorted_filename(ntdata):
+        """Sort files listed in 'git log'."""
+        return sorted(ntdata, key=lambda nt: [nt.filename, nt.letterstr], reverse=False)
 
     @staticmethod
     def _get_letstr(letterstr):

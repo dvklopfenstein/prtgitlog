@@ -28,6 +28,14 @@ class GitLog(object):
             'all':None,
         }
 
+    def run(self, by_time='by_week', prt=sys.stdout):
+        """Print git logs for 1 day at a time. Print the day's edited files once."""
+        if self.ntsgitlog:
+            objtimedata = GitLogByTime(self.ntsgitlog, self.timegrain[by_time])
+            objprtlog = PrtLog(objtimedata, self.kws, self.keys)
+            objprtlog.prt_time2gitlog(prt)
+        prt.write("\nRAN: {CMD}\n".format(CMD=self.gitlog_cmd))
+
     @staticmethod
     def by_day(cur_datetime):
         """Given a full datetime object, return a datetime object for the day."""
@@ -54,13 +62,6 @@ class GitLog(object):
     def by_year(cur_datetime):
         """Given a full datetime object, return a datetime object for the year."""
         return datetime.datetime(cur_datetime.year, 1, 1)
-
-    def run(self, by_time='by_week', prt=sys.stdout):
-        """Print git logs for 1 day at a time. Print the day's edited files once."""
-        objtimedata = GitLogByTime(self.ntsgitlog, self.timegrain[by_time])
-        objprtlog = PrtLog(objtimedata, self.kws, self.keys)
-        objprtlog.prt_time2gitlog(prt)
-        prt.write("\nRAN: {CMD}\n".format(CMD=self.gitlog_cmd))
 
     # @staticmethod
     # def ls_tree():
