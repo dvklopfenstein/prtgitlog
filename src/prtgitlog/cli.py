@@ -9,6 +9,7 @@ Usage:
             [--fullhash]
             [--sortby=<sortby>]
             [--noci=HASH] [--noci=HASH] [--noci=HASH,HASH]
+            [--hdr=<date>]
   gitlog.py --help
 
 Options:
@@ -27,8 +28,10 @@ Options:
 
   --re=PATTERN   Display only files which match the regex PATTERN (e.g. src/bin)
                  Multiple --re options are OR'd
-  --sortby=<sortby>  Sort files by commit alias or filename [default: alias]
   --after=AFTER      Only display git log items after the specified date
+  --sortby=<sortby>  Sort files by commit alias or filename [default: alias]
+  --noci=HASH        Do not print 'git log' information for specified commit hashes
+  --hdr=<date>       Print header as one line per commit hash (default) or as commit date
 """
 
 #  gitlog.py [--day | --week | --month | --year | --all]
@@ -60,6 +63,7 @@ class DocoptParse(object):
                    '--day', '--week', '--month', '--year', '--all',
                    '--noci',
                    '--sortby',
+                   '--hdr',
                    've',
                   ])
     # Values used "as is" from docopt
@@ -81,6 +85,7 @@ class DocoptParse(object):
         self.get_au(kws)
         self.get_noci(kws)
         self.get_sortby(kws)
+        self.get_hdr_fmt(kws)
         return kws
 
     def get_set(self):
@@ -118,9 +123,23 @@ class DocoptParse(object):
 
     def get_sortby(self, kws):
         """Sort file data for printing."""
-        sortby = self.docclr['sortby']
-        val = set(['alias', 'filename']).intersection(set([sortby]))
-        kws['sortby'] = list(val)[0] if val else 'alias'
+        self._set_val(kws, 'sortby', set(['alias', 'filename']), 'alias')
+
+    def get_hdr_fmt(self, kws):
+        """User specified header format. Default is one line per commit hash."""
+        if 'hdr' in self.docclr:
+            self._set_val(kws, 'hdr', set(['date']), None)
+
+    def _set_val(self, kws, key, exp_vals, val_dflt):
+        """Sort file data for printing."""
+        val_raw = self.docclr[key]
+        val_set = exp_vals.intersection(set([val_raw]))
+        assert len(val_set) <= 1
+        if val_set:
+            kws[key] = list(val_set)[0]
+        # If user provided unrecognized value, use the default value
+        elif val_dflt is not None:
+            kws[key] = val_dflt
 
 
 #### # TBD: docopt: --after --ve --allhdrs --noci

@@ -56,13 +56,13 @@ class GitLogByTime(object):
         # Set data members:  time2nt  time2file2hashstat
         data = cx.defaultdict(lambda: cx.defaultdict(dict))
         if self.timefnc is not None:
-            time2nts, time2file2hashstat = self._get_time2file2hashstat_t(data)
+            time2nts, time2file2hashstat = self._get_time2vars_bytime(data)
         else:
-            time2nts, time2file2hashstat = self._get_time2file2hashstat_f(data)
+            time2nts, time2file2hashstat = self._get_time2vars_ungrouped(data)
         self.time2nts = time2nts
         self.time2file2hashstat = time2file2hashstat
 
-    def _get_time2file2hashstat_t(self, data):
+    def _get_time2vars_bytime(self, data):
         """Return 'git log' data organized by day, week, etc..."""
         time2nts = cx.defaultdict(list)
         for ntd in self.nts:
@@ -72,7 +72,7 @@ class GitLogByTime(object):
             self._fill_data(data, ntd, coarse_dt)
         return {t:hs for t, hs in time2nts.items()}, self._get_data_dictby(data)
 
-    def _get_time2file2hashstat_f(self, data):
+    def _get_time2vars_ungrouped(self, data):
         """Return 'git log' data as a single list."""
         assert self.nts[0].datetime >= self.nts[-1].datetime
         time_key = self.nts[-1].datetime
