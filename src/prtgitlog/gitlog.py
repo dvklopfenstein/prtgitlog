@@ -7,7 +7,7 @@ __author__ = "DV Klopfenstein"
 import sys
 import datetime
 
-from prtgitlog.data import GitLogData
+from prtgitlog.gitlog_strm import GitLogData
 from prtgitlog.sortbytime import GitLogByTime
 from prtgitlog.prtlog import PrtLog
 
