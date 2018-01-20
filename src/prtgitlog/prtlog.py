@@ -4,7 +4,7 @@ __copyright__ = "Copyright (C) 2014-2018, DV Klopfenstein. All rights reserved."
 __author__ = "DV Klopfenstein"
 
 import re
-from prtgitlog.prthdrs import PrtHdrs
+from prtgitlog.commit_aliases import CommitAliases
 
 # pylint: disable=too-few-public-methods
 class PrtLog(object):
@@ -55,9 +55,9 @@ class PrtLog(object):
 
     def _prt_hdrs(self, prt, nthdrs, file2hashstat):
         """Print header lines for one time group."""
-        objhdr = PrtHdrs(nthdrs, file2hashstat)
+        objhdr = CommitAliases(nthdrs, file2hashstat)
         objhdr.prt_hdrs(self.fmt['hdr'], prt)
-        # PrtHdrs creates filename letter strings
+        # CommitAliases creates filename letter strings
         return objhdr
 
     @staticmethod

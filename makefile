@@ -6,10 +6,10 @@ PYCODE := \
        src/bin/gitlog.py \
        src/prtgitlog/cli.py \
        src/prtgitlog/gitlog.py \
-       src/prtgitlog/data.py \
+       src/prtgitlog/gitlog_strm.py \
        src/prtgitlog/sortbytime.py \
        src/prtgitlog/prtlog.py \
-       src/prtgitlog/prthdrs.py \
+       src/prtgitlog/commit_aliases.py \
        src/tests/test_cli.py
 
 run:

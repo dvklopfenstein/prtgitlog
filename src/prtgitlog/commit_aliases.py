@@ -7,7 +7,7 @@ import collections as cx
 
 
 # pylint: disable=too-few-public-methods
-class PrtHdrs(object):
+class CommitAliases(object):
     """Print 'git log' headers for each time group."""
 
     #      A-Z             a-z              0-9
