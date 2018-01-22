@@ -29,9 +29,9 @@ Options:
   --re=PATTERN   Display only files which match the regex PATTERN (e.g. src/bin)
                  Multiple --re options are OR'd
   --after=AFTER      Only display git log items after the specified date
-  --sortby=<sortby>  Sort files by commit alias or filename [default: alias]
+  --sortby=<sortby>  Sort files by commit property: sortby=[alias|filename] [default: alias]
   --noci=HASH        Do not print 'git log' information for specified commit hashes
-  --hdr=<date>       Print header as one line per commit hash (default) or as commit date
+  --hdr=<desc>       One descriptive line per commit (default) OR a succinct date; desc=[date]
 """
 
 #  gitlog.py [--day | --week | --month | --year | --all]

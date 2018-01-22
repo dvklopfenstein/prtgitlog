@@ -10,6 +10,8 @@ PYCODE := \
        src/prtgitlog/sortbytime.py \
        src/prtgitlog/prtlog.py \
        src/prtgitlog/commit_aliases.py \
+       src/prtgitlog/commit_info.py \
+       src/prtgitlog/commit_files.py \
        src/tests/test_cli.py
 
 run:

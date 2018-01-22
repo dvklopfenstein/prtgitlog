@@ -5,6 +5,8 @@ __author__ = "DV Klopfenstein"
 
 import re
 from prtgitlog.commit_aliases import CommitAliases
+from prtgitlog.commit_info import CommitInfo
+from prtgitlog.commit_files import CommitFiles
 
 # pylint: disable=too-few-public-methods
 class PrtLog(object):
@@ -44,21 +46,17 @@ class PrtLog(object):
     def _prt_timegroup(self, prt, day, ntday):
         """Print header lines and filenames for one time group."""
         prt.write(self.fmt['sec'].format(Mon=day.strftime('%a'), DATE=day.strftime("%Y_%m_%d")))
-        objhdr = self._prt_hdrs(prt, ntday.nthdrs, ntday.file2hashstat)
-        data_sorted = self.sorted[self.kws['sortby']](objhdr.ntdat)
+        objalias = CommitAliases(ntday.nthdrs)  # , ntday.file2hashstat)
+        objhdrs = CommitInfo(objalias)
+        objfile = CommitFiles(objalias, ntday.file2hashstat)
+        objhdrs.prt_hdrs(self.fmt['hdr'], prt)
+        data_sorted = self.sorted[self.kws['sortby']](objfile.ntdat)
         fmtdat = self.fmt['dat']
         for ntd in data_sorted:
             #print("FFFFFFFFFFFFFFF", ntd.filename)
             status = re.sub(r'([A-Z])\1+', r'\1', ntd.status)  # rm duplicate Ms ...
             letstr = self._get_letstr(ntd.letterstr)
             prt.write(fmtdat.format(CIs=letstr, STATUS=status, DATA=ntd.filename))
-
-    def _prt_hdrs(self, prt, nthdrs, file2hashstat):
-        """Print header lines for one time group."""
-        objhdr = CommitAliases(nthdrs, file2hashstat)
-        objhdr.prt_hdrs(self.fmt['hdr'], prt)
-        # CommitAliases creates filename letter strings
-        return objhdr
 
     @staticmethod
     def sorted_alias(ntdata):
