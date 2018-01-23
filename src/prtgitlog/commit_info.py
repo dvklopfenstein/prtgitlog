@@ -3,14 +3,16 @@
 __copyright__ = "Copyright (C) 2014-2018, DV Klopfenstein. All rights reserved."
 __author__ = "DV Klopfenstein"
 
-import collections as cx
-
 
 # pylint: disable=too-few-public-methods
 class CommitInfo(object):
     """Print 'git log' headers for each time group."""
 
-    def __init__(self, objalias):
+    kws_dct = set(['au', 'hdrs'])
+    kws_set = set(['fullhash'])
+
+    def __init__(self, objalias, **kws):
+        self.kws = {k:v for k, v in kws.items() if k in self.kws_dct}
         self.objalias = objalias
 
     def prt_hdrs(self, hdrpat, prt):
@@ -20,6 +22,7 @@ class CommitInfo(object):
 
     def _prt_verbose(self, prt, hdrpat):
         """Print headers with one line per commit."""
+        # Ex: Sun 2018-01-14 23:51:49 c5a9255 T Added stats table
         for nthdr in self.objalias.nthdrs:
             ciletter = self.objalias.ci2chr[nthdr.commithash]
             # if ciletter in self.objalias.prtlet:
@@ -27,7 +30,7 @@ class CommitInfo(object):
 
     def _prt_date(self, prt, fmt='%Y %b %d'):
         """Print headers with one line per commit."""
-        dates_str = [nthdr.datetime.strftime(fmt) for nthdr in self.nthdrs]
+        dates_str = [nthdr.datetime.strftime(fmt) for nthdr in self.objalias.nthdrs]
         dates_trn = zip(*dates_str)
         for date in dates_str:
             print("DDDDDDDDDDDDDDDDDDD", date)
