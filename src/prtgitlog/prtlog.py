@@ -11,7 +11,7 @@ from prtgitlog.commit_files import CommitFiles
 class PrtLog(object):
     """Return data from 'git log' organized by coarse time unit."""
 
-    kws_dct = set(['au', 'sortby', 'hdrs'])
+    kws_dct = set(['au', 'sortby', 'hdr'])
     kws_set = set(['fullhash'])
 
     dflt_pat = {

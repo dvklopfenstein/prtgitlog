@@ -3,13 +3,15 @@
 __copyright__ = "Copyright (C) 2014-2018, DV Klopfenstein. All rights reserved."
 __author__ = "DV Klopfenstein"
 
+import re
 
 # pylint: disable=too-few-public-methods
 class CommitInfo(object):
     """Print 'git log' headers for each time group."""
 
-    kws_dct = set(['au', 'hdrs'])
+    kws_dct = set(['au', 'hdr'])
     kws_set = set(['fullhash'])
+    day2c = {'Mon':'M', 'Tue':'T', 'Wed':'W', 'Thu':'R', 'Fri':'F', 'Sat':'S', 'Sun':'U'}
 
     def __init__(self, objalias, **kws):
         self.kws = {k:v for k, v in kws.items() if k in self.kws_dct}
@@ -17,8 +19,11 @@ class CommitInfo(object):
 
     def prt_hdrs(self, hdrpat, prt):
         """Print headers."""
-        self._prt_verbose(prt, hdrpat)
-        #self._prt_date(prt, '%Y %b %d')
+        # Use verbose header format (default)
+        if 'hdr' not in self.kws:
+            self._prt_verbose(prt, hdrpat)
+        elif self.kws['hdr'] == 'date':
+            self._prt_date(prt, '%Y %b %d %a')
 
     def _prt_verbose(self, prt, hdrpat):
         """Print headers with one line per commit."""
@@ -28,14 +33,24 @@ class CommitInfo(object):
             # if ciletter in self.objalias.prtlet:
             prt.write(hdrpat.format(**self._get_patdict(nthdr, ciletter)))
 
-    def _prt_date(self, prt, fmt='%Y %b %d'):
+    def _prt_date(self, prt, fmt='%Y %b %d %a'):
         """Print headers with one line per commit."""
-        dates_str = [nthdr.datetime.strftime(fmt) for nthdr in self.objalias.nthdrs]
+        dates_str = self.getstr_dates(fmt)
         dates_trn = zip(*dates_str)
-        for date in dates_str:
-            print("DDDDDDDDDDDDDDDDDDD", date)
+        # for date in dates_str:
+        #     print("DDDDDDDDDDDDDDDDDDD", date)
         for elem in dates_trn:
-            print("DDDDDDDDDDDDDDDDDDD", "".join(elem))
+            prt.write("    {DATES}\n".format(DATES="".join(elem)))
+
+    def getstr_dates(self, fmt):
+        """Return the commit dates as a string formatted as user-specified."""
+        dates_str = []
+        days = r'(Mon|Tue|Wed|Thu|Fri|Sat|Sun)'
+        for nthdr in self.objalias.nthdrs:
+            datestr = nthdr.datetime.strftime(fmt)
+            datestr = re.sub(days, lambda m: self.day2c[m.group(1)], datestr)
+            dates_str.append(datestr)
+        return dates_str
 
     @staticmethod
     def _get_patdict(nthdr, ciletter):
