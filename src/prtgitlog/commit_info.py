@@ -23,7 +23,8 @@ class CommitInfo(object):
         if 'hdr' not in self.kws:
             self._prt_verbose(prt, hdrpat)
         elif self.kws['hdr'] == 'date':
-            self._prt_date(prt, '%Y %b %d %a')
+            # self._prt_date(prt, '%Y %b %d %a')  # 2018 Jan 01 Mon
+            self._prt_date(prt, '%Y %b %d %a')  # 2018 Jan 01 1
 
     def _prt_verbose(self, prt, hdrpat):
         """Print headers with one line per commit."""
@@ -37,8 +38,10 @@ class CommitInfo(object):
         """Print headers with one line per commit."""
         dates_str = self.getstr_dates(fmt)
         dates_trn = zip(*dates_str)
-        # for date in dates_str:
-        #     print("DDDDDDDDDDDDDDDDDDD", date)
+        if fmt[-2:] == "%w":
+            weekdays = list(dates_trn[-1])
+            weekdays.append(" -> 0=Sunday ... 6=Saturday")
+            dates_trn[-1] = weekdays
         for elem in dates_trn:
             prt.write("    {DATES}\n".format(DATES="".join(elem)))
 
@@ -48,7 +51,8 @@ class CommitInfo(object):
         days = r'(Mon|Tue|Wed|Thu|Fri|Sat|Sun)'
         for nthdr in self.objalias.nthdrs:
             datestr = nthdr.datetime.strftime(fmt)
-            datestr = re.sub(days, lambda m: self.day2c[m.group(1)], datestr)
+            if fmt[-2:] == "%a":
+                datestr = re.sub(days, lambda m: self.day2c[m.group(1)], datestr)
             dates_str.append(datestr)
         return dates_str
 
