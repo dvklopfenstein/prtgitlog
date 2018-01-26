@@ -28,10 +28,18 @@ Options:
 
   --re=PATTERN   Display only files which match the regex PATTERN (e.g. src/bin)
                  Multiple --re options are OR'd
-  --after=AFTER      Only display git log items after the specified date
+
   --sortby=<sortby>  Sort files by commit property: sortby=[alias|filename] [default: alias]
   --noci=HASH        Do not print 'git log' information for specified commit hashes
   --hdr=<desc>       One descriptive line per commit (default) OR a succinct date; desc=[date]
+
+Options that are Passed to 'git log':
+
+  --since=DATE      Only display git log items more recent than the specified date
+  --after=DATE      Only display git log items more recent than the specified date
+  --until=DATE      Only display git log items older than the specified date
+  --before=DATE     Only display git log items older than the specified date
+
 """
 
 #  gitlog.py [--day | --week | --month | --year | --all]
@@ -57,7 +65,7 @@ class DocoptParse(object):
     """Put docopt dict in desired format."""
 
     # All keys from docopt used in gitlog
-    kws_all = set(['--re', '--after',
+    kws_all = set(['--re',
                    '--au', '--noau',
                    '--fullhash',
                    '--day', '--week', '--month', '--year', '--all',
@@ -65,6 +73,9 @@ class DocoptParse(object):
                    '--sortby',
                    '--hdr',
                    've',
+                   # 'git log' options that are passed to the 'git log' command
+                   '--after', '--since',   # Show commits more recent than a specific date
+                   '--until', '--before',  # Show commits older than a specific date
                   ])
     # Values used "as is" from docopt
     kws_dct = set(['re'])
@@ -81,7 +92,7 @@ class DocoptParse(object):
         # kws = {k:v for k, v in self.docdct.items() if k in self.kws_dict and v}
         kws = {k:v for k, v in self.docclr.items() if k in self.kws_dct}
         self.get_bytime(kws)
-        self.get_after(kws)
+        self.get_date(kws)  # --after --since --until --before
         self.get_au(kws)
         self.get_noci(kws)
         self.get_sortby(kws)
@@ -92,12 +103,12 @@ class DocoptParse(object):
         """Get set kws."""
         return self.kws_set.intersection(self.docclr)  # TBD use au
 
-    def get_after(self, kws):
+    def get_date(self, kws):
         """Return 'after' key with appropriate time specified in value."""
-        if 'after' in self.docclr:
-            val = self.docclr['after']
+        for key in set(['after', 'since', 'until', 'before']).intersection(self.docclr):
+            val = self.docclr[key]
             if val.isdigit():
-                kws['after'] = '{N} days'.format(N=val)
+                kws[key] = '{N} days'.format(N=val)
 
     def get_bytime(self, kws):
         """Report gitlog by day, week(dflt), month, or year."""

@@ -24,7 +24,7 @@ class CommitInfo(object):
             self._prt_verbose(prt, hdrpat)
         elif self.kws['hdr'] == 'date':
             # self._prt_date(prt, '%Y %b %d %a')  # 2018 Jan 01 Mon
-            self._prt_date(prt, '%Y %b %d %a')  # 2018 Jan 01 1
+            self._prt_date(prt, '%Y %b %d %w')  # 2018 Jan 01 1
 
     def _prt_verbose(self, prt, hdrpat):
         """Print headers with one line per commit."""
