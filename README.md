@@ -2,10 +2,11 @@
 Print 'git log' output in a succinct format grouped by day, week, month, year, or ungrouped(all)    
 
 ## Example showing Succinct format
-Shows the results of running 'git log' on the command line vs. running 'git log' through this repo's _gitlog_ script.    
 
-  * GIT LOG: [git log --after "2 days"](doc/md/README_example_succint.md#script-call-git-log-through-the-gitlog-script)    
-  * SCRIPT: [gitlog --after="2 days"](doc/md/README_example_succint.md#cmdline-call-git-log-from-the-command-line)    
+| Desc    | lines | Example output
+|---------|-------|-------------------------
+| GIT LOG |    71 | [git log --after "2 days"](doc/md/README_example_succint.md#script-call-git-log-through-the-gitlog-script)    
+| SCRIPT  |    18 | [gitlog --after="2 days"](doc/md/README_example_succint.md#cmdline-call-git-log-from-the-command-line)    
 
   
 
