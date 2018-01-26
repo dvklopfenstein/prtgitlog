@@ -2,14 +2,15 @@
 
 ## Run 'git log' two ways:
 
-  1) **SCRIPT**: [gitlog --after="2 days"]()    
-  2) **CMDLINE**: [git log --after "2 days"]()    
+  1) **SCRIPT**: [gitlog --after="2 days"](#script-call-git-log-through-the-gitlog-script)    
+  2) **CMDLINE**: [git log --after "2 days"](#cmdline-call-git-log-from-the-command-line)    
 
 ## Results
 
 ### SCRIPT: Call _git log_ through the gitlog script
-Commit information is listed in the header paragraph.    
-Files commited are listed below the header paragraph.     
+  * Commit information is listed in the header paragraph and shows the commit hash (e.g., 5c791c3).    
+  * Each commit is given an alias (e.g., A B C D E F G).    
+  * Files commited are listed below the header paragraph.     
 
 ```
 $ gitlog --after="2 days"
@@ -28,7 +29,7 @@ $ gitlog --after="2 days"
 ```
 
 ### CMDLINE: Call _git log_ from the command line
-Each commit has header information, followed by file information.    
+Each commit has header information, followed by file information for that commit.    
 
 ```
 $ git log --after "2 days"
