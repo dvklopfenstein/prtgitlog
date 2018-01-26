@@ -9,7 +9,9 @@ Print 'git log' output grouped by day, week, month, year, or ungrouped(all)
   * Print all '[git log](https://git-scm.com/docs/git-log)' data, grouped by **day**
   * Print all '[git log](https://git-scm.com/docs/git-log)' data, **not grouped by any time unit**
   * **Succinct Date-only header**    
+```
     gitlog --all --hdr=date
+```
 
 ### By week (default)
 
