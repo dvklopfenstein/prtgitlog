@@ -3,10 +3,10 @@ Print 'git log' output in a succinct format grouped by day, week, month, year, o
 
 ## Example showing Succinct format
 
-| Desc    | lines | Example output
-|---------|-------|-------------------------
-| GIT LOG |    71 | [git log --after "2 days"](doc/md/README_example_succint.md#script-call-git-log-through-the-gitlog-script)    
-| SCRIPT  |    18 | [gitlog --after="2 days"](doc/md/README_example_succint.md#cmdline-call-git-log-from-the-command-line)    
+| Description | # Lines | Example Output
+|-------------|---------|-------------------------
+| COMMAND     |      71 | [git log --after "2 days"](doc/md/README_example_succint.md#script-call-git-log-through-the-gitlog-script)    
+| REPO SCRIPT |      18 | [gitlog --after="2 days"](doc/md/README_example_succint.md#cmdline-call-git-log-from-the-command-line)    
 
   
 
