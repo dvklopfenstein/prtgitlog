@@ -1,13 +1,16 @@
-# Example showing succinct report
+# Example Showing Succinct Report
 
-## Run 'git log' two ways
+## Run 'git log' two ways:
 
   1) **SCRIPT**: [gitlog --after="2 days"]()    
   2) **CMDLINE**: [git log --after "2 days"]()    
 
 ## Results
 
-### Call _git log_ through the gitlog script
+### SCRIPT: Call _git log_ through the gitlog script
+Commit information is listed in the header paragraph.    
+Files commited are listed below the header paragraph.     
+
 ```
 $ gitlog --after="2 days"
 
@@ -24,7 +27,9 @@ $ gitlog --after="2 days"
     .B..... M src/prtgitlog/cli.py
 ```
 
-### Call _git log_ from the command line
+### CMDLINE: Call _git log_ from the command line
+Each commit has header information, followed by file information.    
+
 ```
 $ git log --after "2 days"
 commit d2c04f434ec3245b47b42d045fa435c939b557f0 (HEAD -> master, origin/master, origin/HEAD)
