@@ -109,6 +109,8 @@ class DocoptParse(object):
             val = self.docclr[key]
             if val.isdigit():
                 kws[key] = '{N} days'.format(N=val)
+            else:
+                kws[key] = val
 
     def get_bytime(self, kws):
         """Report gitlog by day, week(dflt), month, or year."""

@@ -1,5 +1,13 @@
 # gitlog
-Print 'git log' output grouped by day, week, month, year, or ungrouped(all)    
+Print 'git log' output in a succinct format grouped by day, week, month, year, or ungrouped(all)    
+
+## Example showing Succinct format
+Shows the results of running 'git log' on the command line vs. running 'git log' through this repo's _gitlog_ script.    
+
+  * GIT LOG: [git log --after "2 days"](doc/md/README_example_succint.md)    
+  * SCRIPT: [gitlog --after="2 days"](doc/md/README_example_succint.md)    
+
+  
 
 ## Examples
 
@@ -164,4 +172,4 @@ Print 'git log' output grouped by day, week, month, year, or ungrouped(all)
 - [git: list all files added/modified on a day (or week/month)](
    https://stackoverflow.com/questions/8016645/git-list-all-files-added-modified-on-a-day-or-week-month)
 
-Copyright (C) 2014-2018, DV Klopfenstein. All rights reserved.
+Copyright (C) 2017-2018, DV Klopfenstein. All rights reserved.
