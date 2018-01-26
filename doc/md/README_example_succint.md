@@ -8,9 +8,9 @@
 ## Results
 
 ### SCRIPT: Call _git log_ through the gitlog script
-  * Commit information is listed in the header paragraph and shows the commit hash (e.g., 5c791c3).    
-  * Each commit is given an alias (e.g., A B C D E F G).    
-  * Files commited are listed below the header paragraph.     
+  * Commit information is listed in the header paragraph and shows the commit hash (e.g., 5c791c3)    
+  * Each commit is given an alias (e.g., A B C D E F G)    
+  * Files commited are listed below the header paragraph (e.g., src/prtgitlog/commit_info.py)     
 
 ```
 $ gitlog --after="2 days"
