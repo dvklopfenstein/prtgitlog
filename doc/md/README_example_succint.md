@@ -2,12 +2,12 @@
 
 ## Run 'git log' two ways
 
-  1) gitlog --after="2 days"
-  2) git log --after "2 days"
+  1) **SCRIPT**: [gitlog --after="2 days"]()    
+  2) **CMDLINE**: [git log --after "2 days"]()    
 
 ## Results
 
-### Use this repo's gitlog script to call _git log_
+### Call _git log_ through the gitlog script
 ```
 $ gitlog --after="2 days"
 
