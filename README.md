@@ -1,5 +1,5 @@
 # gitlog
-Print **_git log_** output in a **succinct** format **grouped** by day, week, month, year, or ungrouped(all)    
+A script to print **_git log_** output in a **succinct** format **grouped** by day, week, month, year, or ungrouped(all)    
 
 For help for the gitlog script, do one of:
 ```
