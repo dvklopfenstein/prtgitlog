@@ -1,6 +1,6 @@
 """Return data from 'git log' organized by coarse time unit."""
 
-__copyright__ = "Copyright (C) 2014-2018, DV Klopfenstein. All rights reserved."
+__copyright__ = "Copyright (C) 2017-2018, DV Klopfenstein. All rights reserved."
 __author__ = "DV Klopfenstein"
 
 from prtgitlog.commit_aliases import CommitAliases
@@ -56,4 +56,4 @@ class PrtLog(object):
         return dat
 
 
-# Copyright (C) 2014-2018, DV Klopfenstein. All rights reserved.
+# Copyright (C) 2017-2018, DV Klopfenstein. All rights reserved.

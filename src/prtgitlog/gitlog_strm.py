@@ -1,6 +1,6 @@
 """Run command 'git log ...'. Process and store results."""
 
-__copyright__ = "Copyright (c) 2014-2018, DV Klopfenstein. all rights reserved."
+__copyright__ = "Copyright (c) 2017-2018, DV Klopfenstein. all rights reserved."
 __author__ = "DV Klopfenstein"
 
 import re
@@ -115,4 +115,4 @@ class GitLogData(object):
             ret.append('"{AFTER}"'.format(AFTER=self.after))
         return ret + [self.pretty_fmt, '--name-status']
 
-# Copyright (c) 2014-2018, DV Klopfenstein. all rights reserved.
+# Copyright (c) 2017-2018, DV Klopfenstein. all rights reserved.

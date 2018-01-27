@@ -49,7 +49,7 @@ Options that are Passed to 'git log':
 #  gitlog.py [--re=PATTERN]
 #  gitlog.py [--re=PATTERN] --after=AFTER
 
-__copyright__ = "Copyright (C) 2014-2018, DV Klopfenstein. All rights reserved."
+__copyright__ = "Copyright (C) 2017-2018, DV Klopfenstein. All rights reserved."
 __author__ = "DV Klopfenstein"
 
 import sys
@@ -193,4 +193,4 @@ class DocoptParse(object):
 ####         kws['noci'] = ci_exclude
 ####     return kws
 
-# Copyright (C) 2014-2018, DV Klopfenstein. All rights reserved.
+# Copyright (C) 2017-2018, DV Klopfenstein. All rights reserved.
