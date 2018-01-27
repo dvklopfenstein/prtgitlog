@@ -1,6 +1,4 @@
 # CMDLINE: Call _git log_ from the command line
-Each commit has header information, followed by file information for that commit.    
-
 ```
 $ git log --after "2 days"
 commit d2c04f434ec3245b47b42d045fa435c939b557f0 (HEAD -> master, origin/master, origin/HEAD)
