@@ -8,16 +8,6 @@ A script to print **_git log_** output in a **succinct** format **grouped** by d
 | _git log_ COMMAND     |      70 | [git log --after "2 days"](doc/md/README_example_succint.md#cmdline-call-git-log-from-the-command-line)
 | _gitlog_ REPO SCRIPT  |      10 | [gitlog --after="2 days"](doc/md/README_example_succint.md#script-call-git-log-through-the-gitlog-script)
 
-
-## Script Help
-
-For help for the gitlog script, do one of:
-```
-$ gitlog --help
-$ gitlog.py --help
-$ scr/bin/gitlog.py --help
-```
-
 ## Grouping
 **Group** by day, week, month, year, or ungrouped (all)     
 ```
@@ -26,6 +16,15 @@ $ gitlog --month
 $ gitlog --year
 $ gitlog --day
 $ gitlog --all
+```
+
+## Script Help
+
+For help for the gitlog script, do one of:
+```
+$ gitlog --help
+$ gitlog.py --help
+$ scr/bin/gitlog.py --help
 ```
 
 ## Links
