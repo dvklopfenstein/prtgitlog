@@ -8,7 +8,7 @@ $ gitlog.py --help
 $ scr/bin/gitlog.py --help
 ```
 
-## Succinct Output: Comparison
+## Succinct Output: A Comparison
 
 | Description           | # Lines | Example Output Codeblock
 |-----------------------|---------|-------------------------
