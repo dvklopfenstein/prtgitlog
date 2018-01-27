@@ -12,8 +12,8 @@ $ scr/bin/gitlog.py --help
 
 | Description           | # Lines | Example Output Codeblock
 |-----------------------|---------|-------------------------
-| _git log_ COMMAND     |      71 | [git log --after "2 days"](doc/md/README_example_succint.md#cmdline-call-git-log-from-the-command-line)
-| _gitlog_ REPO SCRIPT  |      18 | [gitlog --after="2 days"](doc/md/README_example_succint.md#script-call-git-log-through-the-gitlog-script)
+| _git log_ COMMAND     |      70 | [git log --after "2 days"](doc/md/README_example_succint.md#cmdline-call-git-log-from-the-command-line)
+| _gitlog_ REPO SCRIPT  |      10 | [gitlog --after="2 days"](doc/md/README_example_succint.md#script-call-git-log-through-the-gitlog-script)
 
 
 ## Links
