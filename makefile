@@ -28,6 +28,9 @@ pytest:
 vim_:
 	vim -p $(PYCODE)
 
+vim_md:
+	vim -p ./README.md ./doc/md/README_example_succint.md ./doc/md/README_TBD.md
+
 clean:
 	find . -name \*.pyc | xargs rm -f
 
