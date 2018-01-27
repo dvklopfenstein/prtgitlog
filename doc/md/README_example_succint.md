@@ -15,7 +15,6 @@
 ```
 $ gitlog --after="2 days"
 
-2018_01_22 Mon
   Thu 2018-01-25 13:19:03 5c791c3 A Use weekday number instead of letter
   Fri 2018-01-26 14:27:17 8e3301a B Now passing 'git log' options: after before since until
   Fri 2018-01-26 15:09:15 ee21efb C Added outline for more examples
