@@ -1,10 +1,11 @@
 # gitlog
 Print **_git log_** output in a **succinct** format **grouped** by day, week, month, year, or ungrouped(all)    
 
-For help for the gitlog script, do either:
+For help for the gitlog script, do one of:
 ```
 $ gitlog --help
 $ gitlog.py --help
+$ scr/bin/gitlog.py --help
 ```
 
 ## Succinct Output: Comparison
