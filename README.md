@@ -1,13 +1,6 @@
 # gitlog
 A script to print **_git log_** output in a **succinct** format **grouped** by day, week, month, year, or ungrouped(all)    
 
-For help for the gitlog script, do one of:
-```
-$ gitlog --help
-$ gitlog.py --help
-$ scr/bin/gitlog.py --help
-```
-
 ## Succinct Output: A Comparison
 
 | Description           | # Lines | Example Output Codeblock
@@ -15,6 +8,15 @@ $ scr/bin/gitlog.py --help
 | _git log_ COMMAND     |      70 | [git log --after "2 days"](doc/md/README_example_succint.md#cmdline-call-git-log-from-the-command-line)
 | _gitlog_ REPO SCRIPT  |      10 | [gitlog --after="2 days"](doc/md/README_example_succint.md#script-call-git-log-through-the-gitlog-script)
 
+
+## Script Help
+
+For help for the gitlog script, do one of:
+```
+$ gitlog --help
+$ gitlog.py --help
+$ scr/bin/gitlog.py --help
+```
 
 ## Links
 
