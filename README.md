@@ -5,8 +5,8 @@ A script to print **_git log_** output in a **succinct** format **grouped** by d
 
 | Description           | # Lines | Example Output Codeblock
 |-----------------------|---------|-------------------------
-| _git log_ COMMAND     |      70 | [git log --after "2 days"](doc/md/README_example_succint.md#cmdline-call-git-log-from-the-command-line)
-| _gitlog_ REPO SCRIPT  |      10 | [gitlog --after="2 days"](doc/md/README_example_succint.md#script-call-git-log-through-the-gitlog-script)
+| _git log_ COMMAND     |      70 | [git log --after "2 days"](doc/md/README_example_succint_cmdline.md)
+| _gitlog_ REPO SCRIPT  |      10 | [gitlog --after="2 days"](doc/md/README_example_succint_script.md)
 
 ## Grouping
 **Group** by day, week, month, year, or ungrouped (all)     
