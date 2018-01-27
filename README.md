@@ -18,6 +18,16 @@ $ gitlog.py --help
 $ scr/bin/gitlog.py --help
 ```
 
+## Grouping
+**Group** by day, week, month, year, or ungrouped (all)     
+```
+$ gitlog --week
+$ gitlog --month
+$ gitlog --year
+$ gitlog --day
+$ gitlog --all
+```
+
 ## Links
 
 - [Git Basics - Viewing the Commit History](https://git-scm.com/book/en/v1/Git-Basics-Viewing-the-Commit-History)
