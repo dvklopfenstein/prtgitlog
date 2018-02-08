@@ -13,6 +13,7 @@ from prtgitlog.gitlog import GitLog
 
 
 def run_gitlog(prt=False):
+# def run_gitlog(prt=True):
     """Run 'git log', printing results rearranged for easier reading."""
     doc, docc, kws, keys = cli()  # _ = ows
     if prt:

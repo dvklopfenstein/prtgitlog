@@ -48,7 +48,7 @@ class PrtLog(object):
 
     def _init_hdr(self):
         """Initialize print format for the git commit header text."""
-        dat = self.dflt_pat['hdr'] if len(self.objtimesort.get_authors()) <= 2 else ['hdr_au']
+        dat = self.dflt_pat['hdr' if len(self.objtimesort.get_authors()) <= 2 else 'hdr_au']
         if 'au' in self.kws:
             dat = self.dflt_pat['hdr_au'] if self.kws['au'] else self.dflt_pat['hdr']
         if 'fullhash' in self.keys:
