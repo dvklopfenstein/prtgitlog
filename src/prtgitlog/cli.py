@@ -40,6 +40,8 @@ Options that are Passed to 'git log':
   --until=DATE      Only display git log items older than the specified date
   --before=DATE     Only display git log items older than the specified date
 
+  --max-count=<number>  limit the number of commits to output
+
 """
 
 #  gitlog.py [--day | --week | --month | --year | --all]
@@ -76,6 +78,7 @@ class DocoptParse(object):
                    # 'git log' options that are passed to the 'git log' command
                    '--after', '--since',   # Show commits more recent than a specific date
                    '--until', '--before',  # Show commits older than a specific date
+                   '--max-count',
                   ])
     # Values used "as is" from docopt
     kws_dct = set(['re'])
@@ -154,43 +157,5 @@ class DocoptParse(object):
         elif val_dflt is not None:
             kws[key] = val_dflt
 
-
-#### # TBD: docopt: --after --ve --allhdrs --noci
-#### # pylint: disable=too-many-branches
-#### def _cli_kws():
-####     """Command-line interface for gitlog Python wrapper using a dict."""
-####     #### kws = {'by_time':'week', 'after':'2016-01-12'}
-####     kws = {'by_time':'week'}
-####     re_exclude = [] # Do not report on any files matching these regexs
-####     ci_exclude = set()
-####     for arg in sys.argv[1:]:
-####         if arg.isdigit():
-####             kws['after'] = "{N} days".format(N=arg)
-####         elif arg[:8] == '--after=':
-####             valstr = arg[8:]
-####             kws['after'] = None if valstr == "None" else valstr
-####         elif arg[:5] == '--re=':              # DONE
-####             kws['--re'] = arg[5:]             # DONE
-####         elif arg[:3] == 've=':
-####             kws['ve'] = re_exclude.append(arg[3:])
-####         elif arg[:5] == 'noci=':
-####             ci_str = arg[5:]
-####             #int(ci_str, 16) # Throws error if digits are not hex
-####             ci_exclude |= set(ci_str.split(',')) if ',' in ci_str else set([ci_str])
-####         elif arg == "day":                    # DONE
-####             kws['by_time'] = 'day'            # DONE
-####         elif arg == "week":                   # DONE
-####             kws['by_time'] = 'week'           # DONE
-####         elif arg == "month":                  # DONE
-####             kws['by_time'] = 'month'          # DONE
-####         elif arg == "year":                   # DONE
-####             kws['by_time'] = 'year'           # DONE
-####         elif arg == "allhdrs":
-####             kws['allhdrs'] = True
-####     if re_exclude:
-####         kws['ve'] = re_exclude
-####     if ci_exclude:
-####         kws['noci'] = ci_exclude
-####     return kws
 
 # Copyright (C) 2017-2018, DV Klopfenstein. All rights reserved.
