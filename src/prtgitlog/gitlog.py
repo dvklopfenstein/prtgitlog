@@ -28,12 +28,14 @@ class GitLog(object):
             'all':None,
         }
 
-    def run(self, by_time='by_week', prt=sys.stdout):
+    def run(self, by_time='by_month', prt=sys.stdout):
         """Print git logs for 1 day at a time. Print the day's edited files once."""
         if self.ntsgitlog:
             objtimedata = GitLogByTime(self.ntsgitlog, self.timegrain[by_time])
             objprtlog = PrtLog(objtimedata, self.kws, self.keys)
             objprtlog.prt_time2gitlog(prt)
+            prt.write("{N} commits since {DATE} shown\n".format(
+                N=len(self.ntsgitlog), DATE=self.ntsgitlog[-1].datetime.strftime("%Y_%m_%d")))
         prt.write("\nRAN: {CMD}\n".format(CMD=self.gitlog_cmd))
 
     @staticmethod
