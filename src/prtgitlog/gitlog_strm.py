@@ -22,6 +22,7 @@ class GitLogData(object):
         self.after = kws.get('after', None)
         self.recompile = [re.compile(p) for p in kws['re']] if 're' in kws else None
         self.exclude = [re.compile(p) for p in kws['ve']] if 've' in kws else None
+        # Ex: git log --after "60 days" --pretty=format:"%Cred%H %h %an %cd%Creset %s" --name-status
         self.popenargs = self._init_gitlog_cmd()
 
     def get_chksum_files(self, noci):
@@ -114,5 +115,36 @@ class GitLogData(object):
             ret.append('--after')
             ret.append('"{AFTER}"'.format(AFTER=self.after))
         return ret + [self.pretty_fmt, '--name-status']
+
+# -----------------------------------------------------------------------------------------
+# https://stackoverflow.com/questions/424071/how-to-list-all-the-files-in-a-commit
+# Preferred Way (because it's a plumbing command; meant to be programmatic):
+#     $ git diff-tree --no-commit-id --name-only -r bd61ad98
+#     index.html
+#     javascript/application.js
+#     javascript/ie6.js
+# 
+# Another Way (less preferred for scripts, because it's a porcelain command; meant to be user-facing)
+#     $ git show --pretty="" --name-only bd61ad98    
+#     index.html
+#     javascript/application.js
+#     javascript/ie6.js
+
+# If you want to get list of changed files:
+#     git diff-tree --no-commit-id --name-only -r <commit-ish>
+# If you want to get list of all files in a commit, you can use
+#     git ls-tree --name-only -r <commit-ish>
+
+#     $ git show --stat --oneline HEAD
+
+# -----------------------------------------------------------------------------------------
+# How to list all commits that changed a specific file?
+# https://stackoverflow.com/questions/3701404/how-to-list-all-commits-that-changed-a-specific-file
+#
+# The --follow works for a particular file (and follows renames)
+#     $ git log --follow -- filename
+#
+# NOTE: +1 --follow accounts for renames, so this is more robust than git log -- path 
+
 
 # Copyright (c) 2017-2018, DV Klopfenstein. all rights reserved.
