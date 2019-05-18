@@ -1,6 +1,6 @@
 """Return data from 'git log' organized by coarse time unit."""
 
-__copyright__ = "Copyright (C) 2017-2018, DV Klopfenstein. All rights reserved."
+__copyright__ = "Copyright (C) 2017-2019, DV Klopfenstein. All rights reserved."
 __author__ = "DV Klopfenstein"
 
 from prtgitlog.commit_aliases import CommitAliases
@@ -15,7 +15,7 @@ class PrtLog(object):
     kws_set = set(['fullhash'])
 
     dflt_pat = {
-        'section': "\n{DATE} {Mon}\n", # Section header. Sections are by day, week, or month
+        'section': "\nSTARTING ON: {DATE} {Mon}\n", # Section header. Sections are by day, week, or month
         'hdr_au': "  {weekday} {datetime} {chash} {abc} {author} {hdr}\n",
         'hdr': "  {weekday} {datetime} {chash:7} {abc} {hdr}\n",
         'dat': "    {CIs} {STATUS:>2} {DATA}\n"
@@ -56,4 +56,4 @@ class PrtLog(object):
         return dat
 
 
-# Copyright (C) 2017-2018, DV Klopfenstein. All rights reserved.
+# Copyright (C) 2017-2019, DV Klopfenstein. All rights reserved.
