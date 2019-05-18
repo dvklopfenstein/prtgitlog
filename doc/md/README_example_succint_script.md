@@ -18,4 +18,4 @@ $ gitlog --after="2 days"
     .B..... M src/prtgitlog/cli.py
 ```
 
-Copyright (C) 2017-2018, DV Klopfenstein. All rights reserved.
+Copyright (C) 2017-2019, DV Klopfenstein. All rights reserved.

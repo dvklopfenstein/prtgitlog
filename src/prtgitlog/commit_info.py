@@ -1,6 +1,6 @@
 """Print 'git log' headers for each time group."""
 
-__copyright__ = "Copyright (C) 2017-2018, DV Klopfenstein. All rights reserved."
+__copyright__ = "Copyright (C) 2017-2019, DV Klopfenstein. All rights reserved."
 __author__ = "DV Klopfenstein"
 
 import re
@@ -64,4 +64,4 @@ class CommitInfo(object):
         return patdict
 
 
-# Copyright (C) 2017-2018, DV Klopfenstein. All rights reserved.
+# Copyright (C) 2017-2019, DV Klopfenstein. All rights reserved.

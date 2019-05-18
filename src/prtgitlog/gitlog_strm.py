@@ -1,6 +1,6 @@
 """Run command 'git log ...'. Process and store results."""
 
-__copyright__ = "Copyright (c) 2017-2018, DV Klopfenstein. all rights reserved."
+__copyright__ = "Copyright (c) 2017-2019, DV Klopfenstein. all rights reserved."
 __author__ = "DV Klopfenstein"
 
 import re
@@ -147,4 +147,4 @@ class GitLogData(object):
 # NOTE: +1 --follow accounts for renames, so this is more robust than git log -- path 
 
 
-# Copyright (c) 2017-2018, DV Klopfenstein. all rights reserved.
+# Copyright (c) 2017-2019, DV Klopfenstein. all rights reserved.

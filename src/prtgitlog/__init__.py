@@ -1,7 +1,7 @@
 # Package for git log helper class
 
 __author__ = "DV Klopfenstein"
-__copyright__ = "Copyright (C) 2017-2018, DV Klopfenstein"
+__copyright__ = "Copyright (C) 2017-2019, DV Klopfenstein"
 __email__ = "dvklopfenstein@gmail.com"
 __license__ = "BSD"
 __status__ = "Development"
