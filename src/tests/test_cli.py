@@ -30,20 +30,22 @@ def test_one_file():
     args_exp = [
         # args           expected dict
         # --------       ---------------------
-        ([],             {'by_time': 'week'}),
-        (['day'],        {'by_time': 'day'}),
-        (['week'],       {'by_time': 'week'}),
-        (['month'],      {'by_time': 'month'}),
-        (['year'],       {'by_time': 'year'}),
-        (['50'],         {'by_time': 'week', 'after':'50 days'}),
-        (['year', '50'], {'by_time': 'year', 'after':'50 days'}),
-        (['50', 'year'], {'by_time': 'year', 'after':'50 days'}),
+        ([],             {'sortby': 'alias', 'by_time': 'month'}),
+        (['--day'],      {'sortby': 'alias', 'by_time': 'day'}),
+        (['--week'],     {'sortby': 'alias', 'by_time': 'week'}),
+        (['--month'],    {'sortby': 'alias', 'by_time': 'month'}),
+        (['--year'],     {'sortby': 'alias', 'by_time': 'year'}),
+        (['--after=50'],           {'sortby': 'alias', 'by_time': 'month', 'after':'50 days'}),
+        (['--year', '--after=50'], {'sortby': 'alias', 'by_time': 'year', 'after':'50 days'}),
+        (['--after=50', '--year'], {'sortby': 'alias', 'by_time': 'year', 'after':'50 days'}),
         # gitlog --re=src/bin --re=src/pkgdisclu/code  --all --after=30 --noci=af85fa1
     ]
     doc = cli.__doc__
     for args, expected in args_exp:
         actual = DocoptParse(doc, args).get_dict()
-        assert actual == expected, "ACT({}) != EXP({})".format(actual, expected)
+        assert actual == expected, "ACT({}) != EXP({}): {}".format(actual, expected, args)
+    # pylint: disable=superfluous-parens
+    print('**TEST PASSED')
 
 
 if __name__ == '__main__':

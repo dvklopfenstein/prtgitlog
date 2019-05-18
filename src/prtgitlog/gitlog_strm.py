@@ -17,13 +17,12 @@ class GitLogData(object):
     pretty_fmt = '--pretty=format:"%Cred%H %h %an %cd%Creset %s"'
     ntobj = cx.namedtuple("ntgitlog", "commithash chash author weekday datetime hdr files")
 
-    #### def __init__(self, after="2016-01-12", restr=None, ve_list=None):
     def __init__(self, kws):
         self.after = kws.get('after', None)
         self.recompile = [re.compile(p) for p in kws['re']] if 're' in kws else None
         self.exclude = [re.compile(p) for p in kws['ve']] if 've' in kws else None
         # Ex: git log --after "60 days" --pretty=format:"%Cred%H %h %an %cd%Creset %s" --name-status
-        self.popenargs = self._init_gitlog_cmd()
+        self.popenargs = self._init_gitlog_cmd(kws.get('files'))
 
     def get_chksum_files(self, noci):
         """Run 'git log' return data in condensed by day."""
@@ -96,7 +95,7 @@ class GitLogData(object):
                     return True
         return False
 
-    def _init_gitlog_cmd(self):
+    def _init_gitlog_cmd(self, files):
         """Return 'git log' which prints commit hdr info line followed by a list of files."""
         #
         # % git log --after "10 days" --pretty=format:"%Cred%h %cd%Creset %s" --name-only
@@ -114,7 +113,15 @@ class GitLogData(object):
         if self.after is not None:
             ret.append('--after')
             ret.append('"{AFTER}"'.format(AFTER=self.after))
-        return ret + [self.pretty_fmt, '--name-status']
+        ret.append(self.pretty_fmt)
+        ret.append('--name-status')
+        # Add user-specfied files, if provided
+        if files is not None:
+            ret.append('--follow')
+            ret.append('--')
+            for fin in files:
+                ret.append(fin)
+        return ret
 
 # -----------------------------------------------------------------------------------------
 # https://stackoverflow.com/questions/424071/how-to-list-all-the-files-in-a-commit
@@ -123,9 +130,9 @@ class GitLogData(object):
 #     index.html
 #     javascript/application.js
 #     javascript/ie6.js
-# 
-# Another Way (less preferred for scripts, because it's a porcelain command; meant to be user-facing)
-#     $ git show --pretty="" --name-only bd61ad98    
+#
+# Another Way (less preferred for scripts, because it's a porcelain cmd; meant to be user-facing)
+#     $ git show --pretty="" --name-only bd61ad98
 #     index.html
 #     javascript/application.js
 #     javascript/ie6.js
@@ -144,7 +151,7 @@ class GitLogData(object):
 # The --follow works for a particular file (and follows renames)
 #     $ git log --follow -- filename
 #
-# NOTE: +1 --follow accounts for renames, so this is more robust than git log -- path 
+# NOTE: +1 --follow accounts for renames, so this is more robust than git log -- path
 
 
 # Copyright (c) 2017-2019, DV Klopfenstein. all rights reserved.

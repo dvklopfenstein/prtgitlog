@@ -27,7 +27,6 @@ class GitLogByTime(object):
         ntobj = cx.namedtuple("ntgitlog", "nthdrs file2hashstat")
         hash2nt_all = {nt.commithash:nt for nt in self.nts}
         for time_cur, file2hashstat in sorted(self.time2file2hashstat.items()):
-            # print "FFFFFF", file2hashstat
             nts_cur = [hash2nt_all[h] for h in self.get_hashes(file2hashstat)]
             nthdrs = sorted(nts_cur, key=lambda nt: nt.datetime)
             ntcur = ntobj(nthdrs=nthdrs, file2hashstat=file2hashstat)
@@ -67,7 +66,7 @@ class GitLogByTime(object):
         time2nts = cx.defaultdict(list)
         for ntd in self.nts:
             coarse_dt = self.timefnc(ntd.datetime)
-            # print "TTTTTTTTTTTTT ({}) ({}) {}".format(ntd.datetime, coarse_dt, repr(ntd.datetime))
+            # print("TTTTTTTTTTT ({}) ({}) {}".format(ntd.datetime, coarse_dt, repr(ntd.datetime)))
             time2nts[coarse_dt].append(ntd)
             self._fill_data(data, ntd, coarse_dt)
         return {t:hs for t, hs in time2nts.items()}, self._get_data_dictby(data)

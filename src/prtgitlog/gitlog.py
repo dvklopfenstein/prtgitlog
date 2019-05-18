@@ -19,6 +19,7 @@ class GitLog(object):
         self.keys = keys
         _ini = GitLogData(kws)
         self.gitlog_cmd = _ini.get_gitlog_cmd()
+        # namedtuple fields: commithash chash author weekday datetime hdr files
         self.ntsgitlog = _ini.get_chksum_files(kws.get('noci', None))
         self.timegrain = {
             'day':self.by_day,

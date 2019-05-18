@@ -11,11 +11,12 @@ from prtgitlog.commit_files import CommitFiles
 class PrtLog(object):
     """Return data from 'git log' organized by coarse time unit."""
 
-    kws_dct = set(['au', 'sortby', 'hdr'])
-    kws_set = set(['fullhash'])
+    kws_dct = {'au', 'sortby', 'hdr', 'by_time'}
+    kws_set = {'fullhash'}
 
     dflt_pat = {
-        'section': "\nSTARTING ON: {DATE} {Mon}\n", # Section header. Sections are by day, week, or month
+        # Section header. Sections are by day, week, or month
+        'section': "\n{TIMEUNIT} STARTING ON: {DATE} {Mon}\n",
         'hdr_au': "  {weekday} {datetime} {chash} {abc} {author} {hdr}\n",
         'hdr': "  {weekday} {datetime} {chash:7} {abc} {hdr}\n",
         'dat': "    {CIs} {STATUS:>2} {DATA}\n"
@@ -39,7 +40,10 @@ class PrtLog(object):
 
     def _prt_timegroup(self, prt, day, ntday):
         """Print header lines and filenames for one time group."""
-        prt.write(self.fmt['sec'].format(Mon=day.strftime('%a'), DATE=day.strftime("%Y_%m_%d")))
+        prt.write(self.fmt['sec'].format(
+            TIMEUNIT=self.kws['by_time'].title(),
+            Mon=day.strftime('%a'),
+            DATE=day.strftime("%Y_%m_%d")))
         objalias = CommitAliases(ntday.nthdrs)  # , ntday.file2hashstat)
         objhdrs = CommitInfo(objalias, **self.kws)
         objfile = CommitFiles(objalias, ntday.file2hashstat, **self.kws)

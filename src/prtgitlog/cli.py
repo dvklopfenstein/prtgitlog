@@ -92,7 +92,7 @@ class DocoptParse(object):
 
     def __init__(self, doc, args):
         self.docdct = docopt(doc, args)
-        print('DOCOPT:', self.docdct)
+        ## print('DOCOPT:', self.docdct)
         # pylint: disable=line-too-long
         self.docclr = {k.replace('--', ''):v for k, v in self.docdct.items() if k in self.kws_all and v}
 
@@ -100,7 +100,7 @@ class DocoptParse(object):
         """Simplify docopt keyword args."""
         # kws = {k:v for k, v in self.docdct.items() if k in self.kws_dict and v}
         kws = {k:v for k, v in self.docclr.items() if k in self.kws_dct}
-        print('KWS:', kws)
+        ## print('CLI KWS:', kws)
         self.get_files(kws)
         self.get_bytime(kws)
         self.get_date(kws)  # --after --since --until --before
@@ -108,7 +108,7 @@ class DocoptParse(object):
         self.get_noci(kws)
         self.get_sortby(kws)
         self.get_hdr_fmt(kws)
-        print('KWS:', kws)
+        ## print('CLI KWS:', kws)
         return kws
 
     def get_files(self, kws):
@@ -121,8 +121,10 @@ class DocoptParse(object):
             if os.path.exists(fin):
                 fins.add(fin)
             else:
+                # pylint: disable=superfluous-parens
                 print('  **WARNING FILE NOT FOUND: {F}'.format(F=fin))
-        return fins
+        if fins:
+            kws['files'] = fins
 
     def get_set(self):
         """Get set kws."""
