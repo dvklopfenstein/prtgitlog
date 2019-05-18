@@ -1,8 +1,8 @@
 """Command-line interface for gitlog Python wrapper.
 
 Usage:
-  gitlog.py [options]
-  gitlog.py [--day | --week | --month | --year | --all]
+  gitlog.py [FILE ...]
+            [--day | --week | --month | --year | --all]
             [--re=PATTERN] [--re=PATTERN]
             [--after=AFTER]
             [--au | --noau]
@@ -26,19 +26,22 @@ Options:
 
   --fullhash     Print full commit hash
 
-  --re=PATTERN   Display only files which match the regex PATTERN (e.g. src/bin)
+  --re=PATTERN   Display only files which match the regex PATTERN
+                 (e.g. --re=src/bin)
                  Multiple --re options are OR'd
 
-  --sortby=<sortby>  Sort files by commit property: sortby=[alias|filename] [default: alias]
-  --noci=HASH        Do not print 'git log' information for specified commit hashes
-  --hdr=<desc>       One descriptive line per commit (default) OR a succinct date; desc=[date]
+  --sortby=<sortby>  Sort files by commit property:
+                     sortby=[alias|filename] [default: alias]
+  --noci=HASH        Do not print 'git log' information for
+                     specified commit hashes
+  --hdr=<desc>       One descriptive line per commit (default) OR
+                       a succinct date; desc=[date]
 
 Options that are Passed to 'git log':
-
-  --since=DATE      Only display git log items more recent than the specified date
-  --after=DATE      Only display git log items more recent than the specified date
-  --until=DATE      Only display git log items older than the specified date
-  --before=DATE     Only display git log items older than the specified date
+  --since=DATE   Display git log items more recent than the specified date
+  --after=DATE   Display git log items more recent than the specified date
+  --until=DATE   Display git log items older than the specified date
+  --before=DATE  Display git log items older than the specified date
 
   --max-count=<number>  limit the number of commits to output
 
@@ -51,9 +54,10 @@ Options that are Passed to 'git log':
 #  gitlog.py [--re=PATTERN]
 #  gitlog.py [--re=PATTERN] --after=AFTER
 
-__copyright__ = "Copyright (C) 2017-2018, DV Klopfenstein. All rights reserved."
+__copyright__ = "Copyright (C) 2017-2019, DV Klopfenstein. All rights reserved."
 __author__ = "DV Klopfenstein"
 
+import os
 import sys
 from docopt import docopt
 
@@ -63,6 +67,7 @@ def cli():
     return obj.docdct, obj.docclr, obj.get_dict(), obj.get_set(),  # _cli_kws()
 
 
+# pylint: disable=line-too-long
 class DocoptParse(object):
     """Put docopt dict in desired format."""
 
@@ -87,6 +92,7 @@ class DocoptParse(object):
 
     def __init__(self, doc, args):
         self.docdct = docopt(doc, args)
+        print('DOCOPT:', self.docdct)
         # pylint: disable=line-too-long
         self.docclr = {k.replace('--', ''):v for k, v in self.docdct.items() if k in self.kws_all and v}
 
@@ -94,13 +100,29 @@ class DocoptParse(object):
         """Simplify docopt keyword args."""
         # kws = {k:v for k, v in self.docdct.items() if k in self.kws_dict and v}
         kws = {k:v for k, v in self.docclr.items() if k in self.kws_dct}
+        print('KWS:', kws)
+        self.get_files(kws)
         self.get_bytime(kws)
         self.get_date(kws)  # --after --since --until --before
         self.get_au(kws)
         self.get_noci(kws)
         self.get_sortby(kws)
         self.get_hdr_fmt(kws)
+        print('KWS:', kws)
         return kws
+
+    def get_files(self, kws):
+        """Get files, if provided by user on command line"""
+        files = self.docdct['FILE']
+        if files is None:
+            return
+        fins = set()
+        for fin in files:
+            if os.path.exists(fin):
+                fins.add(fin)
+            else:
+                print('  **WARNING FILE NOT FOUND: {F}'.format(F=fin))
+        return fins
 
     def get_set(self):
         """Get set kws."""
@@ -158,4 +180,4 @@ class DocoptParse(object):
             kws[key] = val_dflt
 
 
-# Copyright (C) 2017-2018, DV Klopfenstein. All rights reserved.
+# Copyright (C) 2017-2019, DV Klopfenstein. All rights reserved.
