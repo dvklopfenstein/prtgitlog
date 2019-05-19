@@ -1,4 +1,4 @@
-"""Command-line interface for gitlog Python wrapper.
+"""Print 'git log' output in a concise informative format
 
 Usage:
   gitlog.py [FILE ...]

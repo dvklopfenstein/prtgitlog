@@ -1,5 +1,5 @@
 # gitlog
-A script to print **_git log_** output in a **succinct** informative format
+A script to print **_git log_** output in a **concise** informative format
 
 ## Succinct Output: A Comparison
 
@@ -9,7 +9,7 @@ A script to print **_git log_** output in a **succinct** informative format
 | _gitlog_ REPO SCRIPT  |      10 | [gitlog --after="2 days"](doc/md/README_example_succint_script.md)
 
 ## Grouping
-**Group** by day, week, month, year, or ungrouped (all)     
+**Group** commits by day, week, month, year, or ungrouped (all)     
 ```
 $ gitlog --week
 $ gitlog --month
