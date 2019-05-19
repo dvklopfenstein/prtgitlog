@@ -40,16 +40,19 @@ class GitLogData(object):
         gitlog, _ = subprocess.Popen(popenargs, stdout=subprocess.PIPE).communicate() # _ err
         for line in gitlog.split('\n'):
             line = line.rstrip()
-            # header?: 68f2684... 68f2684 dvklopfenstein Mon Sep 11 16:07:42 2017 -0400 links
-            if commitobj is None:
-                # Contains header & empty data list
-                commitobj = self._get_commitobj(line, commithash2nt)
-            # Data files: 'line' contains filename for one commit
-            elif line:
-                self._append_filename(commitobj, line)
-            # End of Header-files record
-            else: # line is blank
-                assert commitobj is not None
+            #### print('{C:1} LINE={L:1}: {LINE}'.format(
+            ####     C=commitobj is not None, L=line != '', LINE=line))
+            if line != '':
+                # header?: 68f2684... 68f2684 dvklopfenstein Mon Sep 11 16:07:42 2017 -0400 links
+                if commitobj is None:
+                    # Contains header & empty data list
+                    commitobj = self._get_commitobj(line, commithash2nt)
+                # Data files: 'line' contains filename for one commit
+                elif line:
+                    self._append_filename(commitobj, line)
+                # End of Header-files record
+            # line is blank and the commit details need to be stored
+            elif commitobj is not None:
                 if noci is None:
                     commithash2nt[commitobj.commithash] = commitobj
                 elif commitobj.chash not in noci:
@@ -72,7 +75,7 @@ class GitLogData(object):
 
     def _get_commitobj(self, line, commithash2nt):
         """Return a namedtuple containing header line information."""
-        commithash = self.hshpat.search(line).group(1)
+        commithash = self._re_commithash(line)
         if commithash in commithash2nt:
             return commithash2nt[commithash]
         mtchhdr = self.hdrpat.search(line[len(commithash)+2:])
@@ -86,6 +89,14 @@ class GitLogData(object):
                 hdr=mtchhdr.group(5),
                 files=[])
         assert "BAD HEADER({H})".format(H=line)
+
+    def _re_commithash(self, line):
+        """Get commit hash from header line"""
+        mtch = self.hshpat.search(line)
+        if mtch is not None:
+            return mtch.group(1)
+        else:
+            raise RuntimeError('NO COMMIT HASH({L})'.format(L=line))
 
     def get_gitlog_cmds(self):
         """Return 'git log' command string."""
