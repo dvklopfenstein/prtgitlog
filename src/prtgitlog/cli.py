@@ -113,18 +113,14 @@ class DocoptParse(object):
 
     def get_files(self, kws):
         """Get files, if provided by user on command line"""
-        files = self.docdct['FILE']
-        if files is None:
-            return
         fins = set()
-        for fin in files:
+        for fin in self.docdct['FILE']:
             if os.path.exists(fin):
                 fins.add(fin)
             else:
                 # pylint: disable=superfluous-parens
                 print('  **WARNING FILE NOT FOUND: {F}'.format(F=fin))
-        if fins:
-            kws['files'] = fins
+        kws['files'] = fins
 
     def get_set(self):
         """Get set kws."""
@@ -145,7 +141,7 @@ class DocoptParse(object):
         bytime = [t for t in time_units if self.docdct[t]]
         if bytime:
             kws['by_time'] = bytime[0][2:]
-        elif 'files' in kws:
+        elif kws['files']:
             kws['by_time'] = 'all'
         else:
             kws['by_time'] = 'month'

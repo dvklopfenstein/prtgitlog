@@ -18,7 +18,7 @@ class GitLog(object):
         self.kws = kws
         self.keys = keys
         _ini = GitLogData(kws)
-        self.gitlog_cmd = _ini.get_gitlog_cmd()
+        self.gitlog_cmds = _ini.get_gitlog_cmds()
         # namedtuple fields: commithash chash author weekday datetime hdr files
         self.ntsgitlog = _ini.get_chksum_files(kws.get('noci', None))
         self.timegrain = {
@@ -37,7 +37,9 @@ class GitLog(object):
             objprtlog.prt_time2gitlog(prt)
             prt.write("{N} commits since {DATE} shown\n".format(
                 N=len(self.ntsgitlog), DATE=self.ntsgitlog[-1].datetime.strftime("%Y_%m_%d")))
-        prt.write("\nRAN: {CMD}\n".format(CMD=self.gitlog_cmd))
+        prt.write('\n')
+        for cmd in self.gitlog_cmds:
+            prt.write("RAN: {CMD}\n".format(CMD=cmd))
 
     @staticmethod
     def by_day(cur_datetime):

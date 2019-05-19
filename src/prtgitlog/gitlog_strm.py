@@ -22,20 +22,22 @@ class GitLogData(object):
         self.after = kws.get('after', None)
         self.recompile = [re.compile(p) for p in kws['re']] if 're' in kws else None
         self.exclude = [re.compile(p) for p in kws['ve']] if 've' in kws else None
-        # Ex: git log --after "60 days" --pretty=format:"%Cred%H %h %an %cd%Creset %s" --name-status
-        self.popenargs = self._init_gitlog_cmd(kws.get('files'))
+        # Save list of 'git log' command arguments for every 'git log' command to be run:
+        #   git log --after "60 days" --pretty=format:"%Cred%H %h %an %cd%Creset %s" --name-status
+        self.popencmds = self._init_gitlog_cmds(kws['files'])
 
     def get_chksum_files(self, noci):
         """Run 'git log' return data in condensed by day."""
         commithash2nt = {}
-        self._get_commithash2nt(commithash2nt, noci)
+        for popenargs in self.popencmds:
+            self._get_commithash2nt(commithash2nt, popenargs, noci)
         return sorted(commithash2nt.values(), key=lambda nt: nt.datetime, reverse=True)
 
-    def _get_commithash2nt(self, commithash2nt, noci):
+    def _get_commithash2nt(self, commithash2nt, popenargs, noci):
         """Run 'git log' return data in condensed by day."""
         commitobj = None
-        # # Run 'git log' command
-        gitlog, _ = subprocess.Popen(self.popenargs, stdout=subprocess.PIPE).communicate() # _ err
+        # Run 'git log' command
+        gitlog, _ = subprocess.Popen(popenargs, stdout=subprocess.PIPE).communicate() # _ err
         for line in gitlog.split('\n'):
             line = line.rstrip()
             # header?: 68f2684... 68f2684 dvklopfenstein Mon Sep 11 16:07:42 2017 -0400 links
@@ -85,9 +87,9 @@ class GitLogData(object):
                 files=[])
         assert "BAD HEADER({H})".format(H=line)
 
-    def get_gitlog_cmd(self):
+    def get_gitlog_cmds(self):
         """Return 'git log' command string."""
-        return " ".join(self.popenargs)
+        return [" ".join(popenargs) for popenargs in self.popencmds]
 
     def _test_filename_regex(self, line):
         """Return True if this line should be saved."""
@@ -103,7 +105,14 @@ class GitLogData(object):
                     return True
         return False
 
-    def _init_gitlog_cmd(self, files):
+    def _init_gitlog_cmds(self, files):
+        """Return 'git log' which prints commit hdr info line followed by a list of files."""
+        cmdargs = self._init_gitlog_cmd()
+        if not files:
+            return [cmdargs]
+        return [self._init_gitlog_appendfile(cmdargs, f) for f in files]
+
+    def _init_gitlog_cmd(self):
         """Return 'git log' which prints commit hdr info line followed by a list of files."""
         #
         # % git log --after "10 days" --pretty=format:"%Cred%h %cd%Creset %s" --name-only
@@ -123,12 +132,15 @@ class GitLogData(object):
             ret.append('"{AFTER}"'.format(AFTER=self.after))
         ret.append(self.pretty_fmt)
         ret.append('--name-status')
-        # Add user-specfied files, if provided
-        if files is not None:
-            ret.append('--follow')
-            ret.append('--')
-            for fin in files:
-                ret.append(fin)
+        return ret
+
+    @staticmethod
+    def _init_gitlog_appendfile(cmdargs, filename):
+        """Add user-specfied files, if provided"""
+        ret = list(cmdargs)
+        ret.append('--follow')
+        ret.append('--')
+        ret.append(filename)
         return ret
 
 # -----------------------------------------------------------------------------------------

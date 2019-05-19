@@ -30,14 +30,14 @@ def test_one_file():
     args_exp = [
         # args           expected dict
         # --------       ---------------------
-        ([],             {'sortby': 'alias', 'by_time': 'month'}),
-        (['--day'],      {'sortby': 'alias', 'by_time': 'day'}),
-        (['--week'],     {'sortby': 'alias', 'by_time': 'week'}),
-        (['--month'],    {'sortby': 'alias', 'by_time': 'month'}),
-        (['--year'],     {'sortby': 'alias', 'by_time': 'year'}),
-        (['--after=50'],           {'sortby': 'alias', 'by_time': 'month', 'after':'50 days'}),
-        (['--year', '--after=50'], {'sortby': 'alias', 'by_time': 'year', 'after':'50 days'}),
-        (['--after=50', '--year'], {'sortby': 'alias', 'by_time': 'year', 'after':'50 days'}),
+        ([],             {'files':set(), 'sortby': 'alias', 'by_time': 'month'}),
+        (['--day'],      {'files':set(), 'sortby': 'alias', 'by_time': 'day'}),
+        (['--week'],     {'files':set(), 'sortby': 'alias', 'by_time': 'week'}),
+        (['--month'],    {'files':set(), 'sortby': 'alias', 'by_time': 'month'}),
+        (['--year'],     {'files':set(), 'sortby': 'alias', 'by_time': 'year'}),
+        (['--after=50'],           {'files':set(), 'sortby': 'alias', 'by_time': 'month', 'after':'50 days'}),
+        (['--year', '--after=50'], {'files':set(), 'sortby': 'alias', 'by_time': 'year', 'after':'50 days'}),
+        (['--after=50', '--year'], {'files':set(), 'sortby': 'alias', 'by_time': 'year', 'after':'50 days'}),
         # gitlog --re=src/bin --re=src/pkgdisclu/code  --all --after=30 --noci=af85fa1
     ]
     doc = cli.__doc__
