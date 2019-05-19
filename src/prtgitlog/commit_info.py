@@ -5,7 +5,7 @@ __author__ = "DV Klopfenstein"
 
 import re
 
-# pylint: disable=too-few-public-methods
+
 class CommitInfo(object):
     """Print 'git log' headers for each time group."""
 
@@ -25,6 +25,10 @@ class CommitInfo(object):
         elif self.kws['hdr'] == 'date':
             # self._prt_date(prt, '%Y %b %d %a')  # 2018 Jan 01 Mon
             self._prt_date(prt, '%Y %b %d %w')  # 2018 Jan 01 1
+
+    def num_commits(self):
+        """Get the number of commits in this time unit"""
+        return len(self.objalias.nthdrs)
 
     def _prt_verbose(self, prt, hdrpat):
         """Print headers with one line per commit."""

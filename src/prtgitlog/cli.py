@@ -121,6 +121,9 @@ class DocoptParse(object):
                 # pylint: disable=superfluous-parens
                 print('  **WARNING FILE NOT FOUND: {F}'.format(F=fin))
         kws['files'] = fins
+        if fins:
+            # pylint: disable=superfluous-parens
+            print('  Reporting on {N} user-specified files'.format(N=len(fins)))
 
     def get_set(self):
         """Get set kws."""
@@ -141,10 +144,6 @@ class DocoptParse(object):
         bytime = [t for t in time_units if self.docdct[t]]
         if bytime:
             kws['by_time'] = bytime[0][2:]
-        elif kws['files']:
-            kws['by_time'] = 'all'
-        else:
-            kws['by_time'] = 'month'
 
     def get_au(self, kws):
         """User can override default settings for printing commit author name."""

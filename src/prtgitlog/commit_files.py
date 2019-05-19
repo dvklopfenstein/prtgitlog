@@ -7,7 +7,6 @@ import collections as cx
 import re
 
 
-# pylint: disable=too-few-public-methods
 class CommitFiles(object):
     """Print 'git log' headers for each time group."""
 
@@ -19,8 +18,8 @@ class CommitFiles(object):
         self.objalias = objalias
         self.ntdat, self.prtlet = self._get_data_letterstr(file2hash2stat)
         self.sorted = {
-            'alias': self.sorted_alias,
-            'filename': self.sorted_filename,
+            'alias': self._fnc_sorted_alias,
+            'filename': self._fnc_sorted_filename,
         }
         # self.max_letstr = 100
 
@@ -34,6 +33,10 @@ class CommitFiles(object):
             status = re.sub(r'([A-Z])\1+', r'\1', ntd.status)  # rm duplicate Ms ...
             letstr = self._get_letstr(ntd.letterstr)
             prt.write(fmt.format(CIs=letstr, STATUS=status, DATA=ntd.filename))
+
+    def num_files(self):
+        """Get the number of files commited"""
+        return len(self.sorted[self.kws['sortby']](self.ntdat))
 
     def _get_data_letterstr(self, file2hash2stat):
         """Get list of files, each with its checkins represented by an ASCII art letter string."""
@@ -51,12 +54,12 @@ class CommitFiles(object):
         return ret, prtlet
 
     @staticmethod
-    def sorted_alias(ntdata):
+    def _fnc_sorted_alias(ntdata):
         """Sort files listed in 'git log'."""
         return sorted(ntdata, key=lambda nt: [nt.letterstr, nt.filename], reverse=True)
 
     @staticmethod
-    def sorted_filename(ntdata):
+    def _fnc_sorted_filename(ntdata):
         """Sort files listed in 'git log'."""
         return sorted(ntdata, key=lambda nt: [nt.filename, nt.letterstr], reverse=False)
 
@@ -66,5 +69,6 @@ class CommitFiles(object):
         # if len(letterstr) > self.max_letstr:
         #     return letterstr.replace('.', '')
         return letterstr
+
 
 # Copyright (C) 2017-2019, DV Klopfenstein. All rights reserved.

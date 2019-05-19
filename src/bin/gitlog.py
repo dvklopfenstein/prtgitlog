@@ -22,7 +22,7 @@ def run_gitlog(prt=False):
         print("KWS({KWS})".format(KWS=kws))
         print("KEYS({KWS})".format(KWS=keys))
     obj = GitLog(kws, keys)
-    obj.run(kws['by_time'], sys.stdout)
+    obj.run(kws.get('by_time'), sys.stdout)
     if prt:
         print("DOC({KWS})".format(KWS=doc))
         print("CLR({KWS})".format(KWS=docc))

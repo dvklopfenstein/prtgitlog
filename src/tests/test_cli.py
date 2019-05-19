@@ -30,12 +30,12 @@ def test_one_file():
     args_exp = [
         # args           expected dict
         # --------       ---------------------
-        ([],             {'files':set(), 'sortby': 'alias', 'by_time': 'month'}),
+        ([],             {'files':set(), 'sortby': 'alias'}),  # , 'by_time': 'month'}),
         (['--day'],      {'files':set(), 'sortby': 'alias', 'by_time': 'day'}),
         (['--week'],     {'files':set(), 'sortby': 'alias', 'by_time': 'week'}),
         (['--month'],    {'files':set(), 'sortby': 'alias', 'by_time': 'month'}),
         (['--year'],     {'files':set(), 'sortby': 'alias', 'by_time': 'year'}),
-        (['--after=50'],           {'files':set(), 'sortby': 'alias', 'by_time': 'month', 'after':'50 days'}),
+        (['--after=50'],           {'files':set(), 'sortby': 'alias', 'after':'50 days'}),
         (['--year', '--after=50'], {'files':set(), 'sortby': 'alias', 'by_time': 'year', 'after':'50 days'}),
         (['--after=50', '--year'], {'files':set(), 'sortby': 'alias', 'by_time': 'year', 'after':'50 days'}),
         # gitlog --re=src/bin --re=src/pkgdisclu/code  --all --after=30 --noci=af85fa1

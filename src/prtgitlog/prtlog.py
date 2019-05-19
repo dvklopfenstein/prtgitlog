@@ -16,7 +16,7 @@ class PrtLog(object):
 
     dflt_pat = {
         # Section header. Sections are by day, week, or month
-        'section': "\n{TIMEUNIT} STARTING ON: {DATE} {Mon}\n",
+        'section': "\n{TIMEUNIT} STARTING ON: {DATE} {Mon} - {C} commits, {F} files\n",
         'hdr_au': "  {weekday} {datetime} {chash} {abc} {author} {hdr}\n",
         'hdr': "  {weekday} {datetime} {chash:7} {abc} {hdr}\n",
         'dat': "    {CIs} {STATUS:>2} {DATA}\n"
@@ -40,13 +40,15 @@ class PrtLog(object):
 
     def _prt_timegroup(self, prt, day, ntday):
         """Print header lines and filenames for one time group."""
-        prt.write(self.fmt['sec'].format(
-            TIMEUNIT=self.kws['by_time'].title(),
-            Mon=day.strftime('%a'),
-            DATE=day.strftime("%Y_%m_%d")))
         objalias = CommitAliases(ntday.nthdrs)  # , ntday.file2hashstat)
         objhdrs = CommitInfo(objalias, **self.kws)
         objfile = CommitFiles(objalias, ntday.file2hashstat, **self.kws)
+        prt.write(self.fmt['sec'].format(
+            TIMEUNIT=self.kws['by_time'].title(),
+            Mon=day.strftime('%a'),
+            DATE=day.strftime("%Y_%m_%d"),
+            C=objhdrs.num_commits(),
+            F=objfile.num_files()))
         objhdrs.prt_hdrs(self.fmt['hdr'], prt)
         objfile.prt_data(self.fmt['dat'], prt)
 
