@@ -143,7 +143,12 @@ class DocoptParse(object):
         """Report gitlog by day, week(dflt), month, or year."""
         time_units = set(['--day', '--week', '--month', '--year', '--all'])
         bytime = [t for t in time_units if self.docdct[t]]
-        kws['by_time'] = bytime[0][2:] if bytime else 'month'
+        if bytime:
+            kws['by_time'] = bytime[0][2:]
+        elif 'files' in kws:
+            kws['by_time'] = 'all'
+        else:
+            kws['by_time'] = 'month'
 
     def get_au(self, kws):
         """User can override default settings for printing commit author name."""

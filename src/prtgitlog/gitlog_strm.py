@@ -11,9 +11,10 @@ import subprocess
 class GitLogData(object):
     """Run command 'git log ...'. Process and store results."""
 
-    # PATTERN MATCH EX:  d0be326.. d0be326   Author Tue    Apr 26 13:24:19 2016 -0400 pylint
-    #   group number:      1           2       3      4      5                        6
-    hdrpat_dflt = r'([a-f0-9]+) (\S+) (\S.*\S) (\S{3}) (\S{3} \d{1,2} \S+ \d{4}) \S+ (\S.*\S)"'
+    # PATTERN MATCH EX: d0be326.. d0be326   Author Tue    Apr 26 13:24:19 2016 -0400 pylint
+    #   group number:     1           2       3      4      5                        6
+    hdrpat = re.compile(r'([a-f0-9]+) (\S.*\S) (\S{3}) (\S{3} \d{1,2} \S+ \d{4}) \S+ (\S.*\S)"')
+    hshpat = re.compile(r'([a-f0-9]+) ')
     pretty_fmt = '--pretty=format:"%Cred%H %h %an %cd%Creset %s"'
     ntobj = cx.namedtuple("ntgitlog", "commithash chash author weekday datetime hdr files")
 
@@ -26,8 +27,12 @@ class GitLogData(object):
 
     def get_chksum_files(self, noci):
         """Run 'git log' return data in condensed by day."""
-        data = []
-        hdrpat = re.compile(self.hdrpat_dflt)
+        commithash2nt = {}
+        self._get_commithash2nt(commithash2nt, noci)
+        return sorted(commithash2nt.values(), key=lambda nt: nt.datetime, reverse=True)
+
+    def _get_commithash2nt(self, commithash2nt, noci):
+        """Run 'git log' return data in condensed by day."""
         commitobj = None
         # # Run 'git log' command
         gitlog, _ = subprocess.Popen(self.popenargs, stdout=subprocess.PIPE).communicate() # _ err
@@ -35,21 +40,21 @@ class GitLogData(object):
             line = line.rstrip()
             # header?: 68f2684... 68f2684 dvklopfenstein Mon Sep 11 16:07:42 2017 -0400 links
             if commitobj is None:
-                commitobj = self._get_commitobj(line, hdrpat)  # Contains header & empty data list
+                # Contains header & empty data list
+                commitobj = self._get_commitobj(line, commithash2nt)
             # Data files: 'line' contains filename for one commit
             elif line:
-                self._append_data(commitobj, line)
+                self._append_filename(commitobj, line)
             # End of Header-files record
             else: # line is blank
                 assert commitobj is not None
                 if noci is None:
-                    data.append(commitobj)
+                    commithash2nt[commitobj.commithash] = commitobj
                 elif commitobj.chash not in noci:
-                    data.append(commitobj)
+                    commithash2nt[commitobj.commithash] = commitobj
                 commitobj = None
-        return data
 
-    def _append_data(self, commitobj, line):
+    def _append_filename(self, commitobj, line):
         """Fill commit object with filename."""
         if self._test_filename_regex(line):
             status_file = line.split()
@@ -63,17 +68,20 @@ class GitLogData(object):
             # else:
             #     raise RuntimeError("UNKNOWN DATA({D}).\nHDR({H})".format(D=line, H=commitobj))
 
-    def _get_commitobj(self, line, hdrpat):
+    def _get_commitobj(self, line, commithash2nt):
         """Return a namedtuple containing header line information."""
-        mtchhdr = hdrpat.search(line)
+        commithash = self.hshpat.search(line).group(1)
+        if commithash in commithash2nt:
+            return commithash2nt[commithash]
+        mtchhdr = self.hdrpat.search(line[len(commithash)+2:])
         if mtchhdr:
             return self.ntobj(
-                commithash=mtchhdr.group(1),
-                chash=mtchhdr.group(2),
-                author=mtchhdr.group(3),
-                weekday=mtchhdr.group(4),
-                datetime=datetime.datetime.strptime(mtchhdr.group(5), "%b %d %X %Y"),
-                hdr=mtchhdr.group(6),
+                commithash=commithash,
+                chash=mtchhdr.group(1),
+                author=mtchhdr.group(2),
+                weekday=mtchhdr.group(3),
+                datetime=datetime.datetime.strptime(mtchhdr.group(4), "%b %d %X %Y"),
+                hdr=mtchhdr.group(5),
                 files=[])
         assert "BAD HEADER({H})".format(H=line)
 

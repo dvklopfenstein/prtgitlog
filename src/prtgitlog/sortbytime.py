@@ -73,7 +73,8 @@ class GitLogByTime(object):
 
     def _get_time2vars_ungrouped(self, data):
         """Return 'git log' data as a single list."""
-        assert self.nts[0].datetime >= self.nts[-1].datetime
+        assert self.nts[0].datetime >= self.nts[-1].datetime, '**ERROR: {} >= {}'.format(
+            self.nts[0].datetime, self.nts[-1].datetime)
         time_key = self.nts[-1].datetime
         for ntd in self.nts:
             self._fill_data(data, ntd, time_key)
