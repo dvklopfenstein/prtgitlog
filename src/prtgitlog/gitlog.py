@@ -56,7 +56,8 @@ class GitLog(object):
         """Print commands either to a file"""
         with open(fout_txt, 'w') as prt:
             self.prttxt_cmds(prt)
-            print('  WROTE: {CMDS}'.format(CMDS=fout_txt))
+            print('  {N} "git log" commands WROTE: {CMDS}'.format(
+                N=len(self.gitlog_cmds), CMDS=fout_txt))
 
     def prttxt_cmds(self, prt):
         """Print commands either to stdout or to a file"""
