@@ -25,7 +25,7 @@ Or on Monday morning, remind yourself what you did last week.
 
 #### The reports are split into two sections:
   1. **Commit information**. Each commit is given an alias (e.g., A, B, C, D, E, ...)
-  2. A list of **files** that were commited and thier commit aliases    
+  2. A list of **files** that were commited, preceded by thier commit aliases    
 
 #### Example
 Get commits during the last 7 days, grouped by week:
