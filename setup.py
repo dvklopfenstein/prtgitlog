@@ -22,7 +22,7 @@ setup(
     version=_get_version(),
     author='DV Klopfenstein',
     author_email='dvklopfenstein@gmail.com',
-    long_description=(),
+    long_description=_get_long_description(),
     packages=['prtgitlog',],
     package_dir={'prtgitlog': 'src/prtgitlog'},
     scripts=['src/bin/gitlog'],
