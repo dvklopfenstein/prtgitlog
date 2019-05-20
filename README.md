@@ -1,5 +1,5 @@
 # gitlog
-A script to print **_git log_** output in a **concise** informative format
+A script to print **_git log_** output in a **concise** and **informative** format
 
 ## Example Uses
 
@@ -9,10 +9,12 @@ A script to print **_git log_** output in a **concise** informative format
 ### 1) Get information for your weekly status report
 Or on Monday morning, remind yourself what you did last week.
 
-The reports are split into two sections:
-  1. Commit information. Each commit is given an alias (e.g., A, B, C, D, E, ...)
-  2. A list of files that were commited and thier commit aliases    
+#### The reports are split into two sections:
+  1. **Commit information**. Each commit is given an alias (e.g., A, B, C, D, E, ...)
+  2. A list of **files** that were commited and thier commit aliases    
      M->Modified, A->Added, R->Removed
+
+#### Example
 ```
 $ gitlog --week --after='7 days'
 
