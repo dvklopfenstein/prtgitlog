@@ -20,7 +20,7 @@ setup(
     long_description=('A script to print "git log" output '
                       'in a concise and informative format\n\n'
                       'https://github.com/dvklopfenstein/'
-                      'prtgitlog/blob/master/README.md')
+                      'prtgitlog/blob/master/README.md'),
     packages=['prtgitlog',],
     package_dir={'prtgitlog': 'src/prtgitlog'},
     scripts=['src/bin/gitlog'],
