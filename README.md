@@ -5,12 +5,6 @@
 [![Anaconda-Server Badge](https://anaconda.org/dvklopfenstein/prtgitlog/badges/version.svg)](https://anaconda.org/dvklopfenstein/prtgitlog)    
 A script to print **_git log_** output in a **concise** and **informative** format
 
-## Example Uses
-
-  1. [**Get information for your weekly status report**](#1-get-information-for-your-weekly-status-report)
-  2. [**Get information for your annual review**](#2-get-information-for-your-annual-review)
-  3. [**Get all information for one or more files**](#3-get-all-information-for-one-or-more-files)
-
 ## Installation
 ```
 pip install prtgitlog
@@ -19,6 +13,12 @@ or
 ```
 conda install -c dvklopfenstein prtgitlog
 ```
+## Example Uses
+
+  1. [**Get information for your weekly status report**](#1-get-information-for-your-weekly-status-report)
+  2. [**Get information for your annual review**](#2-get-information-for-your-annual-review)
+  3. [**Get all information for one or more files**](#3-get-all-information-for-one-or-more-files)
+
 
 ### 1) Get information for your weekly status report
 Or on Monday morning, remind yourself what you did last week.
