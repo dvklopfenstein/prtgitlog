@@ -2,23 +2,30 @@
 # -*- coding: UTF-8 -*-
 """For installing prgitlog package and gitlog.py script."""
 
-
 from distutils.core import setup
-from setup_helper import SetupHelper
 
 
-h = SetupHelper(initfile="src/prtgitlog/__init__.py", readmefile="README.md")
+def _get_long_description():
+    """Get the package's long description."""
+    with open("README.md", "r") as ifstrm:
+        return ifstrm.read()
+
+def _get_version():
+    """Get the package's version from without using an import."""
+    with open("src/prtgitlog/__init__.py", "r") as ifstrm:
+        for line in ifstrm:
+            if line[:15] == "__version__ = '":
+                return line.rstrip()[15:-1]
 
 setup(
     name='prtgitlog',
-    version=h.version,
-    author=h.author,
-    author_email=h.email,
-    license=h.license,
-    long_description=h.long_description,
+    version=_get_version(),
+    author='DV Klopfenstein',
+    author_email='dvklopfenstein@gmail.com',
+    long_description=(),
     packages=['prtgitlog',],
     package_dir={'prtgitlog': 'src/prtgitlog'},
-    scripts=['src/bin/gitlog.py'],
+    scripts=['src/bin/gitlog'],
     classifiers=[
         'Programming Language :: Python',
         'Environment :: Console',
@@ -31,6 +38,6 @@ setup(
         'Topic :: Software Development :: Version Control :: Git',
     ],
     url='http://github.com/dvklopfenstein/prtgitlog',
-    description="'git log' history results reformatted and grouped by day to year",
+    description="A script to print 'git log' output in a concise informative format",
     install_requires=['docopt'],
 )

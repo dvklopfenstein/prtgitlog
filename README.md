@@ -1,11 +1,12 @@
 # gitlog
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3066256.svg)](https://doi.org/10.5281/zenodo.3066256)
 A script to print **_git log_** output in a **concise** and **informative** format
 
 ## Example Uses
 
   1. [**Get information for your weekly status report**](#1-get-information-for-your-weekly-status-report)
   2. [**Get information for your annual review**](#2-get-information-for-your-annual-review)
-  3. [**Get all information for one or more file**](#3-get-all-information-for-one-or-more-file)
+  3. [**Get all information for one or more files**](#3-get-all-information-for-one-or-more-files)
 
 ### 1) Get information for your weekly status report
 Or on Monday morning, remind yourself what you did last week.
@@ -50,7 +51,7 @@ Get all commits donw in the last year, grouped by month:
 $ gitlog --month --after='365 days'
 ```
 
-### 3) Get all information for one or more file
+### 3) Get all information for one or more files
 Get all commits for two files:
   * src/prtgitlog/commit_aliases.py
   * src/prtgitlog/commit_files.py

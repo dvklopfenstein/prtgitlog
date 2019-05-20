@@ -10,10 +10,11 @@ import collections as cx
 class CommitAliases(object):
     """Print 'git log' headers for each time group."""
 
-    #      A-Z             a-z              0-9
-    #      : ; < = > ? @   !"#$&"()+,-./  [ \ ] ^ _       { | } ~
-    chrs = range(65, 91) + range(97, 123) + range(48, 58) + \
-           range(58, 65) + range(33, 48) + range(91, 96) + range(123, 127)
+    #      A-Z                   a-z                    0-9
+    #      : ; < = > ? @         !"#$&"()+,-./        [ \ ] ^ _       { | } ~
+    chrs = list(range(65, 91)) + list(range(97, 123)) + list(range(48, 58)) + \
+           list(range(58, 65)) + list(range(33, 48)) + list(range(91, 96)) + \
+           list(range(123, 127))
 
     def __init__(self, nts_cur):
         self.nthdrs = sorted(nts_cur, key=lambda nt: nt.datetime)

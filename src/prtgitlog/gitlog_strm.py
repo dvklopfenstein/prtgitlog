@@ -39,6 +39,7 @@ class GitLogData(object):
         commitobj = None
         # Run 'git log' command
         gitlog, _ = subprocess.Popen(popenargs, stdout=subprocess.PIPE).communicate() # _ err
+        gitlog = gitlog.decode("utf-8")
         for line in gitlog.split('\n'):
             line = line.rstrip()
             ## print('{C:1} LINE={L:1}: {LINE}'.format(

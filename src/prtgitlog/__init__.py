@@ -5,7 +5,7 @@ __copyright__ = "Copyright (C) 2017-2019, DV Klopfenstein"
 __email__ = "dvklopfenstein@gmail.com"
 __license__ = "BSD"
 __status__ = "Development"
-__version__ = "0.1.11"
+__version__ = "0.1.12"
 
 # PROJECT: git log printing
 # 
