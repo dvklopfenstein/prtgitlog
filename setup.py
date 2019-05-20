@@ -14,7 +14,7 @@ def _get_version():
     """Get the package's version from without using an import."""
     with open("src/prtgitlog/__init__.py", "r") as ifstrm:
         for line in ifstrm:
-            if line[:15] == "__version__ = '":
+            if line[:15] == '__version__ = "':
                 return line.rstrip()[15:-1]
 
 setup(
