@@ -11,6 +11,15 @@ A script to print **_git log_** output in a **concise** and **informative** form
   2. [**Get information for your annual review**](#2-get-information-for-your-annual-review)
   3. [**Get all information for one or more files**](#3-get-all-information-for-one-or-more-files)
 
+## Installation
+```
+pip install prtgitlog
+```
+or
+```
+conda install -c dvklopfenstein prtgitlog
+```
+
 ### 1) Get information for your weekly status report
 Or on Monday morning, remind yourself what you did last week.
 
