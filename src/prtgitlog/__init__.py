@@ -5,7 +5,7 @@ __copyright__ = "Copyright (C) 2017-2019, DV Klopfenstein"
 __email__ = "dvklopfenstein@gmail.com"
 __license__ = "BSD"
 __status__ = "Development"
-__version__ = "0.7.11"
+__version__ = "0.1.11"
 
 # PROJECT: git log printing
 # 
@@ -18,8 +18,3 @@ __version__ = "0.7.11"
 #     ---commit_aliases.py
 #     ---commit_files.py
 #     ---commit_info.py
-
-# PROJECT: git log printing
-# 
-# github_rest.py
-
