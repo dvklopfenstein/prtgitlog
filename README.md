@@ -69,7 +69,10 @@ Get all commits for two files:
 
 Notice that the log follows a file that is renamed:    
   * src/prtgitlog/prthdrs.py -> src/prtgitlog/commit_aliases.py
-  * In the files section: M->Modified, A->Added, R->Removed
+  * In the files section, after the commit aliases:
+    * M: Modified
+    * A: Added
+    * R: Removed
 
 #### Example
 ```
