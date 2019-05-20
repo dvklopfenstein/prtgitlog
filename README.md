@@ -3,8 +3,8 @@ A script to print **_git log_** output in a **concise** and **informative** form
 
 ## Example Uses
 
-  1. [Get information for your weekly status report](#1-get-information-for-your-weekly-status-report)
-  2. [Get information for your annual review](#2-get-information-for-your-annual-review)
+  1. [**Get information for your weekly status report**](#1-get-information-for-your-weekly-status-report)
+  2. [**Get information for your annual review**](#2-get-information-for-your-annual-review)
 
 ### 1) Get information for your weekly status report
 Or on Monday morning, remind yourself what you did last week.
@@ -15,6 +15,7 @@ Or on Monday morning, remind yourself what you did last week.
      M->Modified, A->Added, R->Removed
 
 #### Example
+Get commits during the last 7 days, grouped by week:
 ```
 $ gitlog --week --after='7 days'
 
@@ -43,19 +44,9 @@ Week STARTING ON: 2019_05_13 Mon - 11 commits, 10 files
 ```
 
 ### 2) Get information for your annual review
-Group the commit information and files by month...
+Get all commits donw in the last year, grouped by month:
 ```
 $ gitlog --month --after='365 days'
-```
-
-### Grouping aruguments
-**Group** commits by day, week, month, year, or ungrouped (all)     
-```
-$ gitlog --week
-$ gitlog --month
-$ gitlog --year
-$ gitlog --day
-$ gitlog --all
 ```
 
 ## Succinct Output: A Comparison

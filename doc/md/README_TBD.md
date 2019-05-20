@@ -1,5 +1,15 @@
 ## Examples
 
+### Grouping aruguments
+**Group** commits by day, week, month, year, or ungrouped (all)     
+```
+$ gitlog --week
+$ gitlog --month
+$ gitlog --year
+$ gitlog --day
+$ gitlog --all
+```
+
   * Print all '[git log](https://git-scm.com/docs/git-log)' data, grouped by **week**
   * Print all '[git log](https://git-scm.com/docs/git-log)' data, grouped by **month**
   * Print all '[git log](https://git-scm.com/docs/git-log)' data, grouped by **year**
