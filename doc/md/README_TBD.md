@@ -155,10 +155,12 @@
 
 ## Links
 
+- [Git Commit Limiting](https://git-scm.com/docs/git-log#_commit_limiting)
 - [Git Basics - Viewing the Commit History](https://git-scm.com/book/en/v1/Git-Basics-Viewing-the-Commit-History)
 - [docopt blog](https://www.robjwells.com/2015/06/you-should-be-using-docopt)
 - [docopt](https://github.com/docopt/docopt)
 - [git: list all files added/modified on a day (or week/month)](
    https://stackoverflow.com/questions/8016645/git-list-all-files-added-modified-on-a-day-or-week-month)
+
 
 Copyright (C) 2017-2019, DV Klopfenstein. All rights reserved.
