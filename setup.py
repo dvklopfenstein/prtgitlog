@@ -22,7 +22,8 @@ setup(
     version=_get_version(),
     author='DV Klopfenstein',
     author_email='dvklopfenstein@gmail.com',
-    long_description=_get_long_description(),
+    long_description=('A script to print git log output in a concise and informative format\n'
+                      'https://github.com/dvklopfenstein/prtgitlog')
     packages=['prtgitlog',],
     package_dir={'prtgitlog': 'src/prtgitlog'},
     scripts=['src/bin/gitlog'],

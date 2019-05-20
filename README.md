@@ -1,5 +1,5 @@
 # gitlog
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3066256.svg)](https://doi.org/10.5281/zenodo.3066256)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3066256.svg)](https://doi.org/10.5281/zenodo.3066256)    
 A script to print **_git log_** output in a **concise** and **informative** format
 
 ## Example Uses
