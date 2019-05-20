@@ -5,11 +5,6 @@
 from distutils.core import setup
 
 
-def _get_long_description():
-    """Get the package's long description."""
-    with open("README.md", "r") as ifstrm:
-        return ifstrm.read()
-
 def _get_version():
     """Get the package's version from without using an import."""
     with open("src/prtgitlog/__init__.py", "r") as ifstrm:
@@ -22,8 +17,9 @@ setup(
     version=_get_version(),
     author='DV Klopfenstein',
     author_email='dvklopfenstein@gmail.com',
-    long_description=('A script to print git log output in a concise and informative format\n'
-                      'https://github.com/dvklopfenstein/prtgitlog'),
+    long_description=('A script to print "git log" output '
+                      'in a concise and informative format\n\n'
+                      'https://github.com/dvklopfenstein/prtgitlog/README.md'),
     packages=['prtgitlog',],
     package_dir={'prtgitlog': 'src/prtgitlog'},
     scripts=['src/bin/gitlog'],
