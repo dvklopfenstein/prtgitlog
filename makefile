@@ -46,12 +46,15 @@ sdist:
 # Use conda build to build pkgs for Python to install rather than conda
 bdist_conda:
 	# Allow installation from the conda-forge channel to install neobolt
-	conda config --add channels defaults
-	conda config --add channels bioconda
-	conda config --add channels conda-forge
-	# Use the neo4j-python-driver from conda-forge
-	conda config --set channel_priority strict
+	# conda config --add channels defaults
+	# conda config --add channels bioconda
+	# conda config --add channels conda-forge
+	# # Use the neo4j-python-driver from conda-forge
+	# conda config --set channel_priority strict
 	python setup.py bdist_conda
+	# anaconda login
+	# anaconda upload /home/neo4j/anaconda3/conda-bld/linux-64/prtgitlog-0.1.16-py36_0.tar.bz2
+	# anaconda logout
 
 upload_pip:
 	python3 -m twine upload dist/* --verbose
@@ -69,9 +72,9 @@ prep_env:
 	conda remove --name myenv --all
 	conda create --name myenv
 # conda activate myenv
-# conda install -c dvklopfenstein reactomepy
-# pwy_enrichment_reactome.py /mnt/c/Users/note2/Data/git/ReactomePy/data/enrich/studyids/Gene_NCBI_Entrez.txt
-# s4b_pathway_superpathways.py $(PASSWORD)
+# conda install -c dvklopfenstein prtgitlog
+# /usr/bin/gitlog
+# conda deactivate
 
 upload_pypi_test:
 	python setup.py register -r pypitest
