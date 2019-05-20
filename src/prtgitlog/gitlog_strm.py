@@ -52,7 +52,12 @@ class GitLogData(object):
                     ## print('---> commitobj = namedtuple...', commitobj)
                 # Data files: 'line' contains filename for one commit
                 elif line:
-                    self._append_filename(commitobj, line)
+                    commithash = self._re_commithash(line)
+                    if commithash is None:
+                        self._append_filename(commitobj, line)
+                    # Multiple commits found for one file, often occuring with a branch merge
+                    else:
+                        commitobj = self._get_commitobj(line, commithash2nt)
                 # End of Header-files record
             # line is blank and the commit details need to be stored
             elif commitobj is not None:
@@ -80,19 +85,21 @@ class GitLogData(object):
     def _get_commitobj(self, line, commithash2nt):
         """Return a namedtuple containing header line information."""
         commithash = self._re_commithash(line)
+        if commithash is None:
+            raise RuntimeError('NO COMMIT HASH({L})'.format(L=line))
         if commithash in commithash2nt:
             return commithash2nt[commithash]
         # Commit information, minus the full hash at the beginning & commit msg at end
         hdrstr = line[len(commithash)+2:]
         mtchhdr = self.hdrpat.search(hdrstr)
-        commit_msg = hdrstr[len(mtchhdr.group(1)):]
+        commit_msg = hdrstr[len(mtchhdr.group(1)):].encode('utf-8')
         if commit_msg[-1:] == '"':
             commit_msg = commit_msg[:-1]
         if mtchhdr:
             return self.ntobj(
                 commithash=commithash,
                 chash=mtchhdr.group(2),
-                author=mtchhdr.group(3),
+                author=mtchhdr.group(3).encode('utf-8'),
                 weekday=mtchhdr.group(4),
                 datetime=datetime.datetime.strptime(mtchhdr.group(5), "%b %d %X %Y"),
                 hdr=commit_msg,
@@ -105,8 +112,6 @@ class GitLogData(object):
         mtch = self.hshpat.search(line)
         if mtch is not None:
             return mtch.group(1)
-        else:
-            raise RuntimeError('NO COMMIT HASH({L})'.format(L=line))
 
     def get_gitlog_cmds(self):
         """Return 'git log' command string."""

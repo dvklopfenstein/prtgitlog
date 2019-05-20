@@ -36,6 +36,8 @@ class CommitInfo(object):
         for nthdr in self.objalias.nthdrs:
             ciletter = self.objalias.ci2chr[nthdr.commithash]
             # if ciletter in self.objalias.prtlet:
+            # print('COMMIT LETTER({})'.format(ciletter))
+            # print('NT HDR:', nthdr)
             prt.write(hdrpat.format(**self._get_patdict(nthdr, ciletter)))
 
     def _prt_date(self, prt, fmt='%Y %b %d %a'):

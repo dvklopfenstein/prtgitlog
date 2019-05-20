@@ -3,7 +3,7 @@
 PY_ALL := $(shell find src -name '[a-z0-9]*.py')
 
 PYCODE := \
-       src/bin/gitlog.py \
+       src/bin/gitlog \
        src/prtgitlog/cli.py \
        src/prtgitlog/gitlog.py \
        src/prtgitlog/gitlog_strm.py \

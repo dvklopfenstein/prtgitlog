@@ -22,6 +22,7 @@ def run_gitlog(prt=False):
         print("KWS({KWS})".format(KWS=kws))
         print("KEYS({KWS})".format(KWS=keys))
     obj = GitLog(kws, keys)
+    # obj.prttxt_cmds(sys.stdout)
     obj.run(kws.get('by_time'), sys.stdout)
     if prt:
         print("DOC({KWS})".format(KWS=doc))
