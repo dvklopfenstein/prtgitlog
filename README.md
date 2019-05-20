@@ -9,6 +9,20 @@ A script to print **_git log_** output in a **concise** informative format
 | _gitlog_ REPO SCRIPT  |      10 | [gitlog --after="2 days"](doc/md/README_example_succint_script.md)
 
 ## Grouping
+
+### Get information for your weekly status report
+Or on Monday morning, remind yourself what you did last week...
+```
+gitlog --week --after='7 days'
+```
+
+### Get information for your annual review
+Group the commit information and files by month...
+```
+gitlog --month --after='365 days'
+```
+
+### Grouping aruguments
 **Group** commits by day, week, month, year, or ungrouped (all)     
 ```
 $ gitlog --week
