@@ -26,7 +26,6 @@ Or on Monday morning, remind yourself what you did last week.
 #### The reports are split into two sections:
   1. **Commit information**. Each commit is given an alias (e.g., A, B, C, D, E, ...)
   2. A list of **files** that were commited and thier commit aliases    
-     M->Modified, A->Added, R->Removed
 
 #### Example
 Get commits during the last 7 days, grouped by week:
@@ -70,6 +69,7 @@ Get all commits for two files:
 
 Notice that the log follows a file that is renamed:    
   * src/prtgitlog/prthdrs.py -> src/prtgitlog/commit_aliases.py
+  * In the files section: M->Modified, A->Added, R->Removed
 
 #### Example
 ```
