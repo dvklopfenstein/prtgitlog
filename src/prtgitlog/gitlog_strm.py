@@ -12,8 +12,10 @@ class GitLogData(object):
     """Run command 'git log ...'. Process and store results."""
 
     # PATTERN MATCH EX: d0be326.. d0be326   Author Tue    Apr 26 13:24:19 2016 -0400 pylint
+    #                       aa227f1 dvklopfenstein Fri    Jan 26 19:00:06 2018 -0500 :
     #   group number:     1           2       3      4      5                        6
-    hdrpat = re.compile(r'([a-f0-9]+) (\S.*\S) (\S{3}) (\S{3} \d{1,2} \S+ \d{4}) \S+ (\S.*\S)"')
+    #### hdrpat = re.compile(r'([a-f0-9]+) (\S.*\S) (\S{3}) (\S{3} \d{1,2} \S+ \d{4}) \S+ (\S.*\S)"')
+    hdrpat = re.compile(r'(([a-f0-9]+) (\S.*\S) (\S{3}) (\S{3} \d{1,2} \S+ \d{4}) \S+ )')
     hshpat = re.compile(r'([a-f0-9]+) ')
     pretty_fmt = '--pretty=format:"%Cred%H %h %an %cd%Creset %s"'
     ntobj = cx.namedtuple("ntgitlog", "commithash chash author weekday datetime hdr files")
@@ -40,19 +42,21 @@ class GitLogData(object):
         gitlog, _ = subprocess.Popen(popenargs, stdout=subprocess.PIPE).communicate() # _ err
         for line in gitlog.split('\n'):
             line = line.rstrip()
-            #### print('{C:1} LINE={L:1}: {LINE}'.format(
-            ####     C=commitobj is not None, L=line != '', LINE=line))
+            ## print('{C:1} LINE={L:1}: {LINE}'.format(
+            ##     C=commitobj is not None, L=line != '', LINE=line))
             if line != '':
                 # header?: 68f2684... 68f2684 dvklopfenstein Mon Sep 11 16:07:42 2017 -0400 links
                 if commitobj is None:
                     # Contains header & empty data list
                     commitobj = self._get_commitobj(line, commithash2nt)
+                    ## print('---> commitobj = namedtuple...', commitobj)
                 # Data files: 'line' contains filename for one commit
                 elif line:
                     self._append_filename(commitobj, line)
                 # End of Header-files record
             # line is blank and the commit details need to be stored
             elif commitobj is not None:
+                ## print('---> commitobj = None', line)
                 if noci is None:
                     commithash2nt[commitobj.commithash] = commitobj
                 elif commitobj.chash not in noci:
@@ -78,17 +82,20 @@ class GitLogData(object):
         commithash = self._re_commithash(line)
         if commithash in commithash2nt:
             return commithash2nt[commithash]
-        mtchhdr = self.hdrpat.search(line[len(commithash)+2:])
+        # Commit information, minus the full hash at the beginning & commit msg at end
+        hdrstr = line[len(commithash)+2:]
+        mtchhdr = self.hdrpat.search(hdrstr)
         if mtchhdr:
             return self.ntobj(
                 commithash=commithash,
-                chash=mtchhdr.group(1),
-                author=mtchhdr.group(2),
-                weekday=mtchhdr.group(3),
-                datetime=datetime.datetime.strptime(mtchhdr.group(4), "%b %d %X %Y"),
-                hdr=mtchhdr.group(5),
+                chash=mtchhdr.group(2),
+                author=mtchhdr.group(3),
+                weekday=mtchhdr.group(4),
+                datetime=datetime.datetime.strptime(mtchhdr.group(5), "%b %d %X %Y"),
+                hdr=hdrstr[len(mtchhdr.group(1)):],  # commit message
                 files=[])
-        assert "BAD HEADER({H})".format(H=line)
+        raise RuntimeError("**MATCH ERROR: HASH({C}) HEADER({H})\n{L}".format(
+            C=commithash, H=line[len(commithash)+2:], L=line))
 
     def _re_commithash(self, line):
         """Get commit hash from header line"""
