@@ -5,6 +5,7 @@ A script to print **_git log_** output in a **concise** and **informative** form
 
   1. [**Get information for your weekly status report**](#1-get-information-for-your-weekly-status-report)
   2. [**Get information for your annual review**](#2-get-information-for-your-annual-review)
+  3. [**Get all information for one or more file**]()
 
 ### 1) Get information for your weekly status report
 Or on Monday morning, remind yourself what you did last week.
@@ -48,6 +49,38 @@ Get all commits donw in the last year, grouped by month:
 ```
 $ gitlog --month --after='365 days'
 ```
+
+### 3) Get all information for one or more file
+Get all commits for two files:
+  * src/prtgitlog/commit_aliases.py
+  * src/prtgitlog/commit_files.py
+
+Notice that the log follows a file that is renamed:
+  src/prtgitlog/prthdrs.py -> src/prtgitlog/commit_aliases.py
+
+#### Example
+```
+$ gitlog src/prtgitlog/commit_aliases.py src/prtgitlog/commit_files.py
+
+All STARTING ON: 2017_09_29 Fri - 12 commits, 3 files
+  Fri 2017-09-29 11:10:52 72bb16e A Put each class into its own module.
+  Thu 2017-10-12 11:21:36 c0dc685 B pylint. Add vim target
+  Thu 2017-10-12 14:13:06 2d0f281 C Now printing status for each file's commit.
+  Tue 2018-01-02 16:03:33 fac8edd D Limit rev chrs to printable characters
+  Tue 2018-01-09 14:13:43 7b44fbd E Updated Copyright date to 2018.
+  Thu 2018-01-18 12:02:43 b90f8c9 F cleanup. Beginning to add date-fmt headers.
+  Sat 2018-01-20 10:33:33 9c4b8bb G Moved commit aliases to commit_aliases filename (better desc)
+  Mon 2018-01-22 14:43:42 dfc1993 H SPlit commit aliases apart from commit info and commit files.
+  Tue 2018-01-23 15:23:53 b0b2e11 I Adjust status size to max status letters
+  Fri 2018-01-26 19:08:26 1563e0f J Changed Copyright to 2017-2018
+  Sat 2019-05-18 05:51:36 dab53ee K update copyright date
+  Sun 2019-05-19 12:08:54 3544c8a L Determine bytime grouping at runtime if not user-specified
+    ABCDEFG..... AMR src/prtgitlog/prthdrs.py
+    ......GH.JK.  RM src/prtgitlog/commit_aliases.py
+    .......HIJKL  AM src/prtgitlog/commit_files.py
+12 commits since 2017_09_29 shown
+```
+
 
 ## Succinct Output: A Comparison
 
