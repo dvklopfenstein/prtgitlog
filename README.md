@@ -5,7 +5,7 @@ A script to print **_git log_** output in a **concise** and **informative** form
 
   1. [**Get information for your weekly status report**](#1-get-information-for-your-weekly-status-report)
   2. [**Get information for your annual review**](#2-get-information-for-your-annual-review)
-  3. [**Get all information for one or more file**]()
+  3. [**Get all information for one or more file**](#3-get-all-information-for-one-or-more-file)
 
 ### 1) Get information for your weekly status report
 Or on Monday morning, remind yourself what you did last week.
@@ -55,8 +55,8 @@ Get all commits for two files:
   * src/prtgitlog/commit_aliases.py
   * src/prtgitlog/commit_files.py
 
-Notice that the log follows a file that is renamed:
-  src/prtgitlog/prthdrs.py -> src/prtgitlog/commit_aliases.py
+Notice that the log follows a file that is renamed:    
+  * src/prtgitlog/prthdrs.py -> src/prtgitlog/commit_aliases.py
 
 #### Example
 ```
