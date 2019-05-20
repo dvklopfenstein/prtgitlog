@@ -14,7 +14,6 @@ class GitLogData(object):
     # PATTERN MATCH EX: d0be326.. d0be326   Author Tue    Apr 26 13:24:19 2016 -0400 pylint
     #                       aa227f1 dvklopfenstein Fri    Jan 26 19:00:06 2018 -0500 :
     #   group number:     1           2       3      4      5                        6
-    #### hdrpat = re.compile(r'([a-f0-9]+) (\S.*\S) (\S{3}) (\S{3} \d{1,2} \S+ \d{4}) \S+ (\S.*\S)"')
     hdrpat = re.compile(r'(([a-f0-9]+) (\S.*\S) (\S{3}) (\S{3} \d{1,2} \S+ \d{4}) \S+ )')
     hshpat = re.compile(r'([a-f0-9]+) ')
     pretty_fmt = '--pretty=format:"%Cred%H %h %an %cd%Creset %s"'
@@ -85,6 +84,9 @@ class GitLogData(object):
         # Commit information, minus the full hash at the beginning & commit msg at end
         hdrstr = line[len(commithash)+2:]
         mtchhdr = self.hdrpat.search(hdrstr)
+        commit_msg = hdrstr[len(mtchhdr.group(1)):]
+        if commit_msg[-1:] == '"':
+            commit_msg = commit_msg[:-1]
         if mtchhdr:
             return self.ntobj(
                 commithash=commithash,
@@ -92,7 +94,7 @@ class GitLogData(object):
                 author=mtchhdr.group(3),
                 weekday=mtchhdr.group(4),
                 datetime=datetime.datetime.strptime(mtchhdr.group(5), "%b %d %X %Y"),
-                hdr=hdrstr[len(mtchhdr.group(1)):],  # commit message
+                hdr=commit_msg,
                 files=[])
         raise RuntimeError("**MATCH ERROR: HASH({C}) HEADER({H})\n{L}".format(
             C=commithash, H=line[len(commithash)+2:], L=line))
