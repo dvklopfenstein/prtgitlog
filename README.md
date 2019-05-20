@@ -91,7 +91,6 @@ All STARTING ON: 2017_09_29 Fri - 12 commits, 3 files
     ABCDEFG..... AMR src/prtgitlog/prthdrs.py
     ......GH.JK.  RM src/prtgitlog/commit_aliases.py
     .......HIJKL  AM src/prtgitlog/commit_files.py
-12 commits since 2017_09_29 shown
 ```
 
 
