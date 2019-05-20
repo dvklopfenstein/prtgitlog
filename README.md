@@ -57,7 +57,7 @@ Week STARTING ON: 2019_05_13 Mon - 11 commits, 10 files
 ```
 
 ### 2) Get information for your annual review
-Get all commits donw in the last year, grouped by month:
+Get all commits done in the last year, grouped by month:
 ```
 $ gitlog --month --after='365 days'
 ```
