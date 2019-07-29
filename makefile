@@ -53,7 +53,7 @@ bdist_conda:
 	# conda config --set channel_priority strict
 	python setup.py bdist_conda
 	# anaconda login
-	# anaconda upload /home/neo4j/anaconda3/conda-bld/linux-64/prtgitlog-0.1.16-py36_0.tar.bz2
+	# anaconda upload /home/neo4j/anaconda3/conda-bld/linux-64/prtgitlog-0.1.VER-py36_0.tar.bz2
 	# anaconda logout
 
 upload_pip:
