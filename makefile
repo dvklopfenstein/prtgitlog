@@ -35,7 +35,7 @@ pytest:
 	python3 -m pytest -v src/tests | tee pytest_dv.log
 	
 vim_pip:
-	vim -p ./src/prtgitlog/__init__.py setup.py makefile
+	vim -p CHANGELOG.md ./src/prtgitlog/__init__.py setup.py makefile
 
 sdist:
 	# python3 -m pip install --user --upgrade setuptools wheel
