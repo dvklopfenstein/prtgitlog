@@ -20,7 +20,7 @@ class GitLogData(object):
     ntobj = cx.namedtuple("ntgitlog", "commithash chash author weekday datetime hdr files")
 
     def __init__(self, kws):
-        self.after = kws.get('after', None)
+        self.kws = kws
         self.recompile = [re.compile(p) for p in kws['re']] if 're' in kws else None
         self.exclude = [re.compile(p) for p in kws['ve']] if 've' in kws else None
         # Save list of 'git log' command arguments for every 'git log' command to be run:
@@ -153,12 +153,29 @@ class GitLogData(object):
         #
         #cmd = 'git log --after "{AFTER}" --pretty=format:"%Cred%h %cd%Creset %s" --name-only'
         ret = ['git', 'log']
-        if self.after is not None:
+        if not {'after', 'since'}.isdisjoint(self.kws):
             ret.append('--after')
-            ret.append('"{AFTER}"'.format(AFTER=self.after))
+            ret.append('"{AFTER}"'.format(AFTER=self._get_after()))
+        if not {'before', 'until'}.isdisjoint(self.kws):
+            ret.append('--before')
+            ret.append('"{BEFORE}"'.format(BEFORE=self._get_before()))
         ret.append(self.pretty_fmt)
         ret.append('--name-status')
         return ret
+
+    def _get_after(self):
+        """Get starting date for printing git logs"""
+        if 'after' in self.kws:
+            return self.kws['after']
+        if 'since' in self.kws:
+            return self.kws['since']
+
+    def _get_before(self):
+        """Get ending date for printing git logs"""
+        if 'before' in self.kws:
+            return self.kws['before']
+        if 'until' in self.kws:
+            return self.kws['until']
 
     @staticmethod
     def _init_gitlog_appendfile(cmdargs, filename):

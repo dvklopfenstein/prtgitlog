@@ -4,12 +4,12 @@ Usage:
   gitlog.py [FILE ...]
             [--day | --week | --month | --year | --all]
             [--re=PATTERN] [--re=PATTERN]
-            [--after=AFTER]
             [--au | --noau]
             [--fullhash]
             [--sortby=<sortby>]
             [--noci=HASH] [--noci=HASH] [--noci=HASH,HASH]
             [--hdr=<date>]
+            [--since=DATE] [--after=DATE] [--until=DATE] [--before=DATE]
   gitlog.py --help
 
 Options:
@@ -37,7 +37,6 @@ Options:
   --hdr=<desc>       One descriptive line per commit (default) OR
                        a succinct date; desc=[date]
 
-Options that are Passed to 'git log':
   --since=DATE   Display git log items more recent than the specified date
   --after=DATE   Display git log items more recent than the specified date
   --until=DATE   Display git log items older than the specified date
