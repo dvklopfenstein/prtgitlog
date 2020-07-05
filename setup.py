@@ -16,7 +16,7 @@ setup(
     name='prtgitlog',
     version=_get_version(),
     author='DV Klopfenstein',
-    author_email='dvklopfenstein@gmail.com',
+    author_email='dvklopfenstein@protonmail.com',
     long_description=('A script to print "git log" output '
                       'in a concise and informative format\n\n'
                       'https://github.com/dvklopfenstein/'
