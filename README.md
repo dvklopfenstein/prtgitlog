@@ -106,4 +106,4 @@ All STARTING ON: 2017_09_29 Fri - 12 commits, 3 files
 | _gitlog_ REPO SCRIPT  |      10 | [gitlog --after="2 days"](doc/md/README_example_succint_script.md)
 
 
-Copyright (C) 2017-2019, DV Klopfenstein. All rights reserved.
+Copyright (C) 2017-present, DV Klopfenstein. All rights reserved.

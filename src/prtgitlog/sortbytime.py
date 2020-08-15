@@ -1,6 +1,6 @@
 """Return data from 'git log' organized by coarse time unit."""
 
-__copyright__ = "Copyright (C) 2017-2019, DV Klopfenstein. All rights reserved."
+__copyright__ = "Copyright (C) 2017-present, DV Klopfenstein. All rights reserved."
 __author__ = "DV Klopfenstein"
 
 import collections as cx
@@ -87,4 +87,4 @@ class GitLogByTime(object):
         for status, filename in ntd.files:
             data[time_key][filename][chkin] = status
 
-# Copyright (C) 2017-2019, DV Klopfenstein. All rights reserved.
+# Copyright (C) 2017-present, DV Klopfenstein. All rights reserved.

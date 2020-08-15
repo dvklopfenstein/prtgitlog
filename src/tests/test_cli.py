@@ -17,7 +17,7 @@
          ...D A src/prtgitlog/data.py
 """
 
-__copyright__ = "Copyright (c) 2017-2019, DV Klopfenstein. all rights reserved."
+__copyright__ = "Copyright (c) 2017-present, DV Klopfenstein. all rights reserved."
 __author__ = "DV Klopfenstein"
 
 import prtgitlog.cli as cli
@@ -51,4 +51,4 @@ def test_one_file():
 if __name__ == '__main__':
     test_one_file()
 
-# Copyright (c) 2017-2019, DV Klopfenstein. all rights reserved.
+# Copyright (c) 2017-present, DV Klopfenstein. all rights reserved.
