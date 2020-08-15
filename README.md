@@ -1,5 +1,5 @@
 # gitlog
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3066256.svg)](https://doi.org/10.5281/zenodo.3066256)
+[![DOI](/doc/md/images/zenodo.3066256.svg)](https://doi.org/10.5281/zenodo.3066256)
 [![Latest PyPI version](https://img.shields.io/pypi/v/prtgitlog.svg)](https://pypi.python.org/pypi/prtgitlog)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Anaconda-Server Badge](https://anaconda.org/dvklopfenstein/prtgitlog/badges/version.svg)](https://anaconda.org/dvklopfenstein/prtgitlog)    
