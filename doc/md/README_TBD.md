@@ -173,4 +173,4 @@ $ gitlog --all
    https://stackoverflow.com/questions/8016645/git-list-all-files-added-modified-on-a-day-or-week-month)
 
 
-Copyright (C) 2017-2019, DV Klopfenstein. All rights reserved.
+Copyright (C) 2017-present, DV Klopfenstein. All rights reserved.

@@ -7,4 +7,4 @@
 ### Added:
 - Pass args, *after* *since* *before* and *until*, through to ***git log*** command
 
-Copyright (C) 2017-2019, DV Klopfenstein. All rights reserved.
+Copyright (C) 2017-present, DV Klopfenstein. All rights reserved.

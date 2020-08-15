@@ -15,9 +15,11 @@ conda install -c dvklopfenstein prtgitlog
 ```
 ## Example Uses
 
-  1. [**Get information for your weekly status report**](#1-get-information-for-your-weekly-status-report)
-  2. [**Get information for your annual review**](#2-get-information-for-your-annual-review)
-  3. [**Get all information for one or more files**](#3-get-all-information-for-one-or-more-files)
+Get:    
+
+  1. [**Information for your weekly status report**](#1-get-information-for-your-weekly-status-report)
+  2. [**Information for your annual review**](#2-get-information-for-your-annual-review)
+  3. [**All information for one or more files**](#3-get-all-information-for-one-or-more-files)
 
 
 ### 1) Get information for your weekly status report

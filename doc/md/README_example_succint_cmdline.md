@@ -44,4 +44,4 @@ Date:   Thu Jan 25 13:19:03 2018 -0500
     Use weekday number instead of letter
 ```
 
-Copyright (C) 2017-2019, DV Klopfenstein. All rights reserved.
+Copyright (C) 2017-present, DV Klopfenstein. All rights reserved.
