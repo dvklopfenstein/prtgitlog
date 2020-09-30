@@ -2,7 +2,8 @@
 # -*- coding: UTF-8 -*-
 """For installing prgitlog package and gitlog.py script."""
 
-from distutils.core import setup
+#### from distutils.core import setup
+from setuptools import setup
 
 
 def _get_version():
