@@ -8,7 +8,7 @@ import datetime
 import collections as cx
 import subprocess
 
-class GitLogData(object):
+class GitLogData:
     """Run command 'git log ...'. Process and store results."""
 
     # PATTERN MATCH EX: d0be326.. d0be326   Author Tue    Apr 26 13:24:19 2016 -0400 pylint
@@ -92,10 +92,10 @@ class GitLogData(object):
         # Commit information, minus the full hash at the beginning & commit msg at end
         hdrstr = line[len(commithash)+2:]
         mtchhdr = self.hdrpat.search(hdrstr)
-        commit_msg = hdrstr[len(mtchhdr.group(1)):].encode('utf-8')
-        if commit_msg[-1:] == '"':
-            commit_msg = commit_msg[:-1]
         if mtchhdr:
+            commit_msg = hdrstr[len(mtchhdr.group(1)):].encode('utf-8')
+            if commit_msg[-1:] == '"':
+                commit_msg = commit_msg[:-1]
             return self.ntobj(
                 commithash=commithash,
                 chash=mtchhdr.group(2),
@@ -110,8 +110,7 @@ class GitLogData(object):
     def _re_commithash(self, line):
         """Get commit hash from header line"""
         mtch = self.hshpat.search(line)
-        if mtch is not None:
-            return mtch.group(1)
+        return mtch.group(1) if mtch is not None else None
 
     def get_gitlog_cmds(self):
         """Return 'git log' command string."""
@@ -169,6 +168,7 @@ class GitLogData(object):
             return self.kws['after']
         if 'since' in self.kws:
             return self.kws['since']
+        return None
 
     def _get_before(self):
         """Get ending date for printing git logs"""
@@ -176,6 +176,7 @@ class GitLogData(object):
             return self.kws['before']
         if 'until' in self.kws:
             return self.kws['until']
+        return None
 
     @staticmethod
     def _init_gitlog_appendfile(cmdargs, filename):
