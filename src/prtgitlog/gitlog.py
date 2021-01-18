@@ -4,14 +4,14 @@
 __copyright__ = "Copyright (C) 2017-present, DV Klopfenstein. All rights reserved."
 __author__ = "DV Klopfenstein"
 
-import sys
+from sys import stdout
 import datetime
 
 from prtgitlog.gitlog_strm import GitLogData
 from prtgitlog.sortbytime import GitLogByTime
 from prtgitlog.prtlog import PrtLog
 
-class GitLog(object):
+class GitLog:
     """Organize file revision information from a repository in GitHub."""
 
     max_commits_bytimeall = 60
@@ -21,6 +21,7 @@ class GitLog(object):
         self.keys = keys
         _ini = GitLogData(kws)
         self.gitlog_cmds = _ini.get_gitlog_cmds()
+        self.prttxt_cmds(stdout)
         # namedtuple fields: commithash chash author weekday datetime hdr files
         self.ntsgitlog = _ini.get_chksum_files(kws.get('noci', None))
         self.timegrain = {
@@ -31,7 +32,7 @@ class GitLog(object):
             'all':None,
         }
 
-    def run(self, by_time=None, prt=sys.stdout):
+    def run(self, by_time=None, prt=stdout):
         """Print git logs for 1 day at a time. Print the day's edited files once."""
         if self.ntsgitlog:
             if by_time is None:
@@ -48,7 +49,7 @@ class GitLog(object):
     def _prttxt_cmds(self, fout_txt):
         """Print commands either to stdout or to a file"""
         if len(self.gitlog_cmds) < 10:
-            self.prttxt_cmds(sys.stdout)
+            self.prttxt_cmds(stdout)
         else:
             self.wrtxt_cmds(fout_txt)
 
