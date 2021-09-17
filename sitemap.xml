@@ -2,18 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
     <loc>https://dvklopfenstein.github.io/prtgitlog/</loc>
-    <lastmod>2020-01-19</lastmod>
+    <lastmod>2021-09-14</lastmod>
   </url>
   <url>
     <loc>https://dvklopfenstein.github.io/prtgitlog/google5109fbe0b537cd10.html</loc>
-    <lastmod>2020-01-19</lastmod>
+    <lastmod>2021-09-14</lastmod>
   </url>
   <url>
     <loc>https://dvklopfenstein.github.io/prtgitlog/publications.html</loc>
-    <lastmod>2020-01-19</lastmod>
+    <lastmod>2020-09-14</lastmod>
   </url>
   <url>
     <loc>https://dvklopfenstein.github.io/pmidcite/google5109fbe0b537cd10.html</loc>
+    <lastmod>2021-09-14</lastmod>
+  </url>
+  <url>
+    <loc>https://dvklopfenstein.github.io/pmidcite</loc>
     <lastmod>2021-09-14</lastmod>
   </url>
 </urlset>
