@@ -1,7 +1,7 @@
 """Run command 'git log ...'. Process and store results."""
 
-__copyright__ = "Copyright (c) 2017-present, DV Klopfenstein. all rights reserved."
-__author__ = "DV Klopfenstein"
+__copyright__ = "Copyright (c) 2017-present, DV Klopfenstein, PhD. All rights reserved."
+__author__ = "DV Klopfenstein, PhD"
 
 import re
 import datetime
@@ -12,7 +12,7 @@ class GitLogData:
     """Run command 'git log ...'. Process and store results."""
 
     # PATTERN MATCH EX: d0be326.. d0be326   Author Tue    Apr 26 13:24:19 2016 -0400 pylint
-    #                       aa227f1 dvklopfenstein Fri    Jan 26 19:00:06 2018 -0500 :
+    #                       aa227f1 dvklopfenstein, PhD.Fri    Jan 26 19:00:06 2018 -0500 :
     #   group number:     1           2       3      4      5                        6
     hdrpat = re.compile(r'(([a-f0-9]+) (\S.*\S) (\S{3}) (\S{3} \d{1,2} \S+ \d{4}) \S+ )')
     hshpat = re.compile(r'([a-f0-9]+) ')
@@ -45,7 +45,7 @@ class GitLogData:
             ## print('{C:1} LINE={L:1}: {LINE}'.format(
             ##     C=commitobj is not None, L=line != '', LINE=line))
             if line != '':
-                # header?: 68f2684... 68f2684 dvklopfenstein Mon Sep 11 16:07:42 2017 -0400 links
+                # header?: 68f2684... 68f2684 dvklopfenstein, PhD.Mon Sep 11 16:07:42 2017 -0400 links
                 if commitobj is None:
                     # Contains header & empty data list
                     commitobj = self._get_commitobj(line, commithash2nt)
@@ -218,4 +218,4 @@ class GitLogData:
 # NOTE: +1 --follow accounts for renames, so this is more robust than git log -- path
 
 
-# Copyright (c) 2017-present, DV Klopfenstein. all rights reserved.
+# Copyright (c) 2017-present, DV Klopfenstein, PhD. All rights reserved.

@@ -53,8 +53,8 @@ Options:
 #  gitlog.py [--re=PATTERN]
 #  gitlog.py [--re=PATTERN] --after=AFTER
 
-__copyright__ = "Copyright (C) 2017-present, DV Klopfenstein. All rights reserved."
-__author__ = "DV Klopfenstein"
+__copyright__ = "Copyright (C) 2017-present, DV Klopfenstein, PhD. All rights reserved."
+__author__ = "DV Klopfenstein, PhD"
 
 import os
 import sys
@@ -181,4 +181,4 @@ class DocoptParse(object):
             kws[key] = val_dflt
 
 
-# Copyright (C) 2017-present, DV Klopfenstein. All rights reserved.
+# Copyright (C) 2017-present, DV Klopfenstein, PhD. All rights reserved.

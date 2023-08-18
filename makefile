@@ -28,13 +28,20 @@ vim_:
 vim_md:
 	vim -p ./README.md ./doc/md/README_example_succint.md ./doc/md/README_TBD.md
 
+g:
+	git status
+	git branch
+	git remote -v
+
+p:
+	find src -type f -name \*.py
 
 
 # = DISRIBUTION ==================================================================
 pytest:
 	python3 -m pytest -v src/tests | tee pytest_dv.log
 	
-vim_pip:
+vim_ver:
 	vim -p CHANGELOG.md ./src/prtgitlog/__init__.py setup.py makefile
 
 sdist:
@@ -89,4 +96,4 @@ clean:
 	find . -name \*.pyc | xargs rm -f
 
 
-# Copyright (C) 2014-2017, DV Klopfenstein. All rights reserved.
+# Copyright (C) 2014-present, DV Klopfenstein. All rights reserved.

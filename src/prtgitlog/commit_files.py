@@ -1,7 +1,7 @@
 """Print 'git log' headers for each time group."""
 
-__copyright__ = "Copyright (C) 2017-present, DV Klopfenstein. All rights reserved."
-__author__ = "DV Klopfenstein"
+__copyright__ = "Copyright (C) 2017-present, DV Klopfenstein, PhD. All rights reserved."
+__author__ = "DV Klopfenstein, PhD"
 
 import collections as cx
 import re
@@ -71,4 +71,4 @@ class CommitFiles(object):
         return letterstr
 
 
-# Copyright (C) 2017-present, DV Klopfenstein. All rights reserved.
+# Copyright (C) 2017-present, DV Klopfenstein, PhD. All rights reserved.

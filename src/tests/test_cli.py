@@ -17,8 +17,8 @@
          ...D A src/prtgitlog/data.py
 """
 
-__copyright__ = "Copyright (c) 2017-present, DV Klopfenstein. all rights reserved."
-__author__ = "DV Klopfenstein"
+__copyright__ = "Copyright (c) 2017-present, DV Klopfenstein, PhD. All rights reserved."
+__author__ = "DV Klopfenstein, PhD"
 
 import prtgitlog.cli as cli
 from prtgitlog.cli import DocoptParse
@@ -51,4 +51,4 @@ def test_one_file():
 if __name__ == '__main__':
     test_one_file()
 
-# Copyright (c) 2017-present, DV Klopfenstein. all rights reserved.
+# Copyright (c) 2017-present, DV Klopfenstein, PhD. All rights reserved.
