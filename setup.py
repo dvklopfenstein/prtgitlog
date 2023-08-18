@@ -6,16 +6,9 @@
 from setuptools import setup
 
 
-def _get_version():
-    """Get the package's version from without using an import."""
-    with open("src/prtgitlog/__init__.py", "r") as ifstrm:
-        for line in ifstrm:
-            if line[:15] == '__version__ = "':
-                return line.rstrip()[15:-1]
-
 setup(
     name='prtgitlog',
-    version=_get_version(),
+    version='0.1.19',
     author='DV Klopfenstein',
     author_email='dvklopfenstein@protonmail.com',
     long_description=('A script to print "git log" output '

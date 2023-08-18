@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 """Clearly and concisely report each day's 'git log' commits."""
 
-__copyright__ = "Copyright (C) 2017-present, DV Klopfenstein. All rights reserved."
-__author__ = "DV Klopfenstein"
+__copyright__ = "Copyright (C) 2017-present, DV Klopfenstein, PhD. All rights reserved."
+__author__ = "DV Klopfenstein, PhD"
 
 from sys import stdout
 import datetime
@@ -113,4 +113,4 @@ class GitLog:
     #   return [os.path.join(".", line.rstrip()) for line in gitlogcmd.split('\n')]
 
 
-# Copyright (C) 2017-present, DV Klopfenstein. All rights reserved.
+# Copyright (C) 2017-present, DV Klopfenstein, PhD. All rights reserved.

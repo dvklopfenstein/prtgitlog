@@ -38,7 +38,7 @@ g:
 pytest:
 	python3 -m pytest -v src/tests | tee pytest_dv.log
 	
-vim_pip:
+vim_ver:
 	vim -p CHANGELOG.md ./src/prtgitlog/__init__.py setup.py makefile
 
 sdist:
