@@ -28,6 +28,10 @@ vim_:
 vim_md:
 	vim -p ./README.md ./doc/md/README_example_succint.md ./doc/md/README_TBD.md
 
+g:
+	git status
+	git branch
+	git remote -v
 
 
 # = DISRIBUTION ==================================================================
@@ -89,4 +93,4 @@ clean:
 	find . -name \*.pyc | xargs rm -f
 
 
-# Copyright (C) 2014-2017, DV Klopfenstein. All rights reserved.
+# Copyright (C) 2014-present, DV Klopfenstein. All rights reserved.
