@@ -33,6 +33,9 @@ g:
 	git branch
 	git remote -v
 
+p:
+	find src -type f -name \*.py
+
 
 # = DISRIBUTION ==================================================================
 pytest:
