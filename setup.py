@@ -24,6 +24,11 @@ setup(
     packages=['prtgitlog',],
     package_dir={'prtgitlog': 'src/prtgitlog'},
     scripts=['src/bin/gitlog'],
+    entry_points={
+        'console_scripts':[
+            'gitlog=prtgitlog.main:main',
+        ],
+    },
     classifiers=[
         'Programming Language :: Python',
         'Environment :: Console',
