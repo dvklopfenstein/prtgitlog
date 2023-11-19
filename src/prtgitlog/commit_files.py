@@ -7,11 +7,10 @@ import collections as cx
 import re
 
 
-class CommitFiles(object):
+class CommitFiles:
     """Print 'git log' headers for each time group."""
 
     kws_dct = set(['sortby'])
-    # kws_set = set(['fullhash'])
 
     def __init__(self, objalias, file2hash2stat, **kws):
         self.kws = {k:v for k, v in kws.items() if k in self.kws_dct}

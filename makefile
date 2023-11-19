@@ -30,8 +30,8 @@ vim_md:
 
 g:
 	git status
-	git branch
 	git remote -v
+	git branch
 
 p:
 	find src -type f -name \*.py
@@ -44,11 +44,13 @@ pytest:
 vim_ver:
 	vim -p CHANGELOG.md ./src/prtgitlog/__init__.py setup.py makefile
 
-sdist:
+build:
 	# python3 -m pip install --user --upgrade setuptools wheel
 	make clean_dist
 	python3 setup.py sdist
+	python3 setup.py bdist_wheel --universal
 	ls -lh dist
+	twine check dist/*
 
 # Use conda build to build pkgs for Python to install rather than conda
 bdist_conda:
@@ -93,6 +95,7 @@ clean_dist:
 	rm -rf dist build prtgitlog.egg-info
 
 clean:
+	make -f makefile clean_dist
 	find . -name \*.pyc | xargs rm -f
 
 

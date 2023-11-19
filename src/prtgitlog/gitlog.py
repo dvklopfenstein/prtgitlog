@@ -32,17 +32,17 @@ class GitLog:
             'all':None,
         }
 
-    def run(self, by_time=None, prt=stdout):
+    def run(self, by_time, fullhash, prt=stdout):
         """Print git logs for 1 day at a time. Print the day's edited files once."""
         if self.ntsgitlog:
             if by_time is None:
                 by_time = self._get_bytime()
                 self.kws['by_time'] = by_time
             objtimedata = GitLogByTime(self.ntsgitlog, self.timegrain[by_time])
-            objprtlog = PrtLog(objtimedata, self.kws, self.keys)
+            objprtlog = PrtLog(objtimedata, self.kws, fullhash)
             objprtlog.prt_time2gitlog(prt)
-            prt.write("{N} commits since {DATE} shown\n".format(
-                N=len(self.ntsgitlog), DATE=self.ntsgitlog[-1].datetime.strftime("%Y_%m_%d")))
+            date = self.ntsgitlog[-1].datetime.strftime("%Y_%m_%d")
+            prt.write(f"{len(self.ntsgitlog)} commits since {date} shown\n")
         prt.write('\n')
         self._prttxt_cmds('gitlog_cmds.log')
 
@@ -55,15 +55,14 @@ class GitLog:
 
     def wrtxt_cmds(self, fout_txt):
         """Print commands either to a file"""
-        with open(fout_txt, 'w') as prt:
+        with open(fout_txt, 'w', encoding='utf8') as prt:
             self.prttxt_cmds(prt)
-            print('  {N} "git log" commands WROTE: {CMDS}'.format(
-                N=len(self.gitlog_cmds), CMDS=fout_txt))
+            print(f'  {len(self.gitlog_cmds)} "git log" commands WROTE: {fout_txt}')
 
     def prttxt_cmds(self, prt):
         """Print commands either to stdout or to a file"""
         for cmd in self.gitlog_cmds:
-            prt.write("RAN: {CMD}\n".format(CMD=cmd))
+            prt.write(f"RAN: {cmd}\n")
 
     def _get_bytime(self):
         """Determine timeunit to report automatically"""

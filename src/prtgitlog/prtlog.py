@@ -8,11 +8,10 @@ from prtgitlog.commit_info import CommitInfo
 from prtgitlog.commit_files import CommitFiles
 
 # pylint: disable=too-few-public-methods
-class PrtLog(object):
+class PrtLog:
     """Return data from 'git log' organized by coarse time unit."""
 
     kws_dct = {'au', 'sortby', 'hdr', 'by_time'}
-    kws_set = {'fullhash'}
 
     dflt_pat = {
         # Section header. Sections are by day, week, or month
@@ -22,13 +21,12 @@ class PrtLog(object):
         'dat': "    {CIs} {STATUS:>2} {DATA}\n"
     }
 
-    def __init__(self, objtimesort, kws, keys):
+    def __init__(self, objtimesort, kws, fullhash):
         self.objtimesort = objtimesort
         self.kws = {k:v for k, v in kws.items() if k in self.kws_dct}
-        self.keys = keys.intersection(self.kws_set)
         self.fmt = {
             'sec': self.dflt_pat['section'],
-            'hdr': self._init_hdr(),
+            'hdr': self._init_hdr(fullhash),
             'dat': self.dflt_pat['dat'],
         }
 
@@ -52,14 +50,13 @@ class PrtLog(object):
         objhdrs.prt_hdrs(self.fmt['hdr'], prt)
         objfile.prt_data(self.fmt['dat'], prt)
 
-    def _init_hdr(self):
+    def _init_hdr(self, fullhash):
         """Initialize print format for the git commit header text."""
         dat = self.dflt_pat['hdr' if len(self.objtimesort.get_authors()) <= 2 else 'hdr_au']
         if 'au' in self.kws:
             dat = self.dflt_pat['hdr_au'] if self.kws['au'] else self.dflt_pat['hdr']
-        if 'fullhash' in self.keys:
+        if fullhash:
             dat = dat.replace('chash', 'commithash')
         return dat
-
 
 # Copyright (C) 2017-present, DV Klopfenstein, PhD. All rights reserved.
