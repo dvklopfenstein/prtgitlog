@@ -34,7 +34,7 @@ setup(
         'Environment :: Console',
         'Intended Audience :: Developers',
         'Development Status :: 3 - Alpha',
-        'License :: OSI Approved :: BSD License',
+        'License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 3',

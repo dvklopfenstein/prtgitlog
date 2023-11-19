@@ -59,5 +59,4 @@ class PrtLog:
             dat = dat.replace('chash', 'commithash')
         return dat
 
-
 # Copyright (C) 2017-present, DV Klopfenstein, PhD. All rights reserved.
