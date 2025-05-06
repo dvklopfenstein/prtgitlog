@@ -1,0 +1,19 @@
+[project]
+name = "prtgitlog"
+version = "0.1.20"
+dynamic = [
+    "readme",
+    "description",
+    "authors",
+    "classifiers",
+    "scripts",
+    "dependencies",
+]
+license = "AGPL-3.0-or-later"
+
+[project.urls]
+Homepage = "https://github.com/dvklopfenstein/prtgitlog"
+
+[build-system]
+requires = ["setuptools >= 46.3.0"]
+build-backend = "setuptools.build_meta"

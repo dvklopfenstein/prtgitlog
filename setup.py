@@ -18,7 +18,7 @@ def get_long_description():
 
 setup(
     name='prtgitlog',
-    version='0.1.19',
+    version='0.1.20',
     author='DV Klopfenstein',
     author_email='dvklopfenstein@protonmail.com',
     packages=['prtgitlog',],
@@ -34,7 +34,6 @@ setup(
         'Environment :: Console',
         'Intended Audience :: Developers',
         'Development Status :: 3 - Alpha',
-        'License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 3',
