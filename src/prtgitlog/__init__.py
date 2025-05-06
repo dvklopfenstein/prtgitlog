@@ -5,7 +5,7 @@ __copyright__ = "Copyright (C) 2017-present, DV Klopfenstein, PhD. All rights re
 __email__ = "dvklopfenstein@protonmail.com"
 __license__ = "GNU Affero General Public License v3.0 (GNU AGPLv3)"
 __status__ = "Development"
-__version__ = "0.1.19"
+__version__ = "0.1.20"
 
 # PROJECT: git log printing
 # 

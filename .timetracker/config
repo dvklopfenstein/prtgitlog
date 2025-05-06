@@ -1,0 +1,6 @@
+# TimeTracker project configuration file
+
+project = "prtgitlog"
+
+[csv]
+filename = "~/timetrackers/timetracker_prtgitlog_$USER$.csv"
