@@ -67,7 +67,7 @@ upload_pypi_test:
 
 
 # = CLEAN ========================================================================
-clean_dist:
+clean_build:
 	rm -rf dist build prtgitlog.egg-info
 
 clean:
