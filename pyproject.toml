@@ -1,19 +1,40 @@
+[build-system]
+requires = ["setuptools >= 46.3.0"]
+build-backend = "setuptools.build_meta"
+
+
 [project]
 name = "prtgitlog"
-version = "0.1.20"
-dynamic = [
-    "readme",
-    "description",
-    "authors",
-    "classifiers",
-    "scripts",
-    "dependencies",
-]
+description="A script to print 'git log' output in a concise informative format"
+version = "0.1.21"
 license = "AGPL-3.0-or-later"
+authors = [
+  {name = 'DV Klopfenstein, PhD', email = 'dvklopfenstein@protonmail.com'},
+]
+readme = {file="README.md", content-type="text/markdown"}
+
+dependencies = [
+  'docopt',
+]
+
+classifiers = [
+  'Programming Language :: Python',
+  'Environment :: Console',
+  'Intended Audience :: Developers',
+  'Development Status :: 3 - Alpha',
+  'Programming Language :: Python',
+  'Programming Language :: Python :: 2',
+  'Programming Language :: Python :: 3',
+  'Topic :: Software Development :: Version Control :: Git',
+]
 
 [project.urls]
 Homepage = "https://github.com/dvklopfenstein/prtgitlog"
 
-[build-system]
-requires = ["setuptools >= 46.3.0"]
-build-backend = "setuptools.build_meta"
+[project.scripts]
+gitlog = "prtgitlog.main:main"
+
+[tool.setuptools]
+packages = [
+  "prtgitlog",
+]

@@ -16,7 +16,8 @@ class GitLog:
 
     max_commits_bytimeall = 60
 
-    def __init__(self, kws, keys):
+    def __init__(self, args, kws, keys):
+        self.args = args
         self.kws = kws
         self.keys = keys
         _ini = GitLogData(kws)
@@ -32,14 +33,14 @@ class GitLog:
             'all':None,
         }
 
-    def run(self, by_time, fullhash, prt=stdout):
+    def run(self, args, fullhash, prt=stdout):
         """Print git logs for 1 day at a time. Print the day's edited files once."""
         if self.ntsgitlog:
-            if by_time is None:
-                by_time = self._get_bytime()
-                self.kws['by_time'] = by_time
-            objtimedata = GitLogByTime(self.ntsgitlog, self.timegrain[by_time])
-            objprtlog = PrtLog(objtimedata, self.kws, fullhash)
+            ####if by_time is None:
+            ####    by_time = self._get_bytime()
+            ####    self.kws['by_time'] = by_time
+            objtimedata = GitLogByTime(self.ntsgitlog, self.timegrain[args.by_time])
+            objprtlog = PrtLog(args, objtimedata, self.kws, fullhash)
             objprtlog.prt_time2gitlog(prt)
             date = self.ntsgitlog[-1].datetime.strftime("%Y_%m_%d")
             prt.write(f"{len(self.ntsgitlog)} commits since {date} shown\n")

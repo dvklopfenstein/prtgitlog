@@ -4,14 +4,14 @@ PY_ALL := $(shell find src -name '[a-z0-9]*.py')
 
 PYCODE := \
        src/bin/gitlog \
-       src/prtgitlog/cli.py \
-       src/prtgitlog/gitlog.py \
-       src/prtgitlog/gitlog_strm.py \
-       src/prtgitlog/sortbytime.py \
-       src/prtgitlog/prtlog.py \
-       src/prtgitlog/commit_aliases.py \
-       src/prtgitlog/commit_info.py \
-       src/prtgitlog/commit_files.py \
+       prtgitlog/cli.py \
+       prtgitlog/gitlog.py \
+       prtgitlog/gitlog_strm.py \
+       prtgitlog/sortbytime.py \
+       prtgitlog/prtlog.py \
+       prtgitlog/commit_aliases.py \
+       prtgitlog/commit_info.py \
+       prtgitlog/commit_files.py \
        src/tests/test_cli.py
 
 run:
@@ -42,31 +42,7 @@ pytest:
 	python3 -m pytest -v src/tests | tee pytest_dv.log
 	
 vim_ver:
-	vim -p pyproject.toml CHANGELOG.md ./src/prtgitlog/__init__.py setup.py makefile
-
-.PHONY: build
-build:
-	# python3 -m pip install --user --upgrade setuptools wheel
-	make clean_dist
-	python -m build
-	ls -lh dist
-	twine check dist/*
-
-# Use conda build to build pkgs for Python to install rather than conda
-bdist_conda:
-	# Allow installation from the conda-forge channel to install neobolt
-	# conda config --add channels defaults
-	# conda config --add channels bioconda
-	# conda config --add channels conda-forge
-	# # Use the neo4j-python-driver from conda-forge
-	# conda config --set channel_priority strict
-	python setup.py bdist_conda
-	# anaconda login
-	# anaconda upload /home/neo4j/anaconda3/conda-bld/linux-64/prtgitlog-0.1.VER-py36_0.tar.bz2
-	# anaconda logout
-
-upload:
-	python3 -m twine upload dist/* --verbose
+	vim -p pyproject.toml CHANGELOG.md ./prtgitlog/__init__.py
 
 tags:
 	git log --decorate=full --simplify-by-decoration --pretty=oneline HEAD

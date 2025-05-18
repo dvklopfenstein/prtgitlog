@@ -21,7 +21,8 @@ class PrtLog:
         'dat': "    {CIs} {STATUS:>2} {DATA}\n"
     }
 
-    def __init__(self, objtimesort, kws, fullhash):
+    def __init__(self, args, objtimesort, kws, fullhash):
+        self.args = args
         self.objtimesort = objtimesort
         self.kws = {k:v for k, v in kws.items() if k in self.kws_dct}
         self.fmt = {
@@ -42,7 +43,8 @@ class PrtLog:
         objhdrs = CommitInfo(objalias, **self.kws)
         objfile = CommitFiles(objalias, ntday.file2hashstat, **self.kws)
         prt.write(self.fmt['sec'].format(
-            TIMEUNIT=self.kws['by_time'].title(),
+            ####TIMEUNIT=self.kws['by_time'].title(),
+            TIMEUNIT=self.args.by_time.title(),
             Mon=day.strftime('%a'),
             DATE=day.strftime("%Y_%m_%d"),
             C=objhdrs.num_commits(),

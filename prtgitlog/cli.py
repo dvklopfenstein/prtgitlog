@@ -58,12 +58,13 @@ __author__ = "DV Klopfenstein, PhD"
 
 import os
 import sys
+from argparse import ArgumentParser
 from docopt import docopt
 
-def cli():
+def get_cli():
     """Command-line interface for gitlog Python wrapper."""
     obj = DocoptParse(__doc__, sys.argv[1:])
-    return obj.docdct, obj.docclr, obj.get_dict(), obj.get_set(),  # _cli_kws()
+    return obj, obj.docdct, obj.docclr, obj.get_dict(), obj.get_set()
 
 
 # pylint: disable=line-too-long
@@ -91,7 +92,9 @@ class DocoptParse(object):
 
     def __init__(self, doc, args):
         self.docdct = docopt(doc, args)
-        ## print('DOCOPT:', self.docdct)
+        self.args = get_args()
+        print('DOCOPT:', self.docdct)
+        print('ARGS:', self.args)
         # pylint: disable=line-too-long
         self.docclr = {k.replace('--', ''):v for k, v in self.docdct.items() if k in self.kws_all and v}
 
@@ -113,7 +116,8 @@ class DocoptParse(object):
     def get_files(self, kws):
         """Get files, if provided by user on command line"""
         fins = set()
-        for fin in self.docdct['FILE']:
+        ####for fin in self.docdct['FILE']:
+        for fin in self.args.filename:
             if os.path.exists(fin):
                 fins.add(fin)
             else:
@@ -179,6 +183,32 @@ class DocoptParse(object):
         # If user provided unrecognized value, use the default value
         elif val_dflt is not None:
             kws[key] = val_dflt
+
+def get_args():
+    parser = get_argparser()
+    ##args = parser.parse_args()
+    args, unknown = parser.parse_known_args()
+    print(f'ARGS: {args}')
+    return args
+
+def get_argparser():
+    """Argument parser for Python wrapper of 'git log'"""
+    parser = ArgumentParser(
+        prog='gitlog',
+        description='Concise "git log" for each affected file',
+        add_help=True)
+    parser.add_argument('filename', nargs='*', default='.')
+    parser.add_argument('-g', '--group', 
+        dest='by_time',
+        choices=['day', 'week', 'month', 'year', 'all'], default='month')
+    parser.add_argument('--au', action='store_false')
+    parser.add_argument('--fullhash', action='store_true')
+    # Date
+    parser.add_argument('--since', )  #action='store_true')
+    parser.add_argument('--after', )  #action='store_true')
+    parser.add_argument('--until', )  #action='store_true')
+    parser.add_argument('--before',)  # action='store_true')
+    return parser
 
 
 # Copyright (C) 2017-present, DV Klopfenstein, PhD. All rights reserved.

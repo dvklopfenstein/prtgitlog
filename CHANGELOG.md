@@ -2,6 +2,7 @@
 
 ## Unreleased changes
 
+## Release 2025-05-06 0.1.21 Removed setup.py
 ## Release 2025-05-06 0.1.20 Added pyproject.toml
 ## Release 2023-08-18 0.1.19
 ## Release 2019-07-29 0.1.18
